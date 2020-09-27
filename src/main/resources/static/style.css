@@ -1,0 +1,46 @@
+
+body {
+    background-color: #fff5ee;
+    color: #000000;
+}
+
+h1, .H1_HelloTitle {
+    color: chocolate;
+}
+
+h2, .H2_DescriptionTitle {
+    color: chocolate;
+    font-size: 24px;
+    background-color: #ffdcc4;
+}
+
+h3, .H3_DescriptionTitle {
+    color: chocolate;
+    background-color: #ffdcc4;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+input, .card, .nomClass, button, .btn, textarea, iframe, select, table, pagination {
+     border: none;
+/*     padding: 1px 1px;
+     margin: 1px 1px;*/
+     border-bottom: 2px solid #FF8040;
+     border-radius: 10px;
+     background-color: #ffdcc4;
+     color: chocolate;
+     width: 100%
+ }
+
+a {
+    color: chocolate;
+    text-decoration: none;
+}
+
+.footer {
+    margin-top: 10px;
+    padding: 10px;
+    color: #756f6f;
+    text-align: left;
+    border-top: 1px solid chocolate;
+}
