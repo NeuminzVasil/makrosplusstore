@@ -1,48 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceControllerApiV1">
 <head>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>
-
-    <script src="index.js"></script>
     <script src="invoice.js"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>LLC Makros+ Invoice</title>
-
-    <!-- CSS connecting people -->
-    <link href="style.css" rel="stylesheet">
-
 </head>
 <body>
-<h2 class="H2_DescriptionTitle">Список товаров</h2>
 
-<!-- фильтр -->
-<!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-<input title="введите ключевое слово для фильтрации" type="text" placeholder="Фильтровать по номеру заказа" ng-model="orderNumber.ordernumber">
+<div class="ifield">
+    <h2 class="h2Title">Каталог СчетФактур</h2>
+    <!--фильтр-->
+    <div class="filter">
+        <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
+        <input title="введите ключевое слово для фильтрации" type="text" placeholder="Фильтровать по номеру заказа"
+               ng-model="orderNumber.ordernumber">
+    </div>
+</div>
 
-<!--вывод списока данных на страницу -->
+<!--вывод списока данных на страницу-->
 <div ng-repeat="invoice in InvoiceList | filter:orderNumber">
 
     <!--zakaz-->
-    <div class="card card-body" data-toggle="collapse" data-target="#collapseIndex{{$index}}"
+    <div class="card card-body"
          aria-expanded="false" aria-controls="collapseIndex{{$index}}">
 
         <!--hedder-->
         <div class="row">
-            <div class="col-lg" title="номер и комментарий заказа">
+            <div class="col-md" title="номер и комментарий заказа">
                 <h5>{{invoice.ordernumber}} ({{invoice.comment}}) </h5>
             </div>
-            <div class="col-lg-2 {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
+            <div class="col-md {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
                 {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
             </div>
-            <div class="col-lg-2 {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
+            <div class="col-md {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
                 {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}
             </div>
         </div>
@@ -50,7 +38,8 @@
         <!--boddy-->
         <div class="row">
 
-            <div class="col-lg"> <!--        1-->
+            <!--1. отдел аппрувер цена заказа номер СФ-->
+            <div class="col-xl-8 col-lg-4 col-md">
                 <div>
                     Отдел: {{invoice.department | isEmpty }}
                 </div>
@@ -68,36 +57,33 @@
                 </div>
             </div>
 
-            <div class="col-lg-6"><!--        2-->
-                <div class="{{isTableWarning(invoice.senttoprice)}}">
-                    <input type="checkbox" id="senttoprice" disabled ng-model="invoice.senttoprice"/>
+            <!--2. галочки-->
+            <div class="col-xl-4 col-lg-5 col-md">
+                <div class="{{isTableWarning(invoice.senttoprice)}} ">
+                    <input class="form-check-input" type="checkbox" id="senttoprice" disabled ng-model="invoice.senttoprice">
                     <label class="form-check-label" for="senttoprice">На расценке:</label>
                 </div>
-                <div class="{{isTableWarning(invoice.senttoapprove)}}">
-                    <label class="form-check-label" for="senttoapprove">На согласовании:</label>
-                    <input type="checkbox" id="senttoapprove" disabled ng-model="invoice.senttoapprove"/>
-                </div>
-                <div class="{{isTableWarning(invoice.senttopurchase)}}">
-                    <label class="form-check-label" for="senttopurchase">На закупке:</label>
-                    <input type="checkbox" id="senttopurchase" disabled ng-model="invoice.senttopurchase"/>
-                </div>
-            </div>
 
-            <div class="col-lg-2"><!--        3-->
-                <div class="card" ng-click="deleteInvoice(invoice)">
-                    Удалить
+                <div class="{{isTableWarning(invoice.senttoapprove)}}">
+                    <input class="form-check-input" type="checkbox" id="senttoapprove" disabled ng-model="invoice.senttoapprove">
+                    <label class="form-check-label" for="senttoapprove">На согласовании:</label>
                 </div>
+
+                <div class="{{isTableWarning(invoice.senttopurchase)}}">
+                    <input class="form-check-input" type="checkbox" id="senttopurchase" disabled ng-model="invoice.senttopurchase">
+                    <label class="form-check-label" for="senttopurchase">На закупке:</label>
+                </div>
+
+
             </div>
 
         </div>
 
         <!--Футер-->
         <div class="row">
-            <div class="col-lg">
-                <div class="card" ng-click="prepareToEditInvoice(invoice)">
-                    Редактировать
-                </div>
-            </div>
+            <p class="iButton text-center col-6" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
+                Детали⟱</p>
+            <p class="iButton text-center col-6" ng-click="prepareToEditInvoice(invoice)">Редактировать</p>
         </div>
 
     </div>
@@ -139,7 +125,6 @@
     </table>
 
 </div>
-
 
 </body>
 </html>

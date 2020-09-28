@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MakrosPlusStore" ng-controller="nomenclatureControllerApiV1">
+<head>
+
+    <script src="nomenclature.js"></script>
+
+</head>
+<body>
+
+<h2 class="h2Title">Список товаров</h2>
+<!--Панель управления-->
+<div class="controlPanel">
+    <!--https://stackoverflow.com/questions/40773248/how-to-change-pages-based-on-url
+    https://stackoverflow.com/questions/10816073/how-to-do-paging-in-angularjs&ndash;&gt;
+    &lt;<pagination
+    ng-model="currentPage"
+    total-items="todos.length"
+    max-size="maxSize"
+    boundary-links="true">
+    </pagination>-->
+
+    <!--ссылка на форму добавления нового товара-->
+    <div class="row">
+        <a class="col-lg text-center iButton" href="#!/nomenclature/add">Добавить новый товар</a>
+    </div>
+
+    <!-- сортировка AngularJS -->
+    <div class="row">
+        <input class="col-xl-4 col-lg-3 col-md-3 col-sm-5 col-sm col-xs iButton" type="text" placeholder="Фильтровать по названию товара" ng-model="nomenclatureFilter">
+        <select class="col-xl-4 col-lg-3 col-md-3 col-sm-5 col-sm col-xs iButton" ng-model="sortColumn">
+            <option value="nomenclature">Наименоване (A-Z)</option>
+            <option value="-nomenclature">Наименоване (Z-A)</option>
+            <option value="price">price (0-9)</option>
+            <option value="-price">price (9-0)</option>
+        </select>
+        <button class="col-xl-3 col-lg-3 col-md-3 col-sm col-sm col-xs iButton" ng-click="sortData('nomenclature')">Сотр по имени</button>
+    </div>
+</div>
+
+
+<!--вывод списока данных на страницу -->
+<div ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :
+        nomenclatureFilter">
+
+    <div class="card card-body">
+
+        <!--boddy-->
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-sm-6 col-xs" ng-click="editNomenclature(nomenclature)">
+                <h5 class="card-title">{{nomenclature.nomenclature}}</h5></div>
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-sm-6 col-xs">{{nomenclature.comment | isEmpty }}</div>
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-sm-6 col-xs">{{nomenclature.code }}</div>
+            <div class="col-xl-1 col-lg-3 col-md-3 col-sm-6 col-sm-6 col-xs">{{nomenclature.manufacturer | isEmpty}}
+            </div>
+            <div class="col-xl-1 col-lg-3 col-md-3 col-sm-6 col-sm-6 col-xs">{{nomenclature.category.category | isEmpty
+                }}
+            </div>
+            <div class="col-xl-1 col-lg-3 col-md-3 col-sm-6 col-sm-6 col-xs">{{nomenclature.price | isEmpty }}</div>
+            <p class="col-lg iButton text-center" iButton text-center ng-click="addToInvoice(nomenclature)">в
+                корзину</p>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>store</groupId>
-    <artifactId>21_GB_Spring_Framework_Store</artifactId>
+    <artifactId>makrosplusstore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>21_GB_Spring_Framework_Store</name>
-    <description>21_GB_Spring_Framework_Store</description>
+    <name>makrosplusstore</name>
+    <description>makrosplusstore</description>
 
     <properties>
         <java.version>1.8</java.version>
