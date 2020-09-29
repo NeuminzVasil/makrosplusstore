@@ -5,36 +5,34 @@
     <script src="nomenclature.js"></script>
 
 </head>
+
 <body>
 
 <h2 class="h2Title">Список товаров</h2>
+
 <!--Панель управления-->
-<div class="controlPanel">
-    <!--https://stackoverflow.com/questions/40773248/how-to-change-pages-based-on-url
-    https://stackoverflow.com/questions/10816073/how-to-do-paging-in-angularjs&ndash;&gt;
-    &lt;<pagination
-    ng-model="currentPage"
-    total-items="todos.length"
-    max-size="maxSize"
-    boundary-links="true">
-    </pagination>-->
+<div class="ifield row">
 
     <!--ссылка на форму добавления нового товара-->
-    <div class="row">
-        <a class="col-lg text-center iButton" href="#!/nomenclature/add">Добавить новый товар</a>
-    </div>
+    <a class="iButton col-xl-12 text-center" href="#!/nomenclature/add">Добавить новый товар</a>
 
     <!-- сортировка AngularJS -->
-    <div class="row">
-        <input class="col-xl-4 col-lg-3 col-md-3 col-sm-5 col-sm col-xs iButton" type="text" placeholder="Фильтровать по названию товара" ng-model="nomenclatureFilter">
-        <select class="col-xl-4 col-lg-3 col-md-3 col-sm-5 col-sm col-xs iButton" ng-model="sortColumn">
-            <option value="nomenclature">Наименоване (A-Z)</option>
-            <option value="-nomenclature">Наименоване (Z-A)</option>
-            <option value="price">price (0-9)</option>
-            <option value="-price">price (9-0)</option>
-        </select>
-        <button class="col-xl-3 col-lg-3 col-md-3 col-sm col-sm col-xs iButton" ng-click="sortData('nomenclature')">Сотр по имени</button>
-    </div>
+    <input class="iButton col-xl-4 col-lg"
+           type="text"
+           placeholder="Фильтровать по названию товара"
+           ng-model="nomenclatureFilter">
+
+    <select class="iButton col-xl-4 col-lg"
+            ng-model="sortColumn">
+        <option value="nomenclature">Наименование (A-Z)</option>
+        <option value="-nomenclature">Наименование (Z-A)</option>
+        <option value="price">price (0-9)</option>
+        <option value="-price">price (9-0)</option>
+    </select>
+
+    <button class="iButton col-xl-4 col-lg"
+            ng-click="sortData('nomenclature')">Сотр по имени
+    </button>
 </div>
 
 

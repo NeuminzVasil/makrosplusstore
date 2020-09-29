@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceControllerApiV1">
 <head>
+
     <script src="invoice.js"></script>
+
 </head>
+
 <body>
 
+<h2 class="h2Title">Каталог СчетФактур</h2>
+
+<!--Панель управления-->
+<!--class="col-xl-4 col-lg-3 col-md-3 col-sm-5 col-sm col-xs iButton-->
 <div class="ifield">
-    <h2 class="h2Title">Каталог СчетФактур</h2>
-    <!--фильтр-->
-    <div class="filter">
         <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-        <input title="введите ключевое слово для фильтрации" type="text" placeholder="Фильтровать по номеру заказа"
+        <input class="iButton col-xl"
+               title="введите ключевое слово для фильтрации"
+               type="text"
+               placeholder="Фильтровать по номеру заказа"
                ng-model="orderNumber.ordernumber">
-    </div>
 </div>
 
 <!--вывод списока данных на страницу-->
@@ -24,13 +30,13 @@
 
         <!--hedder-->
         <div class="row">
-            <div class="col-md" title="номер и комментарий заказа">
+            <div class="col-xl-4 col-lg" title="номер и комментарий заказа">
                 <h5>{{invoice.ordernumber}} ({{invoice.comment}}) </h5>
             </div>
-            <div class="col-md {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
+            <div class="col-xl-4 col-lg {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
                 {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
             </div>
-            <div class="col-md {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
+            <div class="col-xl-4 col-lg {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
                 {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}
             </div>
         </div>
@@ -39,7 +45,7 @@
         <div class="row">
 
             <!--1. отдел аппрувер цена заказа номер СФ-->
-            <div class="col-xl-8 col-lg-4 col-md">
+            <div class="col-xl-4 col-lg">
                 <div>
                     Отдел: {{invoice.department | isEmpty }}
                 </div>
@@ -58,7 +64,7 @@
             </div>
 
             <!--2. галочки-->
-            <div class="col-xl-4 col-lg-5 col-md">
+            <div class="col-xl-4 col-lg">
                 <div class="{{isTableWarning(invoice.senttoprice)}} ">
                     <input class="form-check-input" type="checkbox" id="senttoprice" disabled ng-model="invoice.senttoprice">
                     <label class="form-check-label" for="senttoprice">На расценке:</label>

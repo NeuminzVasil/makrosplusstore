@@ -4,38 +4,56 @@ body {
     color: #000000;
 }
 
-h1, .H1_HelloTitle {
+h1 {
     color: chocolate;
 }
 
-h2, .H2_DescriptionTitle {
-    color: chocolate;
-    font-size: 24px;
+.ifield {
+    border: none;
+    /*border: 1px solid #FF8040;*/
+    padding: 3px;
+    margin: 3px;
+    /*border-bottom: 1px solid #FF8040;*/
+    border-radius: 5px;
     background-color: #ffdcc4;
+    color: chocolate;
 }
 
-h3, .H3_DescriptionTitle {
+.iButton{
+    border: 1px solid #FF8040;
+    border-radius: 5px;
+    padding: 3px 3px 3px 3px;
+    /*padding: 5px 1px 5px 1px;*/
+    /*    margin: 5px 5px;*/
+    background-color: #ffdcc4;
+    color: chocolate;
+}
+
+/*.card*/
+
+h2, .h2Title {
     color: chocolate;
     background-color: #ffdcc4;
     font-size: 18px;
     font-weight: 400;
+    border-radius: 5px;
 }
 
-input, .card, .nomClass, button, .btn, textarea, iframe, select, table, pagination {
+/*input, .card, .nomClass, button, .btn, textarea, iframe, select, table, pagination {
      border: none;
-/*     padding: 1px 1px;
-     margin: 1px 1px;*/
+!*     padding: 1px 1px;
+     margin: 1px 1px;*!
      border-bottom: 2px solid #FF8040;
      border-radius: 10px;
      background-color: #ffdcc4;
      color: chocolate;
      width: 100%
- }
-
+ }*/
+/*
 a {
     color: chocolate;
     text-decoration: none;
-}
+}*/
 
 .footer {
     margin-top: 10px;
