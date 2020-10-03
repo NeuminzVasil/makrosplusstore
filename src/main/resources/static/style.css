@@ -1,5 +1,14 @@
+*{
+/*    box-sizing: border-box;
+    text-decoration: none;
+    border: 1px solid green;*/
+}
+.container, .container-fluid{
+    /*border: 1px solid blue;*/
+}
 
 body {
+    font-family: Arial;
     background-color: #fff5ee;
     color: #000000;
 }
@@ -8,21 +17,29 @@ h1 {
     color: chocolate;
 }
 
-.ifield {
-    border: none;
-    /*border: 1px solid #FF8040;*/
-    padding: 3px;
-    margin: 3px;
-    /*border-bottom: 1px solid #FF8040;*/
-    border-radius: 5px;
-    background-color: #ffdcc4;
+.h2Title {
     color: chocolate;
+    background-color: #ffdcc4;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 5px;
+}
+
+.iField, .card-body {
+    color: chocolate;
+    background-color: #ffdcc4;
+    border: none;
+    /*border-radius: 5px;*/
+    /*border: 1px solid #FF8040;*/
+    /*border-bottom: 1px solid #FF8040;*/
+    /*margin: 3px;*/
+    /*padding: 3px;*/
 }
 
 .iButton{
     border: 1px solid #FF8040;
     border-radius: 5px;
-    padding: 3px 3px 3px 3px;
+    /*padding: 3px 3px 3px 3px;*/
     /*padding: 5px 1px 5px 1px;*/
     /*    margin: 5px 5px;*/
     background-color: #ffdcc4;
@@ -31,13 +48,7 @@ h1 {
 
 /*.card*/
 
-h2, .h2Title {
-    color: chocolate;
-    background-color: #ffdcc4;
-    font-size: 18px;
-    font-weight: 400;
-    border-radius: 5px;
-}
+
 
 /*input, .card, .nomClass, button, .btn, textarea, iframe, select, table, pagination {
      border: none;
