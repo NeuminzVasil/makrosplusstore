@@ -7,128 +7,140 @@
 </head>
 
 <body>
+<!--header control-->
+<header class="row text-center">
 
-<h2 class="row h2Title">Каталог СчетФактур</h2>
+    <!--описание страницы-->
 
-<!--Панель управления-->
-<!--class="col-xl-4 col-lg-3 col-md-3 col-sm-5 col-sm col-xs iButton-->
-<div class="iField">
-        <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-        <input class="iButton col-xl"
-               title="введите ключевое слово для фильтрации"
-               type="text"
-               placeholder="Фильтровать по номеру заказа"
-               ng-model="orderNumber.ordernumber">
-</div>
+    <h2 class="col-12 header__h2">Каталог СчетФактур</h2>
 
-<!--вывод списока данных на страницу-->
-<div ng-repeat="invoice in InvoiceList | filter:orderNumber">
+    <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
+    <input class="col-12 header__button"
+           title="введите ключевое слово для фильтрации"
+           type="text"
+           placeholder="Фильтровать по номеру заказа"
+           ng-model="orderNumber.ordernumber">
 
-    <!--zakaz-->
-    <div class="card card-body"
-         aria-expanded="false" aria-controls="collapseIndex{{$index}}">
+</header>
 
-        <!--hedder-->
+<!--content-->
+<div class="card"
+     aria-expanded="false" aria-controls="collapseIndex{{$index}}"
+     ng-repeat="invoice in InvoiceList | filter:orderNumber">
+    <!--content header-->
+    <div class="container card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
         <div class="row">
-            <div class="col-xl-4 col-lg" title="номер и комментарий заказа">
-                <h5>{{invoice.ordernumber}} ({{invoice.comment}}) </h5>
-            </div>
-            <div class="col-xl-4 col-lg {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
-                {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
-            </div>
-            <div class="col-xl-4 col-lg {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
-                {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}
-            </div>
+            <h5 class="col-sm-3" title="номер заказа">{{invoice.ordernumber}}</h5>
+            <p class="col-sm-5" title="комментарий заказа">{{invoice.comment}}</p>
+            <p class="col-sm-2 card-text {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
+                {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+            <p class="col-sm-2 card-text {{isTableWarning(invoice.totalprice)}}">
+                {{invoice.totalprice | isEmpty }} р.</p>
+        </div>
+    </div>
+
+    <!--content info all-->
+    <div class="container card-body  collapse" id="collapseIndex{{$index}}">
+
+        <!--content info head-->
+        <div class="row">
+
+            <table class="table table-responsive-lg table-bordered table-active">
+
+                <thead>
+                <tr class="active">
+                    <th>создано</th>
+                    <th>отдел</th>
+                    <th>менеджер</th>
+                    <th>№ СФ</th>
+                    <th>&#8381</th>
+                    <th>&#10004</th>
+                    <th>&#9993</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td class="{{isTableWarning(invoice.datacreate)}}" title="Дата создания">
+                        {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
+                    </td>
+
+                    <td title="отдел"> {{invoice.department | isEmpty }}</td>
+
+                    <td title="для кого">{{invoice.customer.firstName}} {{invoice.customer.lastName}}</td>
+
+                    <td class="{{isTableWarning(invoice.invoicenumber)}}" title="номер СФ">
+                        {{invoice.invoicenumber | isEmpty }}
+                    </td>
+
+                    <td class="{{isTableWarning(invoice.senttoprice)}}" title="на расценке">
+                        <input type="checkbox"
+                               id="senttoprice" disabled
+                               ng-model="invoice.senttoprice">
+                    </td>
+
+                    <td class="{{isTableWarning(invoice.senttoapprove)}}" title="на согласовании">
+                        <input  type="checkbox" id="senttoapprove"
+                                disabled
+                                ng-model="invoice.senttoapprove">
+                    </td>
+
+                    <td class="{{isTableWarning(invoice.senttopurchase)}}" title="закупается">
+                        <input  type="checkbox" id="senttopurchase"
+                                disabled
+                                ng-model="invoice.senttopurchase">
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+
         </div>
 
-        <!--boddy-->
+        <!--content info details-->
         <div class="row">
+            <table class="table table-responsive-lg table-bordered table-hover table-info">
 
-            <!--1. отдел аппрувер цена заказа номер СФ-->
-            <div class="col-xl-4 col-lg">
-                <div>
-                    Отдел: {{invoice.department | isEmpty }}
-                </div>
-                <div>
-                    Аппрувер:
-                    {{invoice.customer.firstName}} {{invoice.customer.lastName}}
-                </div>
-                <div class={{isTableWarning(invoice.totalprice)}}>
-                    Цена заказа:
-                    {{invoice.totalprice | isEmpty }}
-                </div>
-                <div class={{isTableWarning(invoice.invoicenumber)}}>
-                    Номер СФ
-                    {{invoice.invoicenumber | isEmpty }}
-                </div>
-            </div>
+                <thead>
+                <tr class="active">
+                    <th>Код 1с</th>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Для кого</th>
+                    <th>Детали заказа</th>
+                    <th>Цена закупа</th>
+                    <th>Дата получнения</th>
+                </tr>
+                </thead>
 
-            <!--2. галочки-->
-            <div class="col-xl-4 col-lg">
-                <div class="{{isTableWarning(invoice.senttoprice)}} ">
-                    <input class="form-check-input" type="checkbox" id="senttoprice" disabled ng-model="invoice.senttoprice">
-                    <label class="form-check-label" for="senttoprice">На расценке:</label>
-                </div>
+                <tbody ng-repeat="purchase in invoice.purchases">
+                <tr>
+                    <td> {{purchase.nomenclature.code | isEmpty }}</td>
+                    <td><a class="card-link" href="#!/purchaseEditAnJS/?id={{purchase.id}}">
+                        {{purchase.nomenclature.nomenclature}} </a>
+                    </td>
+                    <td> {{purchase.count | isEmpty }}</td>
+                    <td> {{purchase.approver | isEmpty }}</td>
+                    <td class={{isTableWarning(purchase.comment)}}> {{purchase.comment | isEmpty }}</td>
+                    <td class={{isTableWarning(purchase.buyingPrice)}}>
+                        {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}
+                    </td>
+                    <td class={{isTableWarning(purchase.resolvingdate)}}>
+                        {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}
+                    </td>
+                </tr>
 
-                <div class="{{isTableWarning(invoice.senttoapprove)}}">
-                    <input class="form-check-input" type="checkbox" id="senttoapprove" disabled ng-model="invoice.senttoapprove">
-                    <label class="form-check-label" for="senttoapprove">На согласовании:</label>
-                </div>
+                </tbody>
 
-                <div class="{{isTableWarning(invoice.senttopurchase)}}">
-                    <input class="form-check-input" type="checkbox" id="senttopurchase" disabled ng-model="invoice.senttopurchase">
-                    <label class="form-check-label" for="senttopurchase">На закупке:</label>
-                </div>
-
-
-            </div>
-
+            </table>
         </div>
 
-        <!--Футер-->
         <div class="row">
-            <p class="iButton text-center col-6" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
-                Детали⟱</p>
-            <p class="iButton text-center col-6" ng-click="prepareToEditInvoice(invoice)">Редактировать</p>
+            <button class="col card__button" ng-click="prepareToEditInvoice(invoice)">Редактировать</button>
         </div>
 
     </div>
-
-    <!--raskryvushka-->
-    <table class="table table-hover collapse" id="collapseIndex{{$index}}">
-        <thead>
-        <tr class="active">
-            <th>Код 1с</th>
-            <th>Товар</th>
-            <th>Количество</th>
-            <th>Для кого</th>
-            <th>Детали заказа</th>
-            <th>Цена закупа</th>
-            <th>Дата получнения</th>
-        </tr>
-        </thead>
-
-        <tbody ng-repeat="purchase in invoice.purchases">
-
-        <tr>
-            <td> {{purchase.nomenclature.code | isEmpty }}</td>
-            <td><a class="card-link" href="#!/purchaseEditAnJS/?id={{purchase.id}}">
-                {{purchase.nomenclature.nomenclature}} </a>
-            </td>
-            <td> {{purchase.count | isEmpty }}</td>
-            <td> {{purchase.approver | isEmpty }}</td>
-            <td class={{isTableWarning(purchase.comment)}}> {{purchase.comment | isEmpty }}</td>
-            <td class={{isTableWarning(purchase.buyingPrice)}}>
-                {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}
-            </td>
-            <td class={{isTableWarning(purchase.resolvingdate)}}>
-                {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}
-            </td>
-        </tr>
-
-        </tbody>
-
-    </table>
 
 </div>
 
