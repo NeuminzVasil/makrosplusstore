@@ -1,70 +1,47 @@
-*{
-/*    box-sizing: border-box;
-    text-decoration: none;
-    border: 1px solid green;*/
-}
-.container, .container-fluid{
-    /*border: 1px solid blue;*/
+
+/*.container, .container-fluid {
+    padding: 0; !* внутренний отступ *!
 }
 
-body {
-    font-family: Arial;
-    background-color: #fff5ee;
-    color: #000000;
-}
-
-h1 {
-    color: chocolate;
-}
-
-.h2Title {
-    color: chocolate;
-    background-color: #ffdcc4;
-    font-size: 18px;
-    font-weight: 400;
-    border-radius: 5px;
-}
-
-.iField, .card-body {
-    color: chocolate;
-    background-color: #ffdcc4;
-    border: none;
-    /*border-radius: 5px;*/
-    /*border: 1px solid #FF8040;*/
-    /*border-bottom: 1px solid #FF8040;*/
-    /*margin: 3px;*/
-    /*padding: 3px;*/
-}
-
-.iButton{
-    border: 1px solid #FF8040;
-    border-radius: 5px;
-    /*padding: 3px 3px 3px 3px;*/
-    /*padding: 5px 1px 5px 1px;*/
-    /*    margin: 5px 5px;*/
-    background-color: #ffdcc4;
-    color: chocolate;
-}
-
-/*.card*/
-
-
-
-/*input, .card, .nomClass, button, .btn, textarea, iframe, select, table, pagination {
-     border: none;
-!*     padding: 1px 1px;
-     margin: 1px 1px;*!
-     border-bottom: 2px solid #FF8040;
-     border-radius: 10px;
-     background-color: #ffdcc4;
-     color: chocolate;
-     width: 100%
- }*/
-/*
-a {
-    color: chocolate;
-    text-decoration: none;
+.row, .col {
+    border: 1px solid green;
+    margin: 0; !* внешний отступ *!
+    padding: 0; !* внутренний отступ *!
 }*/
+
+* {
+    /*    box-sizing: border-box;
+        text-decoration: none;
+        border: 1px solid green;*/
+}
+
+.container, .container-fluid {
+    padding: 0; /* внутренний отступ */
+}
+
+.row {
+    margin: 0; /* внешний отступ */
+    padding: 0; /* внутренний отступ */
+}
+
+.card {
+    margin-top: 1rem; /* внешний отступ снизу */
+    margin-bottom: 1rem; /* внешний отступ снизу */
+    border: 1px solid #FF8040;
+}
+
+.header__h2, .header__button, .header__select, .card__button {
+    color: chocolate;
+    border-radius: 5px;
+    border: 1px solid #FF8040;
+    background-color: #ffdcc4;
+    text-align: center;
+    /*font-size: x-small;*/
+}
+
+.header__button {
+    margin: 1px; /* внешний отступ */
+}
 
 .footer {
     margin-top: 10px;
