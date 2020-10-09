@@ -38,22 +38,27 @@
 
 <!--content-->
 <div class="card"
+     aria-expanded="false" aria-controls="collapseIndex{{$index}}"
      ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :nomenclatureFilter">
 
-    <div class="container card-header">
+    <div class="container card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
         <div class="row">
-            <h5 class="col-sm-11" ng-click="editNomenclature(nomenclature)">{{nomenclature.nomenclature}}</h5>
+            <h5 class="col-sm-11">{{nomenclature.nomenclature}}</h5>
             <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
+            </button>
         </div>
     </div>
 
-    <div class="container card-body">
+    <div class="container card-body collapse" id="collapseIndex{{$index}}">
         <div class="row">
             <h6 class="col-12 card-title">{{nomenclature.comment | isEmpty }}</h6>
             <p class="col-sm card-text">{{nomenclature.code }}</p>
             <p class="col-sm card-text">{{nomenclature.manufacturer | isEmpty}}</p>
             <p class="col-sm card-text">{{nomenclature.category.category | isEmpty}}</p>
             <p class="col-sm card-text">{{nomenclature.price | isEmpty }} р.</p>
+        </div>
+        <div class="row">
+            <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">редактировать</button>
         </div>
     </div>
 
