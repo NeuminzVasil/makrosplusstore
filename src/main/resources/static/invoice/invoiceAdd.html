@@ -14,110 +14,137 @@
         <h2 class="col-12 header__h2">Новый заказ</h2>
 
         <!--ввод основных значений Invoice-->
-        <form class="col" ng-submit="addInvoice(invoice)">
+        <form class="col was-validated" ng-submit="addInvoice(invoice)">
 
             <button class="btn form__button col-sm-12" type="submit">Сохранить заказ</button>
 
+            <!--1c код \ Отдел \ Согласователь-->
             <div class="form-row">
 
+                <!--1c код-->
                 <div class="col-md-4">
-                    <label for="validationServer01">Заказ (1c код):</label>
-                    <input type="text" class="form-control is-valid" id="validationServer01"
+                    <label for="orderNumber1c">Заказ (1c код)</label>
+                    <input class="form-control is-valid"
+                           id="orderNumber1c"
+                           type="text"
                            ng-model="invoice.ordernumber"
+                           placeholder="заполнить номер заказа из 1с"
                            required>
-                    <div class="valid-feedback">
+                    <div class="invalid-feedback"> <!--поменять на class="valid-feedback" когда заполнено-->
                         Укажите код заказа из 1с.
                     </div>
                 </div>
 
+                <!--Отдел-->
                 <div class="col-md-4">
                     <label for="validationServer03">Отдел</label>
-                    <select class="custom-select is-invalid" id="validationServer03"
-                            ng-model="invoice.department" required>
-                        <option>FRAC (PL_215)</option>
-                        <option>COIL (PL_214)</option>
-                        <option>DRT</option>
-                        <option>General_C</option>
+                    <select class="form-control custom-select is-valid"
+                            id="validationServer03"
+                            ng-model="invoice.department"
+                            required>
+                        <option value="">...</option>
+                        <option value="1">FRAC (PL_215)</option>
+                        <option value="2">COIL (PL_214)</option>
+                        <option value="3">DRT</option>
+                        <option value="4">General_C</option>
                     </select>
                     <div class="invalid-feedback">
-                        укажите центр затрат.
+                        укажите центр затрат (отдел).
                     </div>
                 </div>
 
+                <!--Согласователь-->
                 <div class="col-md-4" ng-controller="customerControllerApiV1">
-                    <label for="validationServer031">Заказчик</label>
-                    <select class="custom-select is-invalid" id="validationServer031"
-                            ng-model="invoice.customer" required>
+                    <label for="validationApprover">Согласователь</label>
+                    <select class="form-control custom-select is-valid"
+                            id="validationApprover"
+                            ng-model="invoice.customer"
+                            required>
+                        <option value="">...</option>
                         <option ng-repeat="customer in customerList"
                                 value="{{customer.id}}"
                                 ng-model="customer.login">{{customer.login}}
                         </option>
                     </select>
                     <div class="invalid-feedback">
-                        укажите заказчика.
+                        укажите руководителя подразделения.
                     </div>
                 </div>
 
+
+            </div>
+
+            <!--Описание заказа-->
+            <div class="form-row">
+                <!--Описание заказа-->
                 <div class="col-md-12">
-                    <label for="validationServer02">Описание заказа:</label>
-                    <input type="text" class="form-control is-invalid" id="validationServer02"
-                           ng-model="invoice.comment" required>
+                    <label for="validationOrderInfoShort">Описание заказа</label>
+                    <input type="text"
+                           class="form-control is-valid"
+                           id="validationOrderInfoShort"
+                           ng-model="invoice.comment"
+                           placeholder="заполнить короткое описание заказа"
+                           required>
                     <div class="invalid-feedback">
                         введите короткое описание заказа.
                     </div>
                 </div>
-
             </div>
 
+            <!--сумма заказа \ № СФ-->
             <div class="form-row">
 
+                <!--сумма заказа-->
                 <div class="col-md-6">
-                    <label for="validationServer04">Сумма заказа: </label>
-                    <input type="text" class="form-control is-invalid" id="validationServer04"
-                           ng-model="invoice.totalprice">
-                    <div class="invalid-feedback">
-                        укажите итоговую сумму заказа.
-                    </div>
+                    <label for="totalPrice">Сумма заказа</label>
+                    <input type="number"
+                           class="form-control"
+                           id="totalPrice"
+                           ng-model="invoice.totalprice"
+                           placeholder="заполнить сумму заказа xx,00">
                 </div>
 
+                <!--№ СФ-->
                 <div class="col-md-6">
-                    <label for="validationServer05">№СФ: </label>
-                    <input type="text" class="form-control is-invalid" id="validationServer05"
-                           ng-model="invoice.invoicenumber">
-                    <div class="invalid-feedback">
-                        укажите номер счет фактуры.
-                    </div>
+                    <label for="validationServer05">№СФ</label>
+                    <input type="text"
+                           class="form-control"
+                           id="validationServer05"
+                           ng-model="invoice.invoicenumber"
+                           placeholder="заполнить номер СФ">
                 </div>
 
             </div>
 
-            <div class="form-group">
+            <!-- на расценке \ на согласовании \ закупается-->
+            <div class="form-row cb_border">
 
-                <div class="form-check">
-                    <label class="form-check-label" for="invalidCheck06">На расценке:</label>
-                    <input class="form-check-input is-invalid" type="checkbox" id="invalidCheck06"
+                <!--На расценке-->
+                <div class="form-check col-md-4">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="Check01"
                            ng-model="invoice.senttoprice">
-                    <div class="invalid-feedback">
-                        You must agree before submitting.
-                    </div>
+                    <label class="form-check-label" for="Check01"> На расценке </label>
                 </div>
 
-                <div class="form-check">
-                    <label class="form-check-label" for="invalidCheck07">На согласовании:</label>
-                    <input class="form-check-input is-invalid" type="checkbox" id="invalidCheck07"
+                <!--на согласовании-->
+                <div class="form-check col-md-4">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="Check02"
                            ng-model="invoice.senttoapprove">
-                    <div class="invalid-feedback">
-                        You must agree before submitting.
-                    </div>
+                    <label class="form-check-label" for="Check02">На согласовании</label>
                 </div>
 
-                <div class="form-check">
-                    <label class="form-check-label" for="invalidCheck08">Закупаеся:</label>
-                    <input class="form-check-input is-invalid" type="checkbox" id="invalidCheck08"
+                <!--Закупается-->
+                <div class="form-check col-md-4">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="Check03"
                            ng-model="invoice.senttopurchase">
-                    <div class="invalid-feedback">
-                        You must agree before submitting.
-                    </div>
+                    <label class="form-check-label"
+                           for="Check03">Закупается</label>
                 </div>
 
             </div>
