@@ -22,9 +22,13 @@
         <h2 class="col-12 header__h2">Редактировать заказ</h2>
 
         <!--ввод основных значений Invoice-->
-        <form class="col was-validated" ng-submit="editInvoice(invoiceJSON)">
+        <form class="col was-validated">
 
-            <button class="btn btn-outline-success col-12" type="submit">Сохранить изменения</button>
+            <button class="btn btn-outline-success col-12"
+                    data-toggle="modal"
+                    data-target="#editInvoiceModal"
+                    type="button">Сохранить изменения
+            </button>
 
             <!--1c код \ Отдел \ Согласователь-->
             <div class="form-row">
@@ -225,11 +229,117 @@
         </table>
     </div>
 
-    <button class="row btn text-center btn-outline-danger col-12" ng-click="deleteInvoice(invoice)">Удалить заказ Ⓧ
+    <!--<button ng-click="deleteNomenclature(invoiceJSON)">Удалить</button>-->
+    <button class="row btn text-center btn-outline-danger col-12"
+            data-toggle="modal"
+            data-target="#deleteInvoiceModal"
+            type="button">
+        Удалить заказ Ⓧ
     </button>
+
+
+    <!-- Modal Edit invoice -->
+    <div class="modal fade"
+         id="editInvoiceModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="editInvoiceModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title"
+                        id="editInvoiceModalLabel">Сохранить изменения в заказе?</h5>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+                    <h2>{{invoiceJSON.ordernumber}}</h2>
+                    <p>{{invoiceJSON.comment}}</p>
+                    <p>{{invoiceJSON.department}}</p>
+                    <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
+                    <p>{{invoiceJSON.totalprice}}</p>
+                    <p>{{invoiceJSON.datacreate}}</p>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="editInvoice(invoiceJSON)">Сохранить
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete invoice from DB -->
+    <div class="modal fade"
+         id="deleteInvoiceModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title"
+                        id="exampleModalLabel">Удалить весь заказ из БД навсегда?</h5>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+                    <h2>{{invoiceJSON.ordernumber}}</h2>
+                    <p>{{invoiceJSON.comment}}</p>
+                    <p>{{invoiceJSON.department}}</p>
+                    <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
+                    <p>{{invoiceJSON.datacreate}}</p>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="deleteInvoice(invoice)">Удалить
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 
-<!--<button ng-click="deleteNomenclature(invoiceJSON)">Удалить</button>-->
 
 </body>
 </html>
