@@ -27,8 +27,12 @@
 <div class="card"
      aria-expanded="false" aria-controls="collapseIndex{{$index}}"
      ng-repeat="invoice in InvoiceList | filter:orderNumber">
+
     <!--content header-->
-    <div class="container card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
+    <div class="container card-header"
+         data-toggle="collapse"
+         data-target="#collapseIndex{{$index}}">
+
         <div class="row">
             <h5 class="col-sm-3" title="номер заказа">{{invoice.ordernumber}}</h5>
             <p class="col-sm-5" title="комментарий заказа">{{invoice.comment}}</p>
@@ -37,6 +41,7 @@
             <p class="col-sm-2 card-text {{isTableWarning(invoice.totalprice)}}">
                 {{invoice.totalprice | isEmpty }} р.</p>
         </div>
+
     </div>
 
     <!--content info all-->
@@ -45,8 +50,9 @@
         <!--content info head-->
         <div class="row">
 
-            <button class="btn btn-outline-primary col-12" ng-click="prepareToEditInvoice(invoice)">Редактировать</button>
-
+            <button class="btn btn-outline-primary col-12" ng-click="prepareToEditInvoice(invoice)">Редактировать
+            </button>
+            <!--content info order details-->
             <table class="table table-responsive-lg table-bordered table-active">
 
                 <thead>
@@ -100,7 +106,7 @@
 
         </div>
 
-        <!--content info details-->
+        <!--content info purchase details-->
         <div class="row">
             <table class="table table-responsive-lg table-bordered table-hover table-info">
 

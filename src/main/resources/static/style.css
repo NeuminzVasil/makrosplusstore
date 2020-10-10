@@ -24,10 +24,13 @@
     padding: 0; /* внутренний отступ */
 }
 
-.card {
+.card, form {
     margin-top: 1rem; /* внешний отступ снизу */
     margin-bottom: 1rem; /* внешний отступ снизу */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     border: 1px solid #FF8040;
+    text-align: center;
 }
 
 .header__h2, .header__button, .header__select, .card__button {
