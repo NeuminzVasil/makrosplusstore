@@ -45,6 +45,8 @@
         <!--content info head-->
         <div class="row">
 
+            <button class="btn btn-outline-primary col-12" ng-click="prepareToEditInvoice(invoice)">Редактировать</button>
+
             <table class="table table-responsive-lg table-bordered table-active">
 
                 <thead>
@@ -80,15 +82,15 @@
                     </td>
 
                     <td class="{{isTableWarning(invoice.senttoapprove)}}" title="на согласовании">
-                        <input  type="checkbox" id="senttoapprove"
-                                disabled
-                                ng-model="invoice.senttoapprove">
+                        <input type="checkbox" id="senttoapprove"
+                               disabled
+                               ng-model="invoice.senttoapprove">
                     </td>
 
                     <td class="{{isTableWarning(invoice.senttopurchase)}}" title="закупается">
-                        <input  type="checkbox" id="senttopurchase"
-                                disabled
-                                ng-model="invoice.senttopurchase">
+                        <input type="checkbox" id="senttopurchase"
+                               disabled
+                               ng-model="invoice.senttopurchase">
                     </td>
                 </tr>
 
@@ -136,9 +138,6 @@
             </table>
         </div>
 
-        <div class="row">
-            <button class="col card__button" ng-click="prepareToEditInvoice(invoice)">Редактировать</button>
-        </div>
 
     </div>
 
