@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: ${JDBC_DATABASE_URL_HT}
+    username: ${JDBC_DATABASE_USERNAME_HT}
+    password: ${JDBC_DATABASE_PASSWORD_HT}
+
+#server:
+#  servlet:
+#    context-path: ${CONTEXT_PATH}

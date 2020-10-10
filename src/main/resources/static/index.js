@@ -5,38 +5,38 @@ const contextPath = 'http://localhost:8189/makrosplusstore'
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'welcome.html'
+            templateUrl: 'welcome/welcome.html'
         })
         .when('/login', {
-            templateUrl: 'login.html',
+            templateUrl: 'login/login.html',
             controller: 'loginControllerApiV1'
         })
         .when('/nomenclature', {
-            templateUrl: 'nomenclature.html',
+            templateUrl: 'nomenclature/nomenclature.html',
             controller: 'nomenclatureControllerApiV1'
         })
         .when('/nomenclature/add', {
-            templateUrl: 'nomenclatureAdd.html',
+            templateUrl: 'nomenclature/nomenclatureAdd.html',
             controller: 'nomenclatureControllerApiV1'
         })
         .when('/category', {
-            templateUrl: 'category.html',
+            templateUrl: 'category/category.html',
             controller: 'categoryControllerApiV1'
         })
         .when('/customer', {
-            templateUrl: 'customer.html',
+            templateUrl: 'customer/customer.html',
             controller: 'customerControllerApiV1'
         })
         .when('/invoice', {
-            templateUrl: 'invoice.html',
+            templateUrl: 'invoice/invoice.html',
             controller: 'invoiceControllerApiV1'
         })
         .when('/invoice/edit', {
-            templateUrl: 'invoiceEdit.html',
+            templateUrl: 'invoice/invoiceEdit.html',
             controller: 'invoiceControllerApiV1'
         })
         .when('/invoiceAddAnJS', {
-            templateUrl: 'invoiceAdd.html',
+            templateUrl: 'invoice/invoiceAdd.html',
             controller: 'invoiceControllerApiV1'
         })
         .otherwise({template: '<h1>404 Error (роутинг провайденр не нашел такой путь)</h1>'})

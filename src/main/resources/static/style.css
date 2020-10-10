@@ -1,40 +1,46 @@
 
-body {
-    background-color: #fff5ee;
-    color: #000000;
+/*.container, .container-fluid {
+    padding: 0; !* внутренний отступ *!
 }
 
-h1, .H1_HelloTitle {
-    color: chocolate;
+.row, .col {
+    border: 1px solid green;
+    margin: 0; !* внешний отступ *!
+    padding: 0; !* внутренний отступ *!
+}*/
+
+* {
+    /*    box-sizing: border-box;
+        text-decoration: none;
+        border: 1px solid green;*/
 }
 
-h2, .H2_DescriptionTitle {
+.container, .container-fluid {
+    padding: 0; /* внутренний отступ */
+}
+
+.row {
+    margin: 0; /* внешний отступ */
+    padding: 0; /* внутренний отступ */
+}
+
+.card {
+    margin-top: 1rem; /* внешний отступ снизу */
+    margin-bottom: 1rem; /* внешний отступ снизу */
+    border: 1px solid #FF8040;
+}
+
+.header__h2, .header__button, .header__select, .card__button {
     color: chocolate;
-    font-size: 24px;
+    border-radius: 5px;
+    border: 1px solid #FF8040;
     background-color: #ffdcc4;
+    text-align: center;
+    /*font-size: x-small;*/
 }
 
-h3, .H3_DescriptionTitle {
-    color: chocolate;
-    background-color: #ffdcc4;
-    font-size: 18px;
-    font-weight: 400;
-}
-
-input, .card, .nomClass, button, .btn, textarea, iframe, select, table, pagination {
-     border: none;
-/*     padding: 1px 1px;
-     margin: 1px 1px;*/
-     border-bottom: 2px solid #FF8040;
-     border-radius: 10px;
-     background-color: #ffdcc4;
-     color: chocolate;
-     width: 100%
- }
-
-a {
-    color: chocolate;
-    text-decoration: none;
+.header__button {
+    margin: 1px; /* внешний отступ */
 }
 
 .footer {

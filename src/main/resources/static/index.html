@@ -7,9 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 
     <script src="index.js"></script>
-    <script src="login.js"></script>
-    <script src="nomenclature.js"></script>
-    <script src="invoice.js"></script>
+    <script src="login/login.js"></script>
+    <script src="nomenclature/nomenclature.js"></script>
+    <script src="invoice/invoice.js"></script>
     <script src="filters.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -72,20 +72,7 @@
 
 <!--вывод списока данных на страницу -->
 <div class="container">
-    <div class="row">
-        <ng-view></ng-view>
-    </div>
-    <!--    <div class="col-lg-8 order-lg-1">
-            <ng-view></ng-view>
-        </div>
-
-        <div class="col-lg order-lg-0">
-            Левая колонка
-        </div>
-
-        <div class="col-lg order-lg-2">
-            Правая колонка
-        </div>-->
+    <ng-view class="col-xl-12"></ng-view>
 </div>
 
 
