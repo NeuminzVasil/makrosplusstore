@@ -7,34 +7,37 @@
 </head>
 
 <body>
-<!--header control-->
-<header class="row text-center">
+<!--control-->
+<nav class="nav sticky-top navbar-expand-lg navbar-dark">
+    <div class="container">
+        <div class="row">
+            <!--описание страницы-->
+            <h2 class="col-12 header__h2">Список товаров</h2>
 
-    <!--описание страницы-->
-    <h2 class="col-12 header__h2">Список товаров</h2>
+            <!--ссылка на форму добавления нового товара-->
+            <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
+            <button class="col-12 header__button" ng-click="sortData('nomenclature')">Добавить новый товар</button>
 
-    <!--ссылка на форму добавления нового товара-->
-    <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
-    <button class="col-12 header__button" ng-click="sortData('nomenclature')">Добавить новый товар</button>
+            <!-- sorting AngularJS -->
+            <input class="col-12 header__button"
+                   type="text"
+                   placeholder="Фильтровать по названию"
+                   ng-model="nomenclatureFilter">
 
-    <!-- sorting AngularJS -->
-    <input class="col-12 header__button"
-           type="text"
-           placeholder="Фильтровать по названию"
-           ng-model="nomenclatureFilter">
+            <!-- sorting AngularJS by name -->
+            <button class="col-sm header__button" ng-click="sortData('nomenclature')">Сотр по имени</button>
 
-    <!-- sorting AngularJS by name -->
-    <button class="col-sm header__button" ng-click="sortData('nomenclature')">Сотр по имени</button>
+            <!-- sorting AngularJS via select -->
+            <select class="col-sm header__select" ng-model="sortColumn">
+                <option value="nomenclature">Наименование (A-Z)</option>
+                <option value="-nomenclature">Наименование (Z-A)</option>
+                <option value="price">price (0-9)</option>
+                <option value="-price">price (9-0)</option>
+            </select>
+        </div>
+    </div>
+</nav>
 
-    <!-- sorting AngularJS via select -->
-    <select class="col-sm header__select" ng-model="sortColumn">
-        <option value="nomenclature">Наименование (A-Z)</option>
-        <option value="-nomenclature">Наименование (Z-A)</option>
-        <option value="price">price (0-9)</option>
-        <option value="-price">price (9-0)</option>
-    </select>
-
-</header>
 
 <!--content-->
 <div class="card"
@@ -43,7 +46,8 @@
 
     <div class="container card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
         <div class="row">
-            <h5 class="col-sm-11">{{nomenclature.nomenclature}}</h5>
+            <h5 class="col-sm-10">{{nomenclature.nomenclature}}</h5>
+            <p class="col-sm-1 card-text">{{nomenclature.price | isEmpty }} р.</p>
             <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
             </button>
         </div>
@@ -55,7 +59,6 @@
             <p class="col-sm card-text">{{nomenclature.code }}</p>
             <p class="col-sm card-text">{{nomenclature.manufacturer | isEmpty}}</p>
             <p class="col-sm card-text">{{nomenclature.category.category | isEmpty}}</p>
-            <p class="col-sm card-text">{{nomenclature.price | isEmpty }} р.</p>
         </div>
         <div class="row">
             <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">редактировать</button>
