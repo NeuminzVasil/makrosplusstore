@@ -1,1 +1,1 @@
-web: java -jar target/makrosplusstore-0.0.1-SNAPSHOT.war -Dserver.port=$PORT
+web: java -jar target/makrosplusstore-0.0.1-SNAPSHOT.jar -Dserver.port=$PORT
