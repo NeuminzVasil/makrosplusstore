@@ -1,0 +1,1 @@
+web: bundle exec makrosplusstore server -p $PORT
