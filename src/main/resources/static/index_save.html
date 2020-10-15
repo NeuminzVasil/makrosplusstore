@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="MakrosPlusStore">
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+
+    <script src="index.js"></script>
+    <script src="login/login.js"></script>
+    <script src="nomenclature/nomenclature.js"></script>
+    <script src="invoice/invoice.js"></script>
+    <script src="filters.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>LLC Makros+</title>
+
+    <!--CSS connecting people -->
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Навигация по страницам -->
+<nav class="nav navbar-expand-lg fixed-top navbar-light bg-white"
+     ng-controller="loginControllerApiV1">
+
+    <a class="navbar-brand" href="#!/">Mąƙřǿƨ+</a>
+    <div class="nav-link">{{getUserName()}}</div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/nomenclature">Товары</a>
+            </li>
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/invoiceAddAnJS">Корзина</a>
+            </li>
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/invoice">Счет-Фактуры</a>
+            </li>
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/category">Категории</a>
+            </li>
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/customer">Покупатели</a>
+            </li>
+            <li class="nav-item" ng-hide="isLoggedIn()">
+                <a class="nav-link" href="#!/login">Войти</a></li>
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/login" ng-click="tryToLogout()">Выйти</a>
+            </li>
+        </ul>
+
+    </div>
+
+</nav>
+
+<!--вывод списока данных на страницу -->
+<div class="container main">
+    <ng-view class="col-12"></ng-view>
+</div>
+
+
+<!-- Footer -->
+<footer class="container footer">
+    <p>&copy; Copyright. 2020. All rights reserved.</p>
+    <p>&copy; Заявление правообладателя. 2020. Все права защищены.</p>
+</footer>
+
+
+</body>
+</html>
