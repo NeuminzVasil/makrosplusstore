@@ -5,3 +5,5 @@ spring:
     url: ${JDBC_DATABASE_URL_LT}
     username: ${JDBC_DATABASE_USERNAME_LT}
     password: ${JDBC_DATABASE_PASSWORD_LT}
+server:
+  port: 8189
