@@ -19,3 +19,4 @@
        max-size="maxSize"
        boundary-links="true">
        </pagination>-->
+3. heroku ps:scale web=1
