@@ -3,7 +3,6 @@ package store.configurations;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //@EnableGlobalMethodSecurity(securedEnabled = true)
 @AllArgsConstructor
-@Order(100)
+//@Order(100)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
@@ -38,7 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable().authorizeRequests()
+        http.
+                csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/api/v1/login/**").permitAll() // доступ всем
                 .antMatchers("/api/v1/**").authenticated() // доступ любому авторизированному клиенту
                 .antMatchers("/api/v1/nomenclature/add/**").hasAnyRole("ADMIN") // доступ конкретному авторизированному через роль
@@ -46,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll() // доступ всем
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
