@@ -63,6 +63,8 @@ public class LoginControllerApiV1 {
         }
         UserDetails userDetails = customerService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
+        System.err.println("createAuthToken-TOKEN:" + token);
+        userDetails.getAuthorities().forEach(grantedAuthority -> System.err.println(grantedAuthority.getAuthority()));
         return ResponseEntity.ok(new JwtResponse(token));
     }
 }
