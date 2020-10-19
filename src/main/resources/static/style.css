@@ -16,6 +16,10 @@
         border: 1px solid green;*/
 }
 
+.main {
+    margin-top: 3rem; /* Add a top margin to avoid content overlay */
+}
+
 .container, .container-fluid {
     padding: 0; /* внутренний отступ */
 }
