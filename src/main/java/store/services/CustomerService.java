@@ -26,12 +26,22 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerService implements UserDetailsService {
     private CustomerRepository customerRepository;
+    private AuthorityService authorityService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public void setCustomerRepository(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
-        this.customerRepository = customerRepository;
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    public void setCustomerRepository(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    @Autowired
+    public void setRolesService(AuthorityService authorityService) {
+        this.authorityService = authorityService;
     }
 
     public Page<Customer> findAll(Specification<Customer> spec, Pageable pageable) {
@@ -82,21 +92,9 @@ public class CustomerService implements UserDetailsService {
     public UserDetails loadUserByUsername(String customerLogin) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByLogin(customerLogin).orElseThrow(() ->
                 new UsernameNotFoundException("Invalid username or password"));
-
-        if (customer == null) {
-            throw new SearchingNotFoundException(String.format("customer '%s' not found", customerLogin));
-        }
-
         return new org.springframework.security.core.userdetails.User(customer.getLogin(),
                 customer.getPassword(),
                 mapAuthorities(customer.getAuthorities()));
-    }
-
-    private Collection<? extends GrantedAuthority> mapAuthorities(Collection<Authority> authorities) {
-        return authorities
-                .stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
-                .collect(Collectors.toList());
     }
 
 /*
@@ -118,6 +116,14 @@ public class CustomerService implements UserDetailsService {
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }*/
+
+    private Collection<? extends GrantedAuthority> mapAuthorities(Collection<Authority> authorities) {
+        return authorities
+                .stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
+                .collect(Collectors.toList());
+    }
+
 
 
 }
