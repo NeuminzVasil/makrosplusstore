@@ -86,6 +86,7 @@ public class InvoiceService {
      * @param invoice - Invoice
      * @return - ссылка на сохраненный СФ
      */
+//    @Secured("ROLE_ADMIN")
     public Invoice save(Invoice invoice) {
         // сохраняем инвойс без элементов заказа из JSON, чтобы получить invoice.ID
         invoiceIdTemp = invoiceRepository.save(getCopy(invoice)).getId();
@@ -100,6 +101,7 @@ public class InvoiceService {
      * @param invoice - Invoice
      * @return - ссылка на сохраненный СФ
      */
+//    @Secured("ROLE_ADMIN")
     public Invoice edit(Invoice invoice) {
         return invoiceRepository.saveAndFlush(invoice);
     }
@@ -108,6 +110,7 @@ public class InvoiceService {
      * удалить Invoice и все елементы
      * @param invoice - удаляемый invoice
      */
+//    @Secured("ROLE_ADMIN")
     public void delete(Invoice invoice) {
         invoiceRepository.delete(invoice);
     }
@@ -116,6 +119,7 @@ public class InvoiceService {
      * Удалить Purchase из Invoice по ID
      * @param id удаляемого Purchase
      */
+//    @Secured("ROLE_ADMIN")
     public void deletePurchaseById(Long id) {
         purchaseService.deleteById(id);
     }

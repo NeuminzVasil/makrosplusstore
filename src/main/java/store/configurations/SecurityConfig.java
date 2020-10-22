@@ -12,17 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity //(debug = true)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 //@EnableGlobalMethodSecurity(securedEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    private UserDetailsService userDetailsService;
+
     private final JwtRequestFilter jwtRequestFilter;
-/*
-    @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,11 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/login/**").permitAll() // доступ всем
-                .antMatchers("/api/v1/**").authenticated() // доступ любому авторизированному клиенту
-//                .antMatchers("/api/v1/**").hasAnyRole("ADMIN", "GUEST") // доступ конкретному авторизированному через роль
-//                .antMatchers("/api/v1/nomenclature/add/**").hasAnyRole("ADMIN") // доступ конкретному авторизированному через роль
-//                .antMatchers("/api/v1/nomenclature/edit/**").hasAnyRole("ADMIN") // доступ конкретному авторизированному через роль
-                .anyRequest().permitAll() // доступ всем
+                .antMatchers("/api/v1/invoice/**").authenticated() // доступ любому авторизированному клиенту
+                .antMatchers("/api/v1/category**").hasRole("ADMIN") // доступ конкретному авторизированному через роль
+                .antMatchers("/api/v1/customer**").hasRole("ADMIN") // доступ конкретному авторизированному через роль
+                .antMatchers("/api/v1/nomenclature**").hasRole("ADMIN") // доступ конкретному авторизированному через роль
+//                .anyRequest().permitAll() // доступ всем
+                .and()
+                .logout().logoutSuccessUrl("/")// когда вышли , перенаправляемся на главную страничку
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
