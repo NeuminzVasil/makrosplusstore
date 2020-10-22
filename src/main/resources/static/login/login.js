@@ -2,15 +2,25 @@
 
 app.controller('loginControllerApiV1', function ($log, $scope, $window, $http, $localStorage) {
     $scope.tryToAuth = function () {
-        $http.post(contextPath + '/api/v1/login', $scope.user)
-            .then(function (response) {
-                if (response.data.token) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    //$log.info("birer:" , response.data.token);
-                    $localStorage.currentUser = {username: $scope.user.username, token: response.data.token};
-                    $window.location.href = '#!/invoice';
-                }
-            });
+
+        $http.post(contextPath + '/api/v1/login', $scope.user).then(function success(response) {
+            if (response.data.token) {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                // $log.info(response.data.token);
+                $localStorage.currentUser = {username: $scope.user.username, token: response.data.token};
+                $window.location.href = '#!/invoice';
+            }
+        }, function error(response) {
+            $log.error(response.data.message);
+            $log.error(response.data.status);
+            $log.error(response.data.timestamp);
+            $scope.errorMessage = response.data.message;
+            $scope.errorCode1 = response.data.status;
+            $scope.errorTime = response.data.timestamp;
+
+            $('#exampleModal').modal('show')
+
+        });
     };
 
     $scope.tryToLogout = function () {
@@ -28,6 +38,8 @@ app.controller('loginControllerApiV1', function ($log, $scope, $window, $http, $
         if ($localStorage.currentUser) return $localStorage.currentUser.username;
         return null;
     }
+
+
 });
 
 
