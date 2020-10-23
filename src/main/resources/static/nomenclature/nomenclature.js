@@ -1,4 +1,4 @@
-/// <reference path = "index.js"/>
+/// <reference path = "config.js"/>
 
 let nomenclatureJSON =
     {
