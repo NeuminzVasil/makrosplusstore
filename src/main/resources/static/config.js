@@ -49,7 +49,7 @@ app.controller("routeUpdating", function ($scope, $localStorage, $rootScope, $wi
 
 /*    $rootScope.$on('$routeChangeStart', function () {
         console.info("$routeChangeStart");
-        // alert('refresh');
+        // alert('refresh'); //показать модальное окно по истечению срока Токена
     });*/
 
 
@@ -73,25 +73,6 @@ app.controller("routeUpdating", function ($scope, $localStorage, $rootScope, $wi
 });
 
 
-app.factory('invoiceFactory', function () {
-    return {
-        invoiceJSON:
-            {
-                dataCreate: new Date(),
-                orderNumber: null,
-                department: null,
-                comment: null,
-                invoiceNumber: null,
-                totalPrice: null,
-                sentToPrice: false,
-                sentToApprove: false,
-                sentToPurchase: false,
-                resolveDate: null,
-                customer: {id: null},
-                purchases: []
-            }
-    }
-});
 
 
 
