@@ -17,7 +17,7 @@ let invoiceJSON =
         "purchases": null
     }
 
-app.controller('invoiceControllerApiV1', function ($window, $location, $route, $log, $scope, $http, $localStorage, invoiceFactory) {
+app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope, $http, $localStorage, invoiceFactory) {
 
 
     // проверяем вошедшего пользователя (см loginController)
