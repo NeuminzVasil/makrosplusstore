@@ -40,7 +40,12 @@ public class JwtTokenUtil {
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         Date issuedDate = new Date();
-        Date expiredDate = new Date(issuedDate.getTime() + 60 * 60 * 1000);
+//        Date expiredDate = new Date(issuedDate.getTime() + 60 * 60 * 1000); // (час issuedDate.getTime() + 60 * 60 * 1000)
+//        Date expiredDate = new Date(issuedDate.getTime() + 60 * 120 * 1000); // (два часа issuedDate.getTime() + 60 * 60 * 1000)
+//        Date expiredDate = new Date(issuedDate.getTime() + 60 * 1000); // (одна минута issuedDate.getTime() + 60 * 60 * 1000)
+        Date expiredDate = new Date(issuedDate.getTime() + 3 * 1000); // (10 секунд issuedDate.getTime() + 60 * 60 * 1000)
+        System.err.println(issuedDate);
+        System.err.println(expiredDate);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
