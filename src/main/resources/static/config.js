@@ -3,13 +3,14 @@ let app = angular.module('MakrosPlusStore', ['ngRoute', 'ngStorage']);
 const contextPath = 'http://localhost:8189/makrosplusstore'
 
 app.config(function ($routeProvider) {
+
     $routeProvider
         .when('/', {
             templateUrl: 'welcome/welcome.html'
         })
         .when('/login', {
             templateUrl: 'login/login.html',
-            controller: 'loginControllerApiV1'
+            controller: 'loginCtrl'
         })
         .when('/nomenclature', {
             templateUrl: 'nomenclature/nomenclature.html',
@@ -25,7 +26,7 @@ app.config(function ($routeProvider) {
         })
         .when('/customer', {
             templateUrl: 'customer/customer.html',
-            controller: 'customerControllerApiV1'
+            controller: 'customerCtrl'
         })
         .when('/invoice', {
             templateUrl: 'invoice/invoice.html',
@@ -39,41 +40,38 @@ app.config(function ($routeProvider) {
             templateUrl: 'invoice/invoiceAdd.html',
             controller: 'invoiceControllerApiV1'
         })
-        .otherwise({template: '<h1>404 Error (роутинг провайденр не нашел такой путь)</h1>'})
+        .otherwise({template: '<h1>404 Error (роутинг провайденр не нашел такой путь)</h1>'});
+
+    // $locationProvider.html5Mode(true);
 });
 
-app.controller('categoryControllerApiV1', function ($scope, $http, $localStorage) {
-    // проверяем вошедшего пользователя (см loginController)
-    // не забыть инжектнуть в контроллер параметр $localStorage
-    if ($localStorage.currentUser) {
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    }
-    let Category = function () {
+app.controller("routeUpdating", function ($scope, $localStorage, $rootScope, $window) {
 
-        $http.get(contextPath + "/api/v1/category")
-            .then(function (response) {
-                $scope.categoryList = response.data;
-            });
-    };
-    Category();
+/*    $rootScope.$on('$routeChangeStart', function () {
+        console.info("$routeChangeStart");
+        // alert('refresh');
+    });*/
+
+
+    // 'event' - это объект, описывающий среду, окружающую запущенное событие,
+    // 'current' - текущий маршрут,
+    // 'previous' - это маршрут, который существовал до того, как это было достигнуто
+    // 'rejection' - это настраиваемое сообщение об отклонении, которое здесь поступает из параметра defer.reject ().
+    $rootScope.$on("$routeChangeError", function (event, current, previous, rejection) {
+        console.error("failed to change routes");
+        $scope.errorEvent = event;
+        $scope.errorCurrent = current;
+        $scope.errorPrevious = previous;
+        $scope.errorRejection = rejection;
+
+        // $('#exampleModal').modal('show');
+        // $window.location.href = 'http://localhost:8189/makrosplusstore/logout';
+        delete $localStorage.currentUser;
+        $http.defaults.headers.common.Authorization = '';
+        $window.location.href = '#!/';
+    });
 });
 
-app.controller('customerControllerApiV1', function ($scope, $http, $routeParams, invoiceFactory, $localStorage) {
-    // проверяем вошедшего пользователя (см loginController)
-    // не забыть инжектнуть в контроллер параметр $localStorage
-    if ($localStorage.currentUser) {
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    }
-
-    $scope.customer = function () {
-        $http.get(contextPath + "/api/v1/customer")
-            .then(function (response) {
-                $scope.customerList = response.data;
-            });
-    };
-    $scope.customer();
-
-});
 
 app.factory('invoiceFactory', function () {
     return {
