@@ -1,4 +1,4 @@
-/// <reference path = "index.js"/>
+/// <reference path = "config.js"/>
 
 let invoiceJSON =
     {
@@ -18,6 +18,8 @@ let invoiceJSON =
     }
 
 app.controller('invoiceControllerApiV1', function ($window, $location, $route, $log, $scope, $http, $localStorage, invoiceFactory) {
+
+
     // проверяем вошедшего пользователя (см loginController)
     // не забыть инжектнуть в контроллер параметр $localStorage
     if ($localStorage.currentUser) {
@@ -120,6 +122,27 @@ app.controller('invoiceControllerApiV1', function ($window, $location, $route, $
     };
 
 });
+
+app.factory('invoiceFactory', function () {
+    return {
+        invoiceJSON:
+            {
+                dataCreate: new Date(),
+                orderNumber: null,
+                department: null,
+                comment: null,
+                invoiceNumber: null,
+                totalPrice: null,
+                sentToPrice: false,
+                sentToApprove: false,
+                sentToPurchase: false,
+                resolveDate: null,
+                customer: {id: null},
+                purchases: []
+            }
+    }
+});
+
 
 
 

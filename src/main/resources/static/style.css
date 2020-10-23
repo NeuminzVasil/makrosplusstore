@@ -1,4 +1,3 @@
-
 /*.container, .container-fluid {
     padding: 0; !* внутренний отступ *!
 }
@@ -30,12 +29,23 @@
 }
 
 .card, form {
-    margin-top: 1rem; /* внешний отступ снизу */
-    margin-bottom: 1rem; /* внешний отступ снизу */
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border: 1px solid #FF8040;
+    margin-top: 1rem; /* внешний отступ сверху */
+    padding: 1rem; /* внутренний отступ */
+    border: 3px solid #FF8040;
     text-align: center;
+}
+
+.card-element-left, .card-element-right {
+    margin-top: 1rem; /* внешний отступ сверху */
+    margin-bottom: 1rem; /* внешний отступ снизу */
+    border: 1px solid chocolate;
+}
+
+.card-element-right{
+    text-align: center;
+}
+.card-element-right{
+    text-align: left;
 }
 
 .header__h2, .header__button, .header__select, .card__button {

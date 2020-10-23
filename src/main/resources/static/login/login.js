@@ -1,6 +1,6 @@
-/// <reference path = "index.js"/>
+/// <reference path = "login.js"/>
 
-app.controller('loginControllerApiV1', function ($log, $scope, $window, $http, $localStorage) {
+app.controller('loginCtrl', function ($log, $scope, $window, $http, $localStorage) {
     $scope.tryToAuth = function () {
 
         $http.post(contextPath + '/api/v1/login', $scope.user).then(function success(response) {
@@ -11,9 +11,7 @@ app.controller('loginControllerApiV1', function ($log, $scope, $window, $http, $
                 $window.location.href = '#!/invoice';
             }
         }, function error(response) {
-            $log.error(response.data.message);
-            $log.error(response.data.status);
-            $log.error(response.data.timestamp);
+
             $scope.errorMessage = response.data.message;
             $scope.errorCode1 = response.data.status;
             $scope.errorTime = response.data.timestamp;
@@ -26,7 +24,7 @@ app.controller('loginControllerApiV1', function ($log, $scope, $window, $http, $
     $scope.tryToLogout = function () {
         delete $localStorage.currentUser;
         $http.defaults.headers.common.Authorization = '';
-        $window.location.href = '#!/';
+        $window.location.href = '#!/login';
     };
 
     $scope.isLoggedIn = function () {
@@ -38,17 +36,5 @@ app.controller('loginControllerApiV1', function ($log, $scope, $window, $http, $
         if ($localStorage.currentUser) return $localStorage.currentUser.username;
         return null;
     }
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-

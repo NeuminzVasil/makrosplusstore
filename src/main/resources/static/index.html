@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" ng-app="MakrosPlusStore">
+<html lang="en" ng-app="MakrosPlusStore" ng-controller="routeUpdating">
 
 <head>
 
@@ -8,8 +8,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 
-    <script src="index.js"></script>
+    <script src="config.js"></script>
     <script src="login/login.js"></script>
+    <script src="customer/customer.js"></script>
     <script src="nomenclature/nomenclature.js"></script>
     <script src="invoice/invoice.js"></script>
     <script src="filters.js"></script>
@@ -21,7 +22,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>LLC Makros+ (Heroku)</title>
+    <title>LLC Makros+ (Local)</title>
 
     <!--CSS connecting people -->
     <link href="style.css" rel="stylesheet">
@@ -39,7 +40,7 @@
 
 <!-- Навигация по страницам -->
 <nav class="nav navbar-expand-lg fixed-top navbar-light bg-white"
-     ng-controller="loginControllerApiV1">
+     ng-controller="loginCtrl">
 
     <a class="navbar-brand" href="#!/">Mąƙřǿƨ+</a>
     <div class="nav-link">{{getUserName()}}</div>
@@ -82,6 +83,33 @@
 <!--вывод списока данных на страницу -->
 <div class="container main">
     <ng-view class="col-12"></ng-view>
+</div>
+
+<!--Модальное окно по истечению срока Токена-->
+<div class="modal fade" id="indexModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="indexModalLabel">Время сеанса завершено.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Пожалуйста введите логин и пароль.
+                <div>ErrMess: {{ errorEvent }}</div>
+                <p>
+                <div>ErrCode: {{ errorCurrent }}</div>
+                <p>
+                <div>ErrTime: {{ errorPrevious }}</div>
+                <p>
+                <div>ErrTime: {{ errorRejection }}</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 

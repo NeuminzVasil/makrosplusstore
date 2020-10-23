@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceControllerApiV1">
+<html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceCtrl">
 <head>
 
-    <script src="../index.js"></script>
+    <script src="../config.js"></script>
     <script src="invoice.js"></script>
 
     <title>LLC Makros+ Invoice</title>
@@ -70,7 +70,7 @@
                 </div>
 
                 <!--Согласователь todo не работает выбор согласователя-->
-                <div class="col-md-4" ng-controller="customerControllerApiV1">
+                <div class="col-md-4" ng-controller="customerCtrl">
                     <label for="validationApprover">Согласователь</label>
                     <select class="form-control custom-select is-valid"
                             id="validationApprover"

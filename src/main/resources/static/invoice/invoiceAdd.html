@@ -2,7 +2,7 @@
 <html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceControllerApiV1">
 <head>
 
-    <script src="../index.js"></script>
+    <script src="../config.js"></script>
 
 </head>
 <body>
@@ -54,7 +54,7 @@
                 </div>
 
                 <!--Согласователь-->
-                <div class="col-md-4" ng-controller="customerControllerApiV1">
+                <div class="col-md-4" ng-controller="customerCtrl">
                     <label for="validationApprover">Согласователь</label>
                     <select class="form-control custom-select is-valid"
                             id="validationApprover"
@@ -175,7 +175,7 @@
             <td>{{purchase.nomenclature.nomenclature}}</td>
             <td><input type="number" placeholder="количество: " ng-model='purchase.count'/></td>
             <td>
-                <div ng-controller="customerControllerApiV1">
+                <div ng-controller="customerCtrl">
                     <select ng-model="purchase.approver">
                         <option ng-repeat="customer in customerList"
                                 value="{{customer.firstName}} {{customer.lastName}}"
