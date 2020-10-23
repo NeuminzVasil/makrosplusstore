@@ -30,15 +30,15 @@ app.config(function ($routeProvider) {
         })
         .when('/invoice', {
             templateUrl: 'invoice/invoice.html',
-            controller: 'invoiceControllerApiV1'
+            controller: 'invoiceCtrl'
         })
         .when('/invoice/edit', {
             templateUrl: 'invoice/invoiceEdit.html',
-            controller: 'invoiceControllerApiV1'
+            controller: 'invoiceCtrl'
         })
         .when('/invoiceAddAnJS', {
             templateUrl: 'invoice/invoiceAdd.html',
-            controller: 'invoiceControllerApiV1'
+            controller: 'invoiceCtrl'
         })
         .otherwise({template: '<h1>404 Error (роутинг провайденр не нашел такой путь)</h1>'});
 
