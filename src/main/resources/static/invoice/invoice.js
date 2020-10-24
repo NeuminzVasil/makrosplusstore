@@ -117,9 +117,30 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
     }
 
     $scope.isTableWarning = function (data) {
-        if (data === null || (!data)) return "table-warning";
-        else return "";
+        if (data === null || (!data)) return "bg-warning text-dark";
+        else return "bg-success text-white";
     };
+
+    $scope.isPriced = function (data) {
+        if (data === null || (!data)) return "цена не предоставлена";
+        else return "цена предоставлена";
+    };
+
+    $scope.isTrueClass = function (data) {
+        if (data === null || (!data)) return "bg-warning text-dark";
+        else return "bg-success text-white";
+    };
+
+    $scope.isApproved = function (data) {
+        if (data === null || (!data)) return "на согласовании";
+        else return "согласован";
+    };
+
+    $scope.isPurchased = function (data) {
+        if (data === null || (!data)) return "ожидает закупки";
+        else return "закупается";
+    };
+
 
 });
 
