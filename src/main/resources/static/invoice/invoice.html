@@ -59,51 +59,31 @@
                             <h4>Этапы выполнения:</h4>
 
                             <!--на расценке-->
-                            <div class="input-group mb-3">
-
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text {{isTableWarning(invoice.senttoprice)}}">
-                                        <input class=""
-                                               type="checkbox"
-                                               disabled
-                                               ng-model="invoice.senttoprice">
-                                    </div>
-                                </div>
-
-                                <input type="text"
-                                       disabled
-                                       class="form-control  {{isTableWarning(invoice.senttoprice)}}"
-                                       placeholder="На расценке">
-
-                            </div>
-
-                            <!--на согласовании -->
-                            <select class="form-control {{isApprovedClass(invoice.senttoapprove)}}"
-                                    ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove>
-                                <option ng-value=invoice.senttoapprove selected="selected">
-                                    {{isApprovedData(invoice.senttoapprove)}}</option>
-                                <option class="bg-success" ng-value="true">Согласован</option>
-                                <option class="bg-warning" ng-value="false">На согласовании</option>
+                            <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
+                                    ng-model="invoice.senttoprice" ng-value=invoice.senttoprice>
+                                <option ng-value=invoice.senttoprice selected="selected">
+                                    {{isPriced(invoice.senttoprice)}}</option>
+                                <option class="bg-success" ng-value="true">цена предоставлена</option>
+                                <option class="bg-warning" ng-value="false">цена не предоставлена</option>
                             </select>
 
-                            <!--внутренний закуп-->
-                            <div class="input-group mb-3">
+                            <!--на согласовании -->
+                            <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
+                                    ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove>
+                                <option ng-value=invoice.senttoapprove selected="selected">
+                                    {{isApproved(invoice.senttoapprove)}}</option>
+                                <option class="bg-success" ng-value="true">согласован</option>
+                                <option class="bg-warning" ng-value="false">на согласовании</option>
+                            </select>
 
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text {{isTableWarning(invoice.senttopurchase)}}">
-                                        <input class=""
-                                               type="checkbox"
-                                               disabled
-                                               ng-model="invoice.senttopurchase">
-                                    </div>
-                                </div>
-
-                                <input type="text"
-                                       disabled
-                                       class="form-control {{isTableWarning(invoice.senttopurchase)}}"
-                                       placeholder="Внутренний закуп">
-
-                            </div>
+                            <!--закупается-->
+                            <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
+                                    ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase>
+                                <option ng-value=invoice.senttopurchase selected="selected">
+                                    {{isPurchased(invoice.senttopurchase)}}</option>
+                                <option class="bg-success" ng-value="true">закупается</option>
+                                <option class="bg-warning" ng-value="false">ожидает закупки</option>
+                            </select>
 
                             <p class="col-sm-12" title="...">Внутренняя логистика</p>
                             <p class="col-sm-12" title="...">Хранение</p>

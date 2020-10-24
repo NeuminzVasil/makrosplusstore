@@ -121,15 +121,26 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         else return "bg-success text-white";
     };
 
-    $scope.isApprovedClass = function (data) {
+    $scope.isPriced = function (data) {
+        if (data === null || (!data)) return "цена не предоставлена";
+        else return "цена предоставлена";
+    };
+
+    $scope.isTrueClass = function (data) {
         if (data === null || (!data)) return "bg-warning text-dark";
         else return "bg-success text-white";
     };
 
-    $scope.isApprovedData = function (data) {
+    $scope.isApproved = function (data) {
         if (data === null || (!data)) return "на согласовании";
         else return "согласован";
     };
+
+    $scope.isPurchased = function (data) {
+        if (data === null || (!data)) return "ожидает закупки";
+        else return "закупается";
+    };
+
 
 });
 
