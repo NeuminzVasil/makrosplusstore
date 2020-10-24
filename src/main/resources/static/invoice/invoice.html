@@ -7,138 +7,157 @@
 </head>
 
 <body>
-<!--header control-->
-<header class="row text-center">
 
-    <!--описание страницы-->
 
-    <h2 class="col-12 header__h2">Каталог СчетФактур</h2>
+<div class="container-fluid">
 
-    <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-    <input class="col-12 header__button"
-           title="введите ключевое слово для фильтрации"
-           type="text"
-           placeholder="Фильтровать по номеру заказа"
-           ng-model="orderNumber.ordernumber">
-
-</header>
-
-<!--content-->
-<div class="card"
-     ng-repeat="invoice in InvoiceList | filter:orderNumber">
-
-    <div class="card-header" ng-click="prepareToEditInvoice(invoice)">
-        <h2 title="номер заказа">{{invoice.ordernumber}}</h2>
+    <!--page name-->
+    <div class="row">
+        <h2 class="col-12 header__h2">Список заказов</h2>
     </div>
 
-    <div class="container card-body">
+    <!--main content for this page-->
+    <div class="row">
 
-        <div class="row">
-
-            <div class="col-sm-6 rounded card-element-left">
-                <h4 class="col-sm-12" title="комментарий заказа">{{invoice.comment}}</h4>
-                <p class="col-sm-12 card-text {{isTableWarning(invoice.totalprice)}}">
-                    сумма: {{invoice.totalprice | isEmpty }} р.</p>
-                <p class="col-sm-12 card-text {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
-                    создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</p>
-                <p class="col-sm-12 card-text {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
-                    выоплнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
-            </div>
-
-            <div class="col-sm-6 rounded card-element-right">
-                <h4>Этапы выполнения:</h4>
-
-                <!--на расценке-->
-                <div class="input-group mb-3">
-
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input class="{{isTableWarning(invoice.senttoprice)}}"
-                                   type="checkbox"
-                                   disabled
-                                   ng-model="invoice.senttoprice">
-                        </div>
-                    </div>
-
-                    <input type="text"
-                           disabled
-                           class="form-control"
-                           placeholder="На расценке">
-
-                </div>
-
-                <!--на согласовании -->
-                <div class="input-group mb-3">
-
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input class="{{isTableWarning(invoice.senttoapprove)}}"
-                                   type="checkbox"
-                                   disabled
-                                   ng-model="invoice.senttoapprove">
-                        </div>
-                    </div>
-
-                    <input type="text"
-                           disabled
-                           class="form-control"
-                           placeholder="На согласовании">
-
-                </div>
-
-                <!--внутренний закуп-->
-                <div class="input-group mb-3">
-
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input class="{{isTableWarning(invoice.senttopurchase)}}"
-                                   type="checkbox"
-                                   disabled
-                                   ng-model="invoice.senttopurchase">
-                        </div>
-                    </div>
-
-                    <input type="text"
-                           disabled
-                           class="form-control"
-                           placeholder="Внутренний закуп">
-
-                </div>
-
-                <p class="col-sm-12" title="...">Внутренняя логистика</p>
-                <p class="col-sm-12" title="...">Хранение</p>
-                <p class="col-sm-12" title="...">Доставка заказчику</p>
-                <p class="col-sm-12" title="...">Принят заказчиком</p>
-
-                <!--СФ номер-->
-                <div class="input-group mb-3">
-
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input class="{{isTableWarning(invoice.invoicenumber)}}"
-                                   type="checkbox"
-                                   disabled
-                                   ng-model="invoice.invoicenumber">
-                        </div>
-                    </div>
-
-                    <input type="text"
-                           disabled
-                           class="form-control"
-                           placeholder="СФ номер {{invoice.invoicenumber}} " ng-model="invoice.invoicenumber">
-
-                </div>
-
-
-                <p class="col-sm-12" title="...">СФ отправлено (№ трекинга почты)</p>
-                <p class="col-sm-12" title="...">Счет оплачен</p>
-
-
-            </div>
-
+        <!--control-->
+        <div class="col-lg-3">
+            <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
+            <input class="col-12 header__button"
+                   title="введите ключевое слово для фильтрации"
+                   type="text"
+                   placeholder="Фильтровать по номеру заказа"
+                   ng-model="orderNumber.ordernumber">
         </div>
 
+        <!--content-->
+        <div class="col-lg-9">
+
+            <!--content-->
+            <div class="card"
+                 ng-repeat="invoice in InvoiceList | filter:orderNumber">
+
+                <div class="card-header" ng-click="prepareToEditInvoice(invoice)">
+                    <h2 title="номер заказа">{{invoice.ordernumber}}</h2>
+                </div>
+
+                <div class="container card-body">
+
+                    <div class="row">
+
+                        <div class="col-sm-6 rounded card-element-left">
+                            <h4 class="col-sm-12" title="комментарий заказа">{{invoice.comment}}</h4>
+                            <p class="col-sm-12 card-text {{isTableWarning(invoice.totalprice)}}">
+                                сумма: {{invoice.totalprice | isEmpty }} р.</p>
+                            <p class="col-sm-12 card-text {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
+                                создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                            <p class="col-sm-12 card-text {{isTableWarning(invoice.resolveddate)}}"
+                               title="Дата выполнения">
+                                выоплнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                        </div>
+
+                        <div class="col-sm-6 rounded card-element-right">
+                            <h4>Этапы выполнения:</h4>
+
+                            <!--на расценке-->
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input class="{{isTableWarning(invoice.senttoprice)}}"
+                                               type="checkbox"
+                                               disabled
+                                               ng-model="invoice.senttoprice">
+                                    </div>
+                                </div>
+
+                                <input type="text"
+                                       disabled
+                                       class="form-control"
+                                       placeholder="На расценке">
+
+                            </div>
+
+                            <!--на согласовании -->
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input class="{{isTableWarning(invoice.senttoapprove)}}"
+                                               type="checkbox"
+                                               disabled
+                                               ng-model="invoice.senttoapprove">
+                                    </div>
+                                </div>
+
+                                <input type="text"
+                                       disabled
+                                       class="form-control"
+                                       placeholder="На согласовании">
+
+                            </div>
+
+                            <!--внутренний закуп-->
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input class="{{isTableWarning(invoice.senttopurchase)}}"
+                                               type="checkbox"
+                                               disabled
+                                               ng-model="invoice.senttopurchase">
+                                    </div>
+                                </div>
+
+                                <input type="text"
+                                       disabled
+                                       class="form-control"
+                                       placeholder="Внутренний закуп">
+
+                            </div>
+
+                            <p class="col-sm-12" title="...">Внутренняя логистика</p>
+                            <p class="col-sm-12" title="...">Хранение</p>
+                            <p class="col-sm-12" title="...">Доставка заказчику</p>
+                            <p class="col-sm-12" title="...">Принят заказчиком</p>
+
+                            <!--СФ номер-->
+                            <div class="input-group mb-3">
+
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input class="{{isTableWarning(invoice.invoicenumber)}}"
+                                               type="checkbox"
+                                               disabled
+                                               ng-model="invoice.invoicenumber">
+                                    </div>
+                                </div>
+
+                                <input type="text"
+                                       disabled
+                                       class="form-control"
+                                       placeholder="СФ номер {{invoice.invoicenumber}} "
+                                       ng-model="invoice.invoicenumber">
+
+                            </div>
+
+
+                            <p class="col-sm-12" title="...">СФ отправлено (№ трекинга почты)</p>
+                            <p class="col-sm-12" title="...">Счет оплачен</p>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
+
+</div>
+
 
 </body>
 </html>
