@@ -7,23 +7,28 @@
 </head>
 
 <body>
-<!--control-->
-<nav class="nav sticky-top navbar-expand-lg navbar-dark">
-    <div class="container">
-        <div class="row">
-            <!--описание страницы-->
-            <h2 class="col-12 header__h2">Список товаров</h2>
 
+
+<div class="container-fluid">
+
+    <!--page name-->
+    <div class="row">
+        <h2 class="col-12 header__h2">Список товаров</h2>
+    </div>
+
+    <!--main content for this page-->
+    <div class="row">
+
+        <!--control-->
+        <div class="col-lg-3">
             <!--ссылка на форму добавления нового товара-->
             <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
             <button class="col-12 header__button" ng-click="sortData('nomenclature')">Добавить новый товар</button>
-
             <!-- sorting AngularJS -->
             <input class="col-12 header__button"
                    type="text"
                    placeholder="Фильтровать по названию"
                    ng-model="nomenclatureFilter">
-
             <!-- sorting AngularJS by name -->
             <button class="col-sm header__button" ng-click="sortData('nomenclature')">Сотр по имени</button>
 
@@ -35,37 +40,43 @@
                 <option value="-price">price (9-0)</option>
             </select>
         </div>
-    </div>
-</nav>
 
+        <!--content-->
+        <div class="col-lg-9 pre-scrollable" style="max-height: 45rem">
+            <div class="card"
+                 aria-expanded="false" aria-controls="collapseIndex{{$index}}"
+                 ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :nomenclatureFilter">
 
-<!--content-->
-<div class="card"
-     aria-expanded="false" aria-controls="collapseIndex{{$index}}"
-     ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :nomenclatureFilter">
+                <div class="card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
+                    <div class="row">
+                        <h5 class="col-sm-8">{{nomenclature.nomenclature}}</h5>
+                        <p class="col-sm-3 card-text">{{nomenclature.price | isEmpty }} р.</p>
+                        <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
+                        </button>
+                    </div>
+                </div>
 
-    <div class="container card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
-        <div class="row">
-            <h5 class="col-sm-10">{{nomenclature.nomenclature}}</h5>
-            <p class="col-sm-1 card-text">{{nomenclature.price | isEmpty }} р.</p>
-            <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
-            </button>
+                <div class="container card-body collapse" id="collapseIndex{{$index}}">
+                    <div class="row">
+                        <h6 class="col-12 card-title">{{nomenclature.comment | isEmpty }}</h6>
+                        <p class="col-sm card-text">{{nomenclature.code }}</p>
+                        <p class="col-sm card-text">{{nomenclature.manufacturer | isEmpty}}</p>
+                        <p class="col-sm card-text">{{nomenclature.category.category | isEmpty}}</p>
+                    </div>
+                    <div class="row">
+                        <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">редактировать</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
 
-    <div class="container card-body collapse" id="collapseIndex{{$index}}">
-        <div class="row">
-            <h6 class="col-12 card-title">{{nomenclature.comment | isEmpty }}</h6>
-            <p class="col-sm card-text">{{nomenclature.code }}</p>
-            <p class="col-sm card-text">{{nomenclature.manufacturer | isEmpty}}</p>
-            <p class="col-sm card-text">{{nomenclature.category.category | isEmpty}}</p>
-        </div>
-        <div class="row">
-            <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">редактировать</button>
-        </div>
+
     </div>
 
 </div>
+
+
 
 </body>
 </html>
