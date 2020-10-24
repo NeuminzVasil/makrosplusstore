@@ -30,7 +30,7 @@
         </div>
 
         <!--content-->
-        <div class="col-lg-9">
+        <div class="col-lg-9 pre-scrollable" style="max-height: 45rem">
 
             <!--content-->
             <div class="card"
@@ -62,8 +62,8 @@
                             <div class="input-group mb-3">
 
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input class="{{isTableWarning(invoice.senttoprice)}}"
+                                    <div class="input-group-text {{isTableWarning(invoice.senttoprice)}}">
+                                        <input class=""
                                                type="checkbox"
                                                disabled
                                                ng-model="invoice.senttoprice">
@@ -72,36 +72,26 @@
 
                                 <input type="text"
                                        disabled
-                                       class="form-control"
+                                       class="form-control  {{isTableWarning(invoice.senttoprice)}}"
                                        placeholder="На расценке">
 
                             </div>
 
                             <!--на согласовании -->
-                            <div class="input-group mb-3">
-
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input class="{{isTableWarning(invoice.senttoapprove)}}"
-                                               type="checkbox"
-                                               disabled
-                                               ng-model="invoice.senttoapprove">
-                                    </div>
-                                </div>
-
-                                <input type="text"
-                                       disabled
-                                       class="form-control"
-                                       placeholder="На согласовании">
-
-                            </div>
+                            <select class="form-control {{isApprovedClass(invoice.senttoapprove)}}"
+                                    ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove>
+                                <option ng-value=invoice.senttoapprove selected="selected">
+                                    {{isApprovedData(invoice.senttoapprove)}}</option>
+                                <option class="bg-success" ng-value="true">Согласован</option>
+                                <option class="bg-warning" ng-value="false">На согласовании</option>
+                            </select>
 
                             <!--внутренний закуп-->
                             <div class="input-group mb-3">
 
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input class="{{isTableWarning(invoice.senttopurchase)}}"
+                                    <div class="input-group-text {{isTableWarning(invoice.senttopurchase)}}">
+                                        <input class=""
                                                type="checkbox"
                                                disabled
                                                ng-model="invoice.senttopurchase">
@@ -110,7 +100,7 @@
 
                                 <input type="text"
                                        disabled
-                                       class="form-control"
+                                       class="form-control {{isTableWarning(invoice.senttopurchase)}}"
                                        placeholder="Внутренний закуп">
 
                             </div>
@@ -124,8 +114,8 @@
                             <div class="input-group mb-3">
 
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input class="{{isTableWarning(invoice.invoicenumber)}}"
+                                    <div class="input-group-text {{isTableWarning(invoice.invoicenumber)}}">
+                                        <input class=""
                                                type="checkbox"
                                                disabled
                                                ng-model="invoice.invoicenumber">
@@ -134,7 +124,7 @@
 
                                 <input type="text"
                                        disabled
-                                       class="form-control"
+                                       class="form-control {{isTableWarning(invoice.invoicenumber)}}"
                                        placeholder="СФ номер {{invoice.invoicenumber}} "
                                        ng-model="invoice.invoicenumber">
 

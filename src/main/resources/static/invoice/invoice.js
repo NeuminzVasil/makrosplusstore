@@ -117,8 +117,18 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
     }
 
     $scope.isTableWarning = function (data) {
-        if (data === null || (!data)) return "table-warning";
-        else return "";
+        if (data === null || (!data)) return "bg-warning text-dark";
+        else return "bg-success text-white";
+    };
+
+    $scope.isApprovedClass = function (data) {
+        if (data === null || (!data)) return "bg-warning text-dark";
+        else return "bg-success text-white";
+    };
+
+    $scope.isApprovedData = function (data) {
+        if (data === null || (!data)) return "на согласовании";
+        else return "согласован";
     };
 
 });
