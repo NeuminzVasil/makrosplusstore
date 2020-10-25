@@ -1,0 +1,67 @@
+/*.container, .container-fluid {
+    padding: 0; !* внутренний отступ *!
+}
+
+.row, .col {
+    border: 1px solid green;
+    margin: 0; !* внешний отступ *!
+    padding: 0; !* внутренний отступ *!
+    min-height: 200px; !* минимальная высота *!
+}*/
+
+* {
+    /*    box-sizing: border-box;
+        text-decoration: none;
+        border: 1px solid green;*/
+}
+
+.container, .container-fluid {
+    padding: 0; /* внутренний отступ */
+}
+
+.row {
+    margin: 0; /* внешний отступ */
+    padding: 0; /* внутренний отступ */
+}
+
+.card, form {
+    margin-top: 1rem; /* внешний отступ сверху */
+    padding: 1rem; /* внутренний отступ */
+    border: 3px solid #FF8040;
+    text-align: center;
+}
+
+.card-element-left, .card-element-right {
+    margin-top: 1rem; /* внешний отступ сверху */
+    margin-bottom: 1rem; /* внешний отступ снизу */
+    border: 1px solid chocolate;
+}
+
+.card-element-right{
+    text-align: center;
+}
+
+.card-element-right{
+    text-align: left;
+}
+
+.header__h2, .header__button, .header__select, .card__button {
+    color: chocolate;
+    border-radius: 5px;
+    border: 1px solid #FF8040;
+    background-color: #ffdcc4;
+    text-align: center;
+    /*font-size: x-small;*/
+}
+
+.header__button {
+    margin: 1px; /* внешний отступ */
+}
+
+.footer {
+    margin-top: 10px;
+    padding: 10px;
+    color: #756f6f;
+    text-align: left;
+    border-top: 1px solid chocolate;
+}
