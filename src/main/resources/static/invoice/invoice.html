@@ -58,11 +58,19 @@
                         <div class="col-sm-6 rounded card-element-right">
                             <h4>Этапы выполнения:</h4>
 
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Amount">
+                            </div>
+
                             <!--на расценке-->
                             <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
                                     ng-model="invoice.senttoprice" ng-value=invoice.senttoprice disabled>
                                 <option ng-value=invoice.senttoprice selected="selected">
-                                    {{isPriced(invoice.senttoprice)}}</option>
+                                    {{isPriced(invoice.senttoprice)}}
+                                </option>
                                 <option class="bg-success" ng-value="true">цена предоставлена</option>
                                 <option class="bg-warning" ng-value="false">цена не предоставлена</option>
                             </select>
@@ -71,7 +79,8 @@
                             <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
                                     ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove disabled>
                                 <option ng-value=invoice.senttoapprove selected="selected">
-                                    {{isApproved(invoice.senttoapprove)}}</option>
+                                    {{isApproved(invoice.senttoapprove)}}
+                                </option>
                                 <option class="bg-success" ng-value="true">согласован</option>
                                 <option class="bg-warning" ng-value="false">на согласовании</option>
                             </select>
@@ -80,7 +89,8 @@
                             <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
                                     ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase disabled>
                                 <option ng-value=invoice.senttopurchase selected="selected">
-                                    {{isPurchased(invoice.senttopurchase)}}</option>
+                                    {{isPurchased(invoice.senttopurchase)}}
+                                </option>
                                 <option class="bg-success" ng-value="true">закупается</option>
                                 <option class="bg-warning" ng-value="false">ожидает закупки</option>
                             </select>
