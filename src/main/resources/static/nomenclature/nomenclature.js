@@ -13,7 +13,7 @@ let nomenclatureJSON =
         "category": 2
     }
 
-app.controller('nomenclatureControllerApiV1', function ($location, $log, $scope, $http, $routeParams, invoiceFactory, $localStorage) {
+app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $routeParams, invoiceFactory, $localStorage) {
     // проверяем вошедшего пользователя (см loginController)
     // не забыть инжектнуть в контроллер параметр $localStorage
     if ($localStorage.currentUser) {

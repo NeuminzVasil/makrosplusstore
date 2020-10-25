@@ -52,7 +52,7 @@
                                 создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</p>
                             <p class="col-sm-12 card-text {{isTableWarning(invoice.resolveddate)}}"
                                title="Дата выполнения">
-                                выоплнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                                выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
                         </div>
 
                         <div class="col-sm-6 rounded card-element-right">
@@ -60,7 +60,7 @@
 
                             <!--на расценке-->
                             <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
-                                    ng-model="invoice.senttoprice" ng-value=invoice.senttoprice>
+                                    ng-model="invoice.senttoprice" ng-value=invoice.senttoprice disabled>
                                 <option ng-value=invoice.senttoprice selected="selected">
                                     {{isPriced(invoice.senttoprice)}}</option>
                                 <option class="bg-success" ng-value="true">цена предоставлена</option>
@@ -69,7 +69,7 @@
 
                             <!--на согласовании -->
                             <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
-                                    ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove>
+                                    ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove disabled>
                                 <option ng-value=invoice.senttoapprove selected="selected">
                                     {{isApproved(invoice.senttoapprove)}}</option>
                                 <option class="bg-success" ng-value="true">согласован</option>
@@ -78,7 +78,7 @@
 
                             <!--закупается-->
                             <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
-                                    ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase>
+                                    ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase disabled>
                                 <option ng-value=invoice.senttopurchase selected="selected">
                                     {{isPurchased(invoice.senttopurchase)}}</option>
                                 <option class="bg-success" ng-value="true">закупается</option>

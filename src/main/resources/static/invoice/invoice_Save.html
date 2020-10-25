@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceCtrl">
+<head>
+
+    <script src="invoice.js"></script>
+
+</head>
+
+<body>
+<!--header control-->
+<header class="row text-center">
+
+    <!--описание страницы-->
+
+    <h2 class="col-12 header__h2">Каталог СчетФактур</h2>
+
+    <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
+    <input class="col-12 header__button"
+           title="введите ключевое слово для фильтрации"
+           type="text"
+           placeholder="Фильтровать по номеру заказа"
+           ng-model="orderNumber.ordernumber">
+
+</header>
+
+<!--content-->
+<div class="card"
+     aria-expanded="false" aria-controls="collapseIndex{{$index}}"
+     ng-repeat="invoice in InvoiceList | filter:orderNumber">
+
+    <!--content header-->
+    <div class="container card-header"
+         data-toggle="collapse"
+         data-target="#collapseIndex{{$index}}">
+
+        <div class="row">
+            <h5 class="col-sm-3" title="номер заказа">{{invoice.ordernumber}}</h5>
+            <p class="col-sm-5" title="комментарий заказа">{{invoice.comment}}</p>
+            <p class="col-sm-2 card-text {{isTableWarning(invoice.resolveddate)}}" title="Дата выполнения">
+                {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+            <p class="col-sm-2 card-text {{isTableWarning(invoice.totalprice)}}">
+                {{invoice.totalprice | isEmpty }} р.</p>
+        </div>
+
+    </div>
+
+    <!--content info all-->
+    <div class="container card-body  collapse" id="collapseIndex{{$index}}">
+
+        <!--content info head-->
+        <div class="row">
+
+            <button class="btn btn-outline-primary col-12" ng-click="prepareToEditInvoice(invoice)">Редактировать
+            </button>
+            <!--content info order details-->
+            <table class="table table-responsive-lg table-bordered table-active">
+
+                <thead>
+                <tr class="active">
+                    <th>создано</th>
+                    <th>отдел</th>
+                    <th>менеджер</th>
+                    <th>№ СФ</th>
+                    <th>&#8381</th>
+                    <th>&#10004</th>
+                    <th>&#9993</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td class="{{isTableWarning(invoice.datacreate)}}" title="Дата создания">
+                        {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
+                    </td>
+
+                    <td title="отдел"> {{invoice.department | isEmpty }}</td>
+
+                    <td title="для кого">{{invoice.customer.firstName}} {{invoice.customer.lastName}}</td>
+
+                    <td class="{{isTableWarning(invoice.invoicenumber)}}" title="номер СФ">
+                        {{invoice.invoicenumber | isEmpty }}
+                    </td>
+
+                    <td class="{{isTableWarning(invoice.senttoprice)}}" title="на расценке">
+                        <input type="checkbox"
+                               id="senttoprice" disabled
+                               ng-model="invoice.senttoprice">
+                    </td>
+
+                    <td class="{{isTableWarning(invoice.senttoapprove)}}" title="на согласовании">
+                        <input type="checkbox" id="senttoapprove"
+                               disabled
+                               ng-model="invoice.senttoapprove">
+                    </td>
+
+                    <td class="{{isTableWarning(invoice.senttopurchase)}}" title="закупается">
+                        <input type="checkbox" id="senttopurchase"
+                               disabled
+                               ng-model="invoice.senttopurchase">
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!--content info purchase details-->
+        <div class="row">
+            <table class="table table-responsive-lg table-bordered table-hover table-info">
+
+                <thead>
+                <tr class="active">
+                    <th>Код 1с</th>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Для кого</th>
+                    <th>Детали заказа</th>
+                    <th>Цена закупа</th>
+                    <th>Дата получнения</th>
+                </tr>
+                </thead>
+
+                <tbody ng-repeat="purchase in invoice.purchases">
+                <tr>
+                    <td> {{purchase.nomenclature.code | isEmpty }}</td>
+                    <td><a class="card-link" href="#!/purchaseEditAnJS/?id={{purchase.id}}">
+                        {{purchase.nomenclature.nomenclature}} </a>
+                    </td>
+                    <td> {{purchase.count | isEmpty }}</td>
+                    <td> {{purchase.approver | isEmpty }}</td>
+                    <td class={{isTableWarning(purchase.comment)}}> {{purchase.comment | isEmpty }}</td>
+                    <td class={{isTableWarning(purchase.buyingPrice)}}>
+                        {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}
+                    </td>
+                    <td class={{isTableWarning(purchase.resolvingdate)}}>
+                        {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
