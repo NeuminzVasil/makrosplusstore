@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MakrosPlusStore" ng-controller="nomenclatureControllerApiV1">
+<html lang="en" ng-app="MakrosPlusStore" ng-controller="nomenclatureCtrl">
 <head>
 
 
-    <script src="../config.js"></script>
     <script src="nomenclature.js"></script>
+    <script src="../category/category.js"></script>
+
 
 </head>
 <body>
@@ -25,7 +26,7 @@
         <input placeholder="price" type="number" ng-model=nomenclatureJSON.price>
         <input placeholder="manufacturer" type="text" ng-model=nomenclatureJSON.manufacturer>
         <input placeholder="price" type="text" ng-model=nomenclatureJSON.code>
-        <select ng-controller="categoryControllerApiV1" class="custom-select is-invalid"
+        <select ng-controller="categoryCtrl" class="custom-select is-invalid"
                 ng-model="nomenclatureJSON.category">
             <option ng-repeat="category in categoryList"
                     value="{{category.id}}"

@@ -14,15 +14,15 @@ app.config(function ($routeProvider) {
         })
         .when('/nomenclature', {
             templateUrl: 'nomenclature/nomenclature.html',
-            controller: 'nomenclatureControllerApiV1'
+            controller: 'nomenclatureCtrl'
         })
         .when('/nomenclature/add', {
             templateUrl: 'nomenclature/nomenclatureAdd.html',
-            controller: 'nomenclatureControllerApiV1'
+            controller: 'nomenclatureCtrl'
         })
         .when('/category', {
             templateUrl: 'category/category.html',
-            controller: 'categoryControllerApiV1'
+            controller: 'categoryCtrl'
         })
         .when('/customer', {
             templateUrl: 'customer/customer.html',
