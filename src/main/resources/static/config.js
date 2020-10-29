@@ -1,6 +1,6 @@
 ///<reference path = "https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"/>
 let app = angular.module('MakrosPlusStore', ['ngRoute', 'ngStorage']);
-const contextPath = 'http://localhost:8189/makrosplusstore'
+const contextPath = 'https://makrosplusstore.herokuapp.com'
 
 app.config(function ($routeProvider) {
 
