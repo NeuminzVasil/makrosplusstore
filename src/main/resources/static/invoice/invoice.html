@@ -1,143 +1,134 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="MakrosPlusStore" ng-controller="invoiceCtrl">
-<head>
-
-    <script src="invoice.js"></script>
-
-</head>
-
-<body>
-
-
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="invoiceCtrl">
 
     <!--page name-->
     <div class="row">
-        <h2 class="col-12 header__h2">Список заказов</h2>
+        <div class="col-12 h2">Список заказов</div>
     </div>
 
     <!--main content for this page-->
     <div class="row">
 
-        <!--control-->
-        <div class="col-lg-3">
-            <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-            <input class="col-12 header__button"
-                   title="введите ключевое слово для фильтрации"
-                   type="text"
-                   placeholder="Фильтровать по номеру заказа"
-                   ng-model="orderNumber.ordernumber">
-        </div>
+        <!--orders short-->
+        <div class="well col-lg-3">
 
-        <!--content-->
-        <div class="col-lg-9 pre-scrollable" style="max-height: 45rem">
+            <!--control\filters-->
+            <div class="row">
+                <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
+                <input class="well col-12"
+                       title="введите ключевое слово для фильтрации"
+                       type="text"
+                       placeholder="Фильтровать по номеру заказа"
+                       ng-model="orderNumber.ordernumber">
+            </div>
 
-            <!--content-->
-            <div class="card"
-                 ng-repeat="invoice in InvoiceList | filter:orderNumber">
+            <!--orders-->
+            <div class="row">
+                <div class="well col-12" ng-repeat="invoice in InvoiceList | filter:orderNumber">
 
-                <div class="card-header" ng-click="prepareToEditInvoice(invoice)">
-                    <h2 title="номер заказа">{{invoice.ordernumber}}</h2>
-                </div>
-
-                <div class="container card-body">
-
-                    <div class="row">
-
-                        <div class="col-sm-6 rounded card-element-left">
-                            <h4 class="col-sm-12" title="комментарий заказа">{{invoice.comment}}</h4>
-                            <p class="col-sm-12 card-text {{isTableWarning(invoice.totalprice)}}">
-                                сумма: {{invoice.totalprice | isEmpty }} р.</p>
-                            <p class="col-sm-12 card-text {{isTableWarning(invoice.datacreate)}}" title="Дата создания">
-                                создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</p>
-                            <p class="col-sm-12 card-text {{isTableWarning(invoice.resolveddate)}}"
-                               title="Дата выполнения">
-                                выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
-                        </div>
-
-                        <div class="col-sm-6 rounded card-element-right">
-                            <h4>Этапы выполнения:</h4>
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-envelope"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Amount">
-                            </div>
-
-                            <!--на расценке-->
-                            <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
-                                    ng-model="invoice.senttoprice" ng-value=invoice.senttoprice disabled>
-                                <option ng-value=invoice.senttoprice selected="selected">
-                                    {{isPriced(invoice.senttoprice)}}
-                                </option>
-                                <option class="bg-success" ng-value="true">цена предоставлена</option>
-                                <option class="bg-warning" ng-value="false">цена не предоставлена</option>
-                            </select>
-
-                            <!--на согласовании -->
-                            <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
-                                    ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove disabled>
-                                <option ng-value=invoice.senttoapprove selected="selected">
-                                    {{isApproved(invoice.senttoapprove)}}
-                                </option>
-                                <option class="bg-success" ng-value="true">согласован</option>
-                                <option class="bg-warning" ng-value="false">на согласовании</option>
-                            </select>
-
-                            <!--закупается-->
-                            <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
-                                    ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase disabled>
-                                <option ng-value=invoice.senttopurchase selected="selected">
-                                    {{isPurchased(invoice.senttopurchase)}}
-                                </option>
-                                <option class="bg-success" ng-value="true">закупается</option>
-                                <option class="bg-warning" ng-value="false">ожидает закупки</option>
-                            </select>
-
-                            <p class="col-sm-12" title="...">Внутренняя логистика</p>
-                            <p class="col-sm-12" title="...">Хранение</p>
-                            <p class="col-sm-12" title="...">Доставка заказчику</p>
-                            <p class="col-sm-12" title="...">Принят заказчиком</p>
-
-                            <!--СФ номер-->
-                            <div class="input-group mb-3">
-
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text {{isTableWarning(invoice.invoicenumber)}}">
-                                        <input class=""
-                                               type="checkbox"
-                                               disabled
-                                               ng-model="invoice.invoicenumber">
-                                    </div>
-                                </div>
-
-                                <input type="text"
-                                       disabled
-                                       class="form-control {{isTableWarning(invoice.invoicenumber)}}"
-                                       placeholder="СФ номер {{invoice.invoicenumber}} "
-                                       ng-model="invoice.invoicenumber">
-
-                            </div>
-
-
-                            <p class="col-sm-12" title="...">СФ отправлено (№ трекинга почты)</p>
-                            <p class="col-sm-12" title="...">Счет оплачен</p>
-
-
-                        </div>
-
+                    <div ng-click="prepareToEditInvoice(invoice)">
+                        {{invoice.ordernumber}}
                     </div>
+
+                    <div>{{invoice.comment}}</div>
+
+                    <div class="{{isWarning(invoice.totalprice)}}">
+                        сумма: {{invoice.totalprice | isEmpty }} р.
+                    </div>
+
+                    <div class="{{isWarning(invoice.datacreate)}}">
+                        создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
+                    </div>
+
+                    <div class="{{isWarning(invoice.resolveddate)}}">
+                        выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}
+                    </div>
+
 
                 </div>
             </div>
+
         </div>
 
+        <!--order details short-->
+        <div class="well col-lg-7">
+
+
+        </div>
+
+        <!--works steps-->
+        <div class="well col-lg-2">
+
+            <div class="well" ng-repeat="invoice in InvoiceList | filter:orderNumber">
+
+                <h4>Этапы выполнения:</h4>
+
+                <!--на расценке-->
+                <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
+                        ng-model="invoice.senttoprice" ng-value=invoice.senttoprice disabled>
+                    <option ng-value=invoice.senttoprice selected="selected">
+                        {{isPriced(invoice.senttoprice)}}
+                    </option>
+                    <option class="bg-success" ng-value="true">цена предоставлена</option>
+                    <option class="bg-warning" ng-value="false">цена не предоставлена</option>
+                </select>
+
+                <!--на согласовании -->
+                <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
+                        ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove disabled>
+                    <option ng-value=invoice.senttoapprove selected="selected">
+                        {{isApproved(invoice.senttoapprove)}}
+                    </option>
+                    <option class="bg-success" ng-value="true">согласован</option>
+                    <option class="bg-warning" ng-value="false">на согласовании</option>
+                </select>
+
+                <!--закупается-->
+                <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
+                        ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase disabled>
+                    <option ng-value=invoice.senttopurchase selected="selected">
+                        {{isPurchased(invoice.senttopurchase)}}
+                    </option>
+                    <option class="bg-success" ng-value="true">закупается</option>
+                    <option class="bg-warning" ng-value="false">ожидает закупки</option>
+                </select>
+
+                <p class="col-sm-12" title="...">Внутренняя логистика</p>
+
+                <p class="col-sm-12" title="...">Хранение</p>
+
+                <p class="col-sm-12" title="...">Доставка заказчику</p>
+
+                <p class="col-sm-12" title="...">Принят заказчиком</p>
+
+                <!--СФ номер-->
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                        <div class="input-group-text {{isTableWarning(invoice.invoicenumber)}}">
+                            <input class=""
+                                   type="checkbox"
+                                   disabled
+                                   ng-model="invoice.invoicenumber">
+                        </div>
+                    </div>
+
+                    <input type="text"
+                           disabled
+                           class="form-control {{isTableWarning(invoice.invoicenumber)}}"
+                           placeholder="СФ номер {{invoice.invoicenumber}} "
+                           ng-model="invoice.invoicenumber">
+
+                </div>
+
+                <p class="col-sm-12" title="...">СФ отправлено (№ трекинга почты)</p>
+
+                <p class="col-sm-12" title="...">Счет оплачен</p>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
 
-
-</body>
-</html>

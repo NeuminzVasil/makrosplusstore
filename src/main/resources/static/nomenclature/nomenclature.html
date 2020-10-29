@@ -1,82 +1,83 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="MakrosPlusStore" ng-controller="nomenclatureCtrl">
-<head>
-
-    <script src="nomenclature.js"></script>
-
-</head>
-
-<body>
-
-
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="nomenclatureCtrl">
 
     <!--page name-->
     <div class="row">
-        <h2 class="col-12 header__h2">Список товаров</h2>
+        <div class="col-12 h2">Список товаров</div>
     </div>
 
     <!--main content for this page-->
     <div class="row">
 
-        <!--control-->
-        <div class="col-lg-3">
-            <!--ссылка на форму добавления нового товара-->
-            <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
-            <button class="col-12 header__button" ng-click="sortData('nomenclature')">Добавить новый товар</button>
-            <!-- sorting AngularJS -->
-            <input class="col-12 header__button"
-                   type="text"
-                   placeholder="Фильтровать по названию"
-                   ng-model="nomenclatureFilter">
-            <!-- sorting AngularJS by name -->
-            <button class="col-sm header__button" ng-click="sortData('nomenclature')">Сотр по имени</button>
+        <!--nomenclatures short-->
+        <div class="well col-lg-3">
 
-            <!-- sorting AngularJS via select -->
-            <select class="col-sm header__select" ng-model="sortColumn">
-                <option value="nomenclature">Наименование (A-Z)</option>
-                <option value="-nomenclature">Наименование (Z-A)</option>
-                <option value="price">price (0-9)</option>
-                <option value="-price">price (9-0)</option>
-            </select>
-        </div>
+            <!--control\filters-->
+            <div class="row">
+                <div class="well col-12">
+                    <!--ссылка на форму добавления нового товара-->
+                    <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
+                    <button class="col-12" ng-click="sortData('nomenclature')">Добавить новый товар
+                    </button>
 
-        <!--content-->
-        <div class="col-lg-9 pre-scrollable" style="max-height: 45rem">
-            <div class="card"
-                 aria-expanded="false" aria-controls="collapseIndex{{$index}}"
-                 ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :nomenclatureFilter">
+                    <!-- sorting AngularJS -->
+                    <input class="col-12"
+                           type="text"
+                           placeholder="Фильтровать по названию"
+                           ng-model="nomenclatureFilter">
 
-                <div class="card-header" data-toggle="collapse" data-target="#collapseIndex{{$index}}">
-                    <div class="row">
-                        <h5 class="col-sm-8">{{nomenclature.nomenclature}}</h5>
-                        <p class="col-sm-3 card-text">{{nomenclature.price | isEmpty }} р.</p>
-                        <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
-                        </button>
-                    </div>
+                    <!-- sorting AngularJS by name -->
+                    <button class="col-12" ng-click="sortData('nomenclature')">Сотр по имени</button>
+
+                    <!-- sorting AngularJS via select -->
+                    <select class="col-12" ng-model="sortColumn">
+                        <option value="nomenclature">Наименование (A-Z)</option>
+                        <option value="-nomenclature">Наименование (Z-A)</option>
+                        <option value="price">price (0-9)</option>
+                        <option value="-price">price (9-0)</option>
+                    </select>
                 </div>
-
-                <div class="container card-body collapse" id="collapseIndex{{$index}}">
-                    <div class="row">
-                        <h6 class="col-12 card-title">{{nomenclature.comment | isEmpty }}</h6>
-                        <p class="col-sm card-text">{{nomenclature.code }}</p>
-                        <p class="col-sm card-text">{{nomenclature.manufacturer | isEmpty}}</p>
-                        <p class="col-sm card-text">{{nomenclature.category.category | isEmpty}}</p>
-                    </div>
-                    <div class="row">
-                        <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">редактировать</button>
-                    </div>
-                </div>
-
             </div>
+
+            <!--nomenclatures-->
+            <div class="row">
+                <div class="well col-12"
+                     ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :nomenclatureFilter">
+
+                    <div>{{nomenclature.nomenclature}}</div>
+
+                    <div>{{nomenclature.price | isEmpty }} р.</div>
+
+                    <div>{{nomenclature.comment | isEmpty }}</div>
+
+                    <div>{{nomenclature.code }}</div>
+
+                    <div>{{nomenclature.manufacturer | isEmpty}}</div>
+
+                    <div>{{nomenclature.category.category | isEmpty}}</div>
+
+                    <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
+
+                    <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">
+                        редактировать
+                    </button>
+                </div>
+            </div>
+
         </div>
 
+        <!--basket-->
+        <div class="well col-lg-7">
+
+            <div ng-include="'invoice/invoiceAdd.html'"></div>
+
+        </div>
+
+        <!--nomenclature info-->
+        <div class="well col-lg-2">
+            <p> nomenclature info </p>
+        </div>
 
     </div>
 
 </div>
 
-
-
-</body>
-</html>

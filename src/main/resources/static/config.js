@@ -36,10 +36,6 @@ app.config(function ($routeProvider) {
             templateUrl: 'invoice/invoiceEdit.html',
             controller: 'invoiceCtrl'
         })
-        .when('/invoiceAddAnJS', {
-            templateUrl: 'invoice/invoiceAdd.html',
-            controller: 'invoiceCtrl'
-        })
         .otherwise({template: '<h1>404 Error (роутинг провайденр не нашел такой путь)</h1>'});
 
     // $locationProvider.html5Mode(true);

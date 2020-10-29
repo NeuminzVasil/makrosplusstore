@@ -89,6 +89,7 @@ app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $ro
         $scope.reversSortColumn = ($scope.sortColumn == column) ? !$scope.reversSortColumn : false;
         $scope.sortColumn = column;
     }
+
     // используй это когда при сортировке нужно изменить CSS для элемента
     $scope.getSortClass = function (column) {
         if ($scope.sortColumn == column) {

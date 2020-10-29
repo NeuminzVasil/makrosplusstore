@@ -1,5 +1,5 @@
-body{
-    padding-top: 30px;
+body {
+    padding-top: 56px;
 }
 
 /*.container, .container-fluid {
@@ -19,48 +19,60 @@ body{
         border: 1px solid green;*/
 }
 
+
+/*.sidebar{
+    background-color: #FF8040;
+    position: fixed; !*растянуть на всю высоту экрана*!
+    height: 100vh; !*растянуть на всю высоту экрана*!
+}*/
+
+/*
 .container, .container-fluid {
-    padding: 0; /* внутренний отступ */
+    padding: 0; !* внутренний отступ *!
 }
+*/
 
-.row {
-    margin: 0; /* внешний отступ */
-    padding: 0; /* внутренний отступ */
-}
+/*.row {
+    margin: 0; !* внешний отступ *!
+    padding: 0; !* внутренний отступ *!
+}*/
 
-.card, form {
+.well {
     margin-top: 1rem; /* внешний отступ сверху */
     padding: 1rem; /* внутренний отступ */
-    border: 3px solid #FF8040;
-    text-align: center;
-}
-
-.card-element-left, .card-element-right {
-    margin-top: 1rem; /* внешний отступ сверху */
-    margin-bottom: 1rem; /* внешний отступ снизу */
     border: 1px solid chocolate;
+    border-radius: 1rem;
 }
 
-.card-element-right{
+/*.card-element-left, .card-element-right {
+    margin-top: 1rem; !* внешний отступ сверху *!
+    margin-bottom: 1rem; !* внешний отступ снизу *!
+    border: 1px solid chocolate;
+        text-align: center;
+}*/
+
+/*.card-element-right{
     text-align: center;
-}
+}*/
 
-.card-element-right{
+/*.card-element-right{
     text-align: left;
-}
+}*/
 
+/*
 .header__h2, .header__button, .header__select, .card__button {
     color: chocolate;
     border-radius: 5px;
     border: 1px solid #FF8040;
     background-color: #ffdcc4;
     text-align: center;
-    /*font-size: x-small;*/
+    !*font-size: x-small;*!
 }
+*/
 
-.header__button {
-    margin: 1px; /* внешний отступ */
-}
+/*.header__button {
+    margin: 1px; !* внешний отступ *!
+}*/
 
 .footer {
     margin-top: 10px;

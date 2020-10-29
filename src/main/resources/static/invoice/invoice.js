@@ -116,7 +116,7 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
             });
     }
 
-    $scope.isTableWarning = function (data) {
+    $scope.isWarning = function (data) {
         if (data === null || (!data)) return "bg-warning text-dark";
         else return "bg-success text-white";
     };
