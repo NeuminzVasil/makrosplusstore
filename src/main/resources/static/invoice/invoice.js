@@ -29,14 +29,24 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
     $scope.invoiceFactory = invoiceFactory;
     $scope.invoiceJSON = invoiceJSON;
 
+    /**
+     * запросить из базы все СФ
+     */
     let showAllInvoices = function () {
         $http.get(contextPath + "/api/v1/invoice")
             .then(function (response) {
                 $scope.InvoiceList = response.data;
             });
     };
+    /**
+     * автоматически запустить метод получения всех СФ при старте странички Invoice
+     */
     showAllInvoices();
 
+    /**
+     * удалить Invoice по ID
+     * @param invoice ID
+     */
     $scope.deleteInvoice = function (invoice) {
 
         //$log.info("deleteInvoice.invoice", invoice);
@@ -78,13 +88,14 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
      */
     $scope.prepareToEditInvoice = function (invoice) {
 
-
-        $http.get(contextPath + "/api/v1/invoice/" + invoice.id)
-            .then(function (response) {
-                invoiceJSON = response.data;
-                // //$log.info("prepareToEditInvoice.invoiceJSON: ", invoiceJSON);
-                $location.path('/invoice/edit');
-            });
+        /*        $http.get(contextPath + "/api/v1/invoice/" + invoice.id)
+                    .then(function (response) {
+                        invoiceJSON = response.data;
+                        // //$log.info("prepareToEditInvoice.invoiceJSON: ", invoiceJSON);
+                        $location.path('/invoice/edit');
+                    });*/
+        $scope.invoiceJSON = invoice;
+        $log.info($scope.invoiceJSON);
     }
 
     /**
@@ -116,26 +127,51 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
             });
     }
 
+    /**
+     * Фильтр для отображения
+     * @param data - данные для провеки
+     * @returns {string} - то что вернется в HTML
+     */
     $scope.isWarning = function (data) {
         if (data === null || (!data)) return "bg-warning text-dark";
         else return "bg-success text-white";
     };
 
+    /**
+     * Фильтр для отображения
+     * @param data - данные для провеки
+     * @returns {string} - то что вернется в HTML
+     */
     $scope.isPriced = function (data) {
         if (data === null || (!data)) return "цена не предоставлена";
         else return "цена предоставлена";
     };
 
+    /**
+     * Фильтр для отображения
+     * @param data - данные для провеки
+     * @returns {string} - то что вернется в HTML
+     */
     $scope.isTrueClass = function (data) {
         if (data === null || (!data)) return "bg-warning text-dark";
         else return "bg-success text-white";
     };
 
+    /**
+     * Фильтр для отображения
+     * @param data - данные для провеки
+     * @returns {string} - то что вернется в HTML
+     */
     $scope.isApproved = function (data) {
         if (data === null || (!data)) return "на согласовании";
         else return "согласован";
     };
 
+    /**
+     * Фильтр для отображения
+     * @param data - данные для провеки
+     * @returns {string} - то что вернется в HTML
+     */
     $scope.isPurchased = function (data) {
         if (data === null || (!data)) return "ожидает закупки";
         else return "закупается";

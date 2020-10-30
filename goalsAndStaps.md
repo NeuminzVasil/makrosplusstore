@@ -56,3 +56,4 @@
        boundary-links="true">
        </pagination>-->
 3. heroku ps:scale web=1 - включить ПО на хероку
+4. <div ng-include="'invoice/invoiceEdit.html'"></div>
