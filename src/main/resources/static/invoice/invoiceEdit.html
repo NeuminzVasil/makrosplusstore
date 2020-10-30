@@ -1,28 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="MakrosPlusStore">
+<div class="container" ng-controller="invoiceCtrl">
 
-<head>
-
-    <script src="../config.js"></script>
-    <script src="invoice.js"></script>
-
-    <title>LLC Makros+ Invoice</title>
-
-    <!-- CSS connecting people -->
-    <link href="style.css" rel="stylesheet">
-
-</head>
-
-<body  ng-controller="invoiceCtrl">
-
-
-<div class="container">
     <div class="row">
 
         <!--content control header-->
 
-        <h2 class="col-12 header__h2">Редактировать заказ</h2>
-
+        <h2 class="col-12 header__h2">Редактировать заказ </h2>
+        {{invoiceJSON}}
         <!--ввод основных значений Invoice-->
         <form class="col was-validated">
 
@@ -343,7 +326,3 @@
 
 
 </div>
-
-
-</body>
-</html>
