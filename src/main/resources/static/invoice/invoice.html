@@ -2,61 +2,57 @@
 
     <!--page name-->
     <div class="row">
-        <div class="col-12 h2">Список заказов</div>
+        <div class="col-12 h4">Список заказов</div>
     </div>
 
     <!--main content for this page-->
     <div class="row">
 
         <!--orders short-->
-        <div class="well col-lg-3">
+        <div class="invoice__field col-lg-3">
 
             <!--control\filters-->
             <div class="row">
                 <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-                <input class="well col-12"
+                <input class="col-12"
                        title="введите ключевое слово для фильтрации"
                        type="text"
                        placeholder="Фильтровать по номеру заказа"
                        ng-model="orderNumber.ordernumber">
             </div>
 
-            <!--orders-->
+            <!--orders short-->
             <div class="row">
-                <div class="well col-12"
+                <div class="invoice__card row"
                      ng-repeat="invoice in InvoiceList | filter:orderNumber"
                      ng-click="prepareToEditInvoice(invoice)">
 
-                    <div>
-                        {{invoice.ordernumber}}
+                    <div class="col-11">
+                        <span class="h6">{{invoice.ordernumber}}</span>
+
+                        <span>{{invoice.comment}}</span>
+
+                        <span>сумма: {{invoice.totalprice | isEmpty }} р.</span>
+
+                        <span>создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</span>
+
+                        <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>
                     </div>
 
-                    <div>{{invoice.comment}}</div>
-
-                    <div class="{{isWarning(invoice.totalprice)}}">
-                        сумма: {{invoice.totalprice | isEmpty }} р.
-                    </div>
-
-                    <div class="{{isWarning(invoice.datacreate)}}">
-                        создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}
-                    </div>
-
-                    <div class="{{isWarning(invoice.resolveddate)}}">
-                        выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}
-                    </div>
+                    <div class="col-1 {{isWarning(invoice.resolveddate)}}"></div>
 
                 </div>
+
             </div>
 
         </div>
 
         <!--order details-->
-        <div class="well col-lg-7">
+        <div class="col-lg-7">
+            <div class="row h4">Детали заказа заказа {{invoiceJSON.ordernumber}}</div>
 
-
-            <!--ввод основных значений Invoice-->
-            <div class="row">
-
+            <!--вывод основных значений Invoice-->
+            <div class="row invoice__main">
 
                 <form class="col was-validated">
 
@@ -231,42 +227,46 @@
 
             <!--content info details-->
             <div class="row">
-                <table class="table table-responsive-lg table-bordered table-hover table-info">
+                <div class="col-12">
+                    <div class="invoice__element" ng-repeat="purchase in invoiceJSON.purchases">
+                        <div class="container-fluid">
+                            <div class="row">
 
-                    <thead>
-                    <tr class="active">
-                        <th>Код 1с</th>
-                        <th>Товар</th>
-                        <th>Количество</th>
-                        <th>Для кого</th>
-                        <th>Детали заказа</th>
-                        <th>Цена закупа</th>
-                        <th>Дата получения</th>
-                        <th>Удалить</th>
-                    </tr>
-                    </thead>
+                                <div class="col-lg-3 ">
+                                    <div class="h6"><a class="card-link" href="#!/purchaseEditAnJS/?id={{purchase.id}}">
+                                        {{purchase.nomenclature.nomenclature}} </a>
+                                    </div>
+                                    <div>{{purchase.nomenclature.code | isEmpty }}</div>
+                                </div>
 
-                    <tbody ng-repeat="purchase in invoiceJSON.purchases">
-                    <tr>
-                        <td> {{purchase.nomenclature.code | isEmpty }}</td>
-                        <td><a class="card-link" href="#!/purchaseEditAnJS/?id={{purchase.id}}">
-                            {{purchase.nomenclature.nomenclature}} </a>
-                        </td>
-                        <td> {{purchase.count | isEmpty }}</td>
-                        <td> {{purchase.approver | isEmpty }}</td>
-                        <td> {{purchase.comment | isEmpty }}</td>
-                        <td> {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}</td>
-                        <td> {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}</td>
-                        <td>
-                            <button class="btn text-center btn-outline-danger"
-                                    ng-click="deletePurchaseFromInvoice($index)">Ⓧ
-                            </button>
-                        </td>
-                    </tr>
 
-                    </tbody>
+                                <div class="col-lg-4">
+                                    <span> {{purchase.comment | isEmpty }}</span>
+                                    <!--                                    <span> {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}</span>-->
+                                </div>
 
-                </table>
+                                <div class="col-lg-2">
+                                    <span> {{purchase.approver | isEmpty }}</span>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <span> {{purchase.count | isEmpty }} шт.</span>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <span> {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}</span>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <button class="btn text-center btn-outline-danger"
+                                            ng-click="deletePurchaseFromInvoice($index)">Ⓧ
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!--<button ng-click="deleteNomenclature(invoiceJSON)">Удалить</button>-->
@@ -280,9 +280,9 @@
         </div>
 
         <!--works steps-->
-        <div class="well col-lg-2">
+        <div class="col-lg-2">
 
-            <div class="well" ng-repeat="invoice in InvoiceList | filter:orderNumber">
+            <div ng-repeat="invoice in InvoiceList | filter:orderNumber">
 
                 <h4>Этапы выполнения:</h4>
 
@@ -379,7 +379,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h2>{{invoiceJSON.ordernumber}}</h2>
+                    <h4>{{invoiceJSON.ordernumber}}</h4>
                     <p>{{invoiceJSON.comment}}</p>
                     <p>{{invoiceJSON.department}}</p>
                     <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
@@ -428,7 +428,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h2>{{invoiceJSON.ordernumber}}</h2>
+                    <h4>{{invoiceJSON.ordernumber}}</h4>
                     <p>{{invoiceJSON.comment}}</p>
                     <p>{{invoiceJSON.department}}</p>
                     <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>

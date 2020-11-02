@@ -20,22 +20,14 @@ public class JwtTokenUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        Claims claims = getAllClaimsFromToken(token);
-        return claimsResolver.apply(claims);
-    }
-
-    public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
-    }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
+                .map(GrantedAuthority::getAuthority) // получаем авторити
                 .collect(Collectors.toList());
         claims.put("role", rolesList);
-        return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, userDetails.getUsername()); // кладем авторити в токен
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -53,6 +45,23 @@ public class JwtTokenUtil {
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
+    }
+
+    // получаем Юзера из токена
+    public String getUsernameFromToken(String token) {
+        System.out.println(getClaimFromToken(token, Claims::getSubject));
+        return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    // получаем Роли из токена
+    public List<String> getRolesFromToken(String token){
+        return getClaimFromToken (token,
+                    (Function <Claims, List<String>>) claims ->claims.get("roles", List.class));
+    }
+
+    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims getAllClaimsFromToken(String token) {

@@ -43,6 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             // Здесь происходит валидация токена и будет брошено MalformedJwtException
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwt);
+                System.out.println(jwtTokenUtil.getRolesFromToken(jwt)); // todo временно, удалить после того как понял в ангуляре получение ролей
             } catch (ExpiredJwtException e) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "{ msg: The token is expired }");
                 return;
@@ -51,9 +52,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+           UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails,
+                    null, userDetails.getAuthorities());
+
             token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(token);
+
+            // подвязываем роли к токену.
+/*           UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,
+                    null, jwtTokenUtil.getRolesFromToken(jwt)
+                                                .stream()
+                                                .map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+            SecurityContextHolder.getContext().setAuthentication(token);*/
         }
 
         filterChain.doFilter(request, response);
