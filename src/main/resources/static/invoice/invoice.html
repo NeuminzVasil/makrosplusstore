@@ -14,26 +14,24 @@
             <!--control\filters-->
             <div class="row">
                 <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-                <input class="col-12"
+<!--                <input class="col-12"
                        title="введите ключевое слово для фильтрации"
                        type="text"
                        placeholder="Фильтровать по номеру заказа"
-                       ng-model="orderNumber.ordernumber">
+                       ng-model="fltr">-->
 
                 <input class="col-12"
                        title="показать только незавершенные заказы"
-                       type="checkbox"
-                       ng-checked="true"
-                       placeholder="Фильтровать по номеру заказа"
-                        ng-model="unachievedOnly"> Фильтровать по номеру заказа
-                {{unachievedOnly}}
+                       type="text"
+                       placeholder="выполнению"
+                       ng-model="fltr.resolveddate"> Фильтровать по номеру заказа
             </div>
 
             <!--orders short-->
             <div class="row">
 
                 <div class="invoice__card row"
-                     ng-repeat="invoice in InvoiceList | filter:orderNumber"
+                     ng-repeat="invoice in InvoiceList | filter: fltr"
                      ng-click="prepareToEditInvoice(invoice)">
 
                     <div class="col-11">
@@ -45,7 +43,9 @@
 
                         <span>создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</span>
 
-                        <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>
+                        <span>выполнен: {{invoice.resolveddate | isEmpty }}</span>
+<!--                        <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>-->
+<!--                        <span>выполнен: {{invoice.resolveddate}}</span>-->
                     </div>
 
                     <div class="col-1 {{isWarning(invoice.resolveddate)}}"></div>
