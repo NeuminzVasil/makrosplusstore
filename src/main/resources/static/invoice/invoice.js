@@ -137,6 +137,11 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         else return "bg-success text-white";
     };
 
+    $scope.isUnachived = function (data) {
+        if (data === null || (!data)) return "bg-warning text-dark";
+        else return "bg-success text-white";
+    };
+
     /**
      * Фильтр для отображения
      * @param data - данные для провеки

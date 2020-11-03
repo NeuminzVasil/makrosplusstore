@@ -7,6 +7,15 @@ app.filter('isEmpty', function () {
     }
 });
 
+app.filter('unachieved', function () {
+    return function (date) {
+        if (date == null) return "не задано";
+        else return date;
+    }
+});
+
+
+
 
 
 

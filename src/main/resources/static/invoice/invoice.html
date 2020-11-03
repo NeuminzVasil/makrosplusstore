@@ -14,17 +14,24 @@
             <!--control\filters-->
             <div class="row">
                 <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-                <input class="col-12"
+<!--                <input class="col-12"
                        title="введите ключевое слово для фильтрации"
                        type="text"
                        placeholder="Фильтровать по номеру заказа"
-                       ng-model="orderNumber.ordernumber">
+                       ng-model="fltr">-->
+
+                <input class="col-12"
+                       title="показать только незавершенные заказы"
+                       type="text"
+                       placeholder="выполнению"
+                       ng-model="fltr.resolveddate"> Фильтровать по номеру заказа
             </div>
 
             <!--orders short-->
             <div class="row">
+
                 <div class="invoice__card row"
-                     ng-repeat="invoice in InvoiceList | filter:orderNumber"
+                     ng-repeat="invoice in InvoiceList | filter: fltr"
                      ng-click="prepareToEditInvoice(invoice)">
 
                     <div class="col-11">
@@ -36,7 +43,9 @@
 
                         <span>создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</span>
 
-                        <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>
+                        <span>выполнен: {{invoice.resolveddate | isEmpty }}</span>
+<!--                        <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>-->
+<!--                        <span>выполнен: {{invoice.resolveddate}}</span>-->
                     </div>
 
                     <div class="col-1 {{isWarning(invoice.resolveddate)}}"></div>
@@ -239,7 +248,6 @@
                                     <div>{{purchase.nomenclature.code | isEmpty }}</div>
                                 </div>
 
-
                                 <div class="col-lg-4">
                                     <span> {{purchase.comment | isEmpty }}</span>
                                     <!--                                    <span> {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}</span>-->
@@ -253,7 +261,7 @@
                                     <span> {{purchase.count | isEmpty }} шт.</span>
                                 </div>
 
-                                <div class="col-lg-1">
+                                <div class="col-lg-1 {{isWarning(purchase.resolvingdate)}}">
                                     <span> {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}</span>
                                 </div>
 
@@ -280,77 +288,79 @@
         </div>
 
         <!--works steps-->
-        <div class="col-lg-2">
+        <!--
+                <div class="col-lg-2">
 
-            <div ng-repeat="invoice in InvoiceList | filter:orderNumber">
+                    <div ng-repeat="invoice in InvoiceList | filter:orderNumber">
 
-                <h4>Этапы выполнения:</h4>
+                        <h4>Этапы выполнения:</h4>
 
-                <!--на расценке-->
-                <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
-                        ng-model="invoice.senttoprice" ng-value=invoice.senttoprice disabled>
-                    <option ng-value=invoice.senttoprice selected="selected">
-                        {{isPriced(invoice.senttoprice)}}
-                    </option>
-                    <option class="bg-success" ng-value="true">цена предоставлена</option>
-                    <option class="bg-warning" ng-value="false">цена не предоставлена</option>
-                </select>
+                        &lt;!&ndash;на расценке&ndash;&gt;
+                        <select class="form-control {{isTrueClass(invoice.senttoprice)}}"
+                                ng-model="invoice.senttoprice" ng-value=invoice.senttoprice disabled>
+                            <option ng-value=invoice.senttoprice selected="selected">
+                                {{isPriced(invoice.senttoprice)}}
+                            </option>
+                            <option class="bg-success" ng-value="true">цена предоставлена</option>
+                            <option class="bg-warning" ng-value="false">цена не предоставлена</option>
+                        </select>
 
-                <!--на согласовании -->
-                <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
-                        ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove disabled>
-                    <option ng-value=invoice.senttoapprove selected="selected">
-                        {{isApproved(invoice.senttoapprove)}}
-                    </option>
-                    <option class="bg-success" ng-value="true">согласован</option>
-                    <option class="bg-warning" ng-value="false">на согласовании</option>
-                </select>
+                        &lt;!&ndash;на согласовании &ndash;&gt;
+                        <select class="form-control {{isTrueClass(invoice.senttoapprove)}}"
+                                ng-model="invoice.senttoapprove" ng-value=invoice.senttoapprove disabled>
+                            <option ng-value=invoice.senttoapprove selected="selected">
+                                {{isApproved(invoice.senttoapprove)}}
+                            </option>
+                            <option class="bg-success" ng-value="true">согласован</option>
+                            <option class="bg-warning" ng-value="false">на согласовании</option>
+                        </select>
 
-                <!--закупается-->
-                <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
-                        ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase disabled>
-                    <option ng-value=invoice.senttopurchase selected="selected">
-                        {{isPurchased(invoice.senttopurchase)}}
-                    </option>
-                    <option class="bg-success" ng-value="true">закупается</option>
-                    <option class="bg-warning" ng-value="false">ожидает закупки</option>
-                </select>
+                        &lt;!&ndash;закупается&ndash;&gt;
+                        <select class="form-control {{isTrueClass(invoice.senttopurchase)}}"
+                                ng-model="invoice.senttopurchase" ng-value=invoice.senttopurchase disabled>
+                            <option ng-value=invoice.senttopurchase selected="selected">
+                                {{isPurchased(invoice.senttopurchase)}}
+                            </option>
+                            <option class="bg-success" ng-value="true">закупается</option>
+                            <option class="bg-warning" ng-value="false">ожидает закупки</option>
+                        </select>
 
-                <p class="col-sm-12" title="...">Внутренняя логистика</p>
+                        <p class="col-sm-12" title="...">Внутренняя логистика</p>
 
-                <p class="col-sm-12" title="...">Хранение</p>
+                        <p class="col-sm-12" title="...">Хранение</p>
 
-                <p class="col-sm-12" title="...">Доставка заказчику</p>
+                        <p class="col-sm-12" title="...">Доставка заказчику</p>
 
-                <p class="col-sm-12" title="...">Принят заказчиком</p>
+                        <p class="col-sm-12" title="...">Принят заказчиком</p>
 
-                <!--СФ номер-->
-                <div class="input-group mb-3">
+                        &lt;!&ndash;СФ номер&ndash;&gt;
+                        <div class="input-group mb-3">
 
-                    <div class="input-group-prepend">
-                        <div class="input-group-text {{isTableWarning(invoice.invoicenumber)}}">
-                            <input class=""
-                                   type="checkbox"
+                            <div class="input-group-prepend">
+                                <div class="input-group-text {{isTableWarning(invoice.invoicenumber)}}">
+                                    <input class=""
+                                           type="checkbox"
+                                           disabled
+                                           ng-model="invoice.invoicenumber">
+                                </div>
+                            </div>
+
+                            <input type="text"
                                    disabled
+                                   class="form-control {{isTableWarning(invoice.invoicenumber)}}"
+                                   placeholder="СФ номер {{invoice.invoicenumber}} "
                                    ng-model="invoice.invoicenumber">
+
                         </div>
+
+                        <p class="col-sm-12" title="...">СФ отправлено (№ трекинга почты)</p>
+
+                        <p class="col-sm-12" title="...">Счет оплачен</p>
+
                     </div>
 
-                    <input type="text"
-                           disabled
-                           class="form-control {{isTableWarning(invoice.invoicenumber)}}"
-                           placeholder="СФ номер {{invoice.invoicenumber}} "
-                           ng-model="invoice.invoicenumber">
-
                 </div>
-
-                <p class="col-sm-12" title="...">СФ отправлено (№ трекинга почты)</p>
-
-                <p class="col-sm-12" title="...">Счет оплачен</p>
-
-            </div>
-
-        </div>
+        -->
 
     </div>
 
