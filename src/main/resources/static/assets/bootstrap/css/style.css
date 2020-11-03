@@ -1,66 +1,54 @@
+*{
+    padding: 0;
+    margin: 0;
+    /*    box-sizing: border-box;
+    text-decoration: none;
+    border: 1px solid green;*/
+}
+
 body {
     padding-top: 56px;
-}
-
-/*.container, .container-fluid {
-    padding: 0; !* внутренний отступ *!
-}
-
-.row, .col {
-    border: 1px solid green;
-    margin: 0; !* внешний отступ *!
-    padding: 0; !* внутренний отступ *!
-    min-height: 200px; !* минимальная высота *!
-}*/
-
-* {
-    /*    box-sizing: border-box;
-        text-decoration: none;
-        border: 1px solid green;*/
 }
 
 
 /*.sidebar{
     background-color: #FF8040;
-    position: fixed; !*растянуть на всю высоту экрана*!
+
     height: 100vh; !*растянуть на всю высоту экрана*!
 }*/
-
-/*.row {
-    margin: 0; !* внешний отступ *!
-    padding: 0; !* внутренний отступ *!
-}*/
-.container, .container-fluid {
-    padding: 0;  /* внутренний отступ */
-}
 
 .row, .col, .container, .container-fluid{
     border-color: darkred;
     margin-right: 0;
     margin-left: 0;
     padding: 0; /* внутренний отступ */
+    /*min-height: 200px; !* минимальная высота *!*/
 }
 
-.invoice__field{
+.invoice__field {
     padding: 2px; /* внутренний отступ */
     border: 1px solid #494f54;
-    cursor: pointer
+    cursor: pointer;
+    /*position: fixed; изьять из общей схемы и зафиксировать позицию*/
+    height: 80vh; /*растянуть на всю высоту экрана*/
+    overflow-y: scroll;
 }
 
-.invoice__card{
-    margin-top: 1px; /* внешний отступ сверху */
-    padding: 5px; /* внутренний отступ */
-    border: 1px solid #494f54;
+.invoice__card__short {
+    margin-top: 10px; /* внешний отступ сверху */
+    padding: 2px; /* внутренний отступ */
+    border: 1px solid #cecece;
     cursor: pointer;
     font-size: smaller;
     transition: 0.7s;
 }
-.invoice__card:hover {
+
+.invoice__card__short:hover {
     background-color: #b1ffce; /* Цвет фона */
     color: red;
 }
 
-.invoice__main{
+.invoice__main {
     margin-bottom: 20px; /* внешний отступ снизу */
     padding: 5px; /* внутренний отступ */
     border: 1px solid #494f54;
@@ -68,18 +56,19 @@ body {
     font-size: smaller;
 }
 
-.invoice__element{
+.invoice__element {
     margin-top: 1px; /* внешний отступ сверху */
     padding: 5px; /* внутренний отступ */
     border: 1px solid #494f54;
     cursor: pointer;
-    font-size: smaller;
+    font-size: medium;
     transition: 0.7s;
 }
+
 .invoice__element:hover {
-     background-color: #b1ffce; /* Цвет фона */
-     color: red;
- }
+    background-color: #b1ffce; /* Цвет фона */
+    color: red;
+}
 
 
 /*.card-element-left, .card-element-right {
