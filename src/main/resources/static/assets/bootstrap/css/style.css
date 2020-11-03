@@ -34,16 +34,16 @@ body {
     overflow-y: scroll;
 }
 
-.invoice__card {
-    margin-top: 1px; /* внешний отступ сверху */
-    padding: 5px; /* внутренний отступ */
-    border: 1px solid #494f54;
+.invoice__card__short {
+    margin-top: 10px; /* внешний отступ сверху */
+    padding: 2px; /* внутренний отступ */
+    border: 1px solid #cecece;
     cursor: pointer;
     font-size: smaller;
     transition: 0.7s;
 }
 
-.invoice__card:hover {
+.invoice__card__short:hover {
     background-color: #b1ffce; /* Цвет фона */
     color: red;
 }
@@ -61,7 +61,7 @@ body {
     padding: 5px; /* внутренний отступ */
     border: 1px solid #494f54;
     cursor: pointer;
-    font-size: smaller;
+    font-size: medium;
     transition: 0.7s;
 }
 

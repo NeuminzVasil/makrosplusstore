@@ -9,7 +9,7 @@
     <div class="row">
 
         <!--invoices-short section -->
-        <div class="invoice__field col-lg-3">
+        <div class="container invoice__field col-lg-3">
 
             <!--control\filters-->
             <div class="row">
@@ -28,36 +28,33 @@
             </div>
 
             <!--invoice short card-->
-            <div class="row">
 
-                <div class="invoice__card row"
-                     ng-repeat="invoice in InvoiceList | filter: fltr"
-                     ng-click="prepareToEditInvoice(invoice)">
+            <div class="row invoice__card__short"
+                 ng-repeat="invoice in InvoiceList | filter: fltr"
+                 ng-click="prepareToEditInvoice(invoice)">
 
-                    <div class="col-11">
-                        <span class="h6">{{invoice.ordernumber}}</span>
+                <div class="col-12 col-lg-11">
+                    <span class="h6">{{invoice.ordernumber}}</span>
 
-                        <span>{{invoice.comment}}</span>
+                    <span>{{invoice.comment}}</span>
 
-                        <span>сумма: {{invoice.totalprice | isEmpty }} р.</span>
+                    <span>сумма: {{invoice.totalprice | isEmpty }} р.</span>
 
-                        <span>создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</span>
+                    <span>создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</span>
 
-                        <!--                        <span>выполнен: {{invoice.resolveddate | isEmpty }}</span>-->
-                        <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>
-                        <!--                        <span>выполнен: {{invoice.resolveddate}}</span>-->
-                    </div>
-
-                    <div class="col-1 {{isWarning(invoice.resolveddate)}}"></div>
-
+                    <!--                        <span>выполнен: {{invoice.resolveddate | isEmpty }}</span>-->
+                    <span>выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</span>
+                    <!--                        <span>выполнен: {{invoice.resolveddate}}</span>-->
                 </div>
+
+                <div class="col-12 col-lg-1 {{isWarning(invoice.resolveddate)}}"></div>
 
             </div>
 
         </div>
 
         <!--invoice details-->
-        <div class="col-lg-9">
+        <div class="container col-lg-9">
             <div class="row h4">Детали заказа заказа {{invoiceJSON.ordernumber}}</div>
 
             <!--invoice details ----- вывод основных значений-->
@@ -235,6 +232,11 @@
             </div>
 
             <!--invoice elements-->
+
+            <div class="row h4">
+                Список товаров в заказе:
+            </div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="invoice__element" ng-repeat="purchase in invoiceJSON.purchases">
@@ -260,8 +262,8 @@
                                 <div class="col-lg-3">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-lg-3"> {{purchase.count | isEmpty }} шт.</div>
-                                            <div class="col-lg-7 {{isWarning(purchase.resolvingdate)}}">
+                                            <div class="col-lg-4"> {{purchase.count | isEmpty }} шт.</div>
+                                            <div class="col-lg-6 {{isWarning(purchase.resolvingdate)}}">
                                                 {{purchase.resolvingdate | date: "yyyy.MM.dd" | isEmpty }}
                                             </div>
                                             <div class="col-lg-2">
