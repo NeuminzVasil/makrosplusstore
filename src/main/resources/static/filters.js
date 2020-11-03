@@ -9,7 +9,7 @@ app.filter('isEmpty', function () {
 
 app.filter('unachieved', function () {
     return function (date) {
-        if (date == null) return "не задано";
+        if (date == null) return "выполняется";
         else return date;
     }
 });
