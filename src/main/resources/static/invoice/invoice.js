@@ -17,13 +17,13 @@ let invoiceJSON =
         "purchases": null
     }
 
-app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope, $http, $localStorage, invoiceFactory) {
+app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope, $http, $sessionStorage, invoiceFactory) {
 
 
     // проверяем вошедшего пользователя (см loginController)
-    // не забыть инжектнуть в контроллер параметр $localStorage
-    if ($localStorage.currentUser) {
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+    // не забыть инжектнуть в контроллер параметр $sessionStorage
+    if ($sessionStorage.currentUser) {
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $sessionStorage.currentUser.token;
     }
 
     $scope.invoiceFactory = invoiceFactory;
