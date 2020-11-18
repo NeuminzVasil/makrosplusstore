@@ -41,7 +41,7 @@ app.config(function ($routeProvider) {
     // $locationProvider.html5Mode(true);
 });
 
-app.controller("routeUpdating", function ($scope, $localStorage, $rootScope, $window) {
+app.controller("routeUpdating", function ($scope, $sessionStorage, $rootScope, $window) {
 
 /*    $rootScope.$on('$routeChangeStart', function () {
         console.info("$routeChangeStart");
@@ -62,7 +62,7 @@ app.controller("routeUpdating", function ($scope, $localStorage, $rootScope, $wi
 
         // $('#exampleModal').modal('show');
         // $window.location.href = 'http://localhost:8189/makrosplusstore/logout';
-        delete $localStorage.currentUser;
+        delete $sessionStorage.currentUser;
         $http.defaults.headers.common.Authorization = '';
         $window.location.href = '#!/';
     });
