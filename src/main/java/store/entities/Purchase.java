@@ -49,6 +49,9 @@ public class Purchase {
     @Column
     private Float buyingPrice;
 
+    @Column
+    private String commentnumenclature;
+
     public Purchase() {
     }
 
