@@ -30,7 +30,7 @@ public class InvoiceControllerApiV1 {
     }
 
     @GetMapping("/{id}")
-    public Invoice getAllInvoices(@PathVariable Long id) {
+    public Invoice getInvoicesById(@PathVariable Long id) {
         return invoiceService.findById(id);
     }
 

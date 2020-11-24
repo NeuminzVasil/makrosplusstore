@@ -71,6 +71,11 @@ public class Invoice {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Purchase> purchases;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<History> histories;
+
     public Invoice() {
         this.datacreate = new Date();
     }
@@ -108,7 +113,7 @@ public class Invoice {
                 ", senttoprice=" + senttoprice +
                 ", totalprice=" + totalprice +
                 ", resolveddate=" + resolveddate +
-                ", customer=" + customer.getLogin() +
+                ", customer=" + customer.getLogin()+
                 '}';
     }
 }

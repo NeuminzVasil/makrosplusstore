@@ -33,7 +33,7 @@ public class JwtTokenUtil {
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         Date issuedDate = new Date();
 //        Date expiredDate = new Date(issuedDate.getTime() + 60 * 60 * 1000); // (час issuedDate.getTime() + 60 * 60 * 1000)
-        Date expiredDate = new Date(issuedDate.getTime() + 60 * 240 * 1000); // (четыре часа issuedDate.getTime() + 60 * 60 * 1000)
+        Date expiredDate = new Date(issuedDate.getTime() + 240 * 60 * 1000); // (четыре часа issuedDate.getTime() + 60 * 60 * 1000)
 //        Date expiredDate = new Date(issuedDate.getTime() + 60 * 1000); // (одна минута issuedDate.getTime() + 60 * 60 * 1000)
 //        Date expiredDate = new Date(issuedDate.getTime() + 3 * 1000); // (10 секунд issuedDate.getTime() + 60 * 60 * 1000)
         System.err.println(issuedDate);

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Store Local Factory" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="Store Local" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <module name="makrosplusstore" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="store.Application" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=LocalFactory" />
