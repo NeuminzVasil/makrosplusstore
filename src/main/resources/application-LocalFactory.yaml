@@ -1,6 +1,6 @@
 spring:
   jpa:
-    show-sql : false
+    show-sql : true
   datasource:
     url: ${JDBC_DATABASE_URL_LF}
     username: ${JDBC_DATABASE_USERNAME_LF}
