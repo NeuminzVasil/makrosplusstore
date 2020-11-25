@@ -61,3 +61,6 @@
        </pagination>-->
 3. heroku ps:scale web=1 - включить ПО на хероку
 4. <div ng-include="'invoice/invoiceEdit.html'"></div>
+5.  sessionStorage.setItem("userID", response.data.userId);
+    sessionStorage.setItem("userInfo", JSON.stringify(response.data));
+    return JSON.parse(sessionStorage.getItem("userInfo"));
