@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import store.entities.Invoice;
+import store.entities.dto.InvoiceShort;
 import store.exceptions.SearchingNotFoundException;
 import store.repositories.InvoiceRepository;
 
@@ -32,18 +33,17 @@ public class InvoiceService {
     }
 
     /**
-     * получить все СФ
-     *
-     * @param spec     спецификация для фильтра
+     * получить все СФ широкий формат в виде страницы
+     * @param spec - спецификация для фильтра
      * @param pageable - страница для фильтра
-     * @return Page<Nomenclature>
+     * @return Page<Invoice>
      */
     public Page<Invoice> findAll(Specification<Invoice> spec, Pageable pageable) {
         return invoiceRepository.findAll(spec, pageable);
     }
 
     /**
-     * получить все СФ
+     * получить все СФ широкий формат в виде листа
      *
      * @return Page<Nomenclature>
      */
@@ -53,6 +53,7 @@ public class InvoiceService {
                 .sorted(Comparator.comparing(Invoice::getDatacreate).reversed())
                 .collect(Collectors.toList());
     }
+
 
     /**
      * найти СФ по ID
@@ -122,5 +123,9 @@ public class InvoiceService {
 //    @Secured("ROLE_ADMIN")
     public void deletePurchaseById(Long id) {
         purchaseService.deleteById(id);
+    }
+
+    public List<InvoiceShort> getDtoData() {
+        return invoiceRepository.findAllBy();
     }
 }

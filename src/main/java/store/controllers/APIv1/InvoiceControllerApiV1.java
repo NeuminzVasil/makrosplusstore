@@ -2,6 +2,7 @@ package store.controllers.APIv1;
 
 import org.springframework.web.bind.annotation.*;
 import store.entities.Invoice;
+import store.entities.dto.InvoiceShort;
 import store.services.InvoiceService;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class InvoiceControllerApiV1 {
     public List<Invoice> getAllInvoices(@RequestParam Map<String, String> params) {
         return invoiceService.findAll();
     }
+
+    @GetMapping("/dto")
+    public List<InvoiceShort> getInvoicesDTO() {
+        return invoiceService.getDtoData();
+    }
+
 
     @GetMapping("/{id}")
     public Invoice getInvoicesById(@PathVariable Long id) {
