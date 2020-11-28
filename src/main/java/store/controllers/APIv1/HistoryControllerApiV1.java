@@ -49,10 +49,9 @@ public class HistoryControllerApiV1 {
      * @param history - History
      * @return - ссылка на сохраненный History
      */
-    @PutMapping("/edit/{id}")
+    @PutMapping("/edit")
     public History edit(@RequestBody History history) {
-        historyService.edit(history);
-        return history;
+        return historyService.edit(history);
     }
 
     /**
