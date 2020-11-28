@@ -89,8 +89,9 @@ public class InvoiceService {
      */
 //    @Secured("ROLE_ADMIN")
     public Invoice save(Invoice invoice) {
-        // сохраняем инвойс без элементов заказа из JSON, чтобы получить invoice.ID
+        // сохраняем invoice без элементов чтобы получить invoice.ID
         invoiceIdTemp = invoiceRepository.save(getCopy(invoice)).getId();
+        //сохраняем все товары в новый invoice
         invoice.getPurchases().forEach(purchase ->
                 purchaseService.save(purchase, invoiceRepository.getOne(invoiceIdTemp)));
         return invoice;
