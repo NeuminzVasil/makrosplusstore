@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v1/login/**").permitAll() // доступ всем
                 .antMatchers("/api/v1/invoice/**").authenticated() // доступ любому авторизированному клиенту
+                .antMatchers("/api/v1/history/**").authenticated() // доступ любому авторизированному клиенту
                 .antMatchers("/api/v1/category**").hasRole("ADMIN") // доступ конкретному авторизированному через роль
                 .antMatchers("/api/v1/customer**").hasRole("ADMIN") // доступ конкретному авторизированному через роль
                 .antMatchers("/api/v1/nomenclature**").hasRole("ADMIN") // доступ конкретному авторизированному через роль
