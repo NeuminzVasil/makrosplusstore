@@ -36,8 +36,8 @@ public class JwtTokenUtil {
         Date expiredDate = new Date(issuedDate.getTime() + 240 * 60 * 1000); // (четыре часа issuedDate.getTime() + 60 * 60 * 1000)
 //        Date expiredDate = new Date(issuedDate.getTime() + 60 * 1000); // (одна минута issuedDate.getTime() + 60 * 60 * 1000)
 //        Date expiredDate = new Date(issuedDate.getTime() + 3 * 1000); // (10 секунд issuedDate.getTime() + 60 * 60 * 1000)
-        System.err.println(issuedDate);
-        System.err.println(expiredDate);
+//        System.err.println(issuedDate);
+//        System.err.println(expiredDate);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
@@ -49,7 +49,7 @@ public class JwtTokenUtil {
 
     // получаем Юзера из токена
     public String getUsernameFromToken(String token) {
-        System.out.println(getClaimFromToken(token, Claims::getSubject));
+//        System.out.println(getClaimFromToken(token, Claims::getSubject));
         return getClaimFromToken(token, Claims::getSubject);
     }
 

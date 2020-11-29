@@ -43,7 +43,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             // Здесь происходит валидация токена и будет брошено MalformedJwtException
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwt);
-                System.out.println(jwtTokenUtil.getRolesFromToken(jwt)); // todo временно, удалить после того как понял в ангуляре получение ролей
             } catch (ExpiredJwtException e) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "{ msg: The token is expired }");
                 return;

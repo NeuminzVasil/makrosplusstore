@@ -2,6 +2,7 @@ package store.controllers.APIv1;
 
 import org.springframework.web.bind.annotation.*;
 import store.entities.Invoice;
+import store.entities.dto.InvoiceShort;
 import store.services.InvoiceService;
 
 import java.util.List;
@@ -18,17 +19,30 @@ public class InvoiceControllerApiV1 {
     }
 
     /**
-     * на страницу счетфактур
-     *
-     * @return invoice.html
-     * @Model model - служебный параметр для передачи данных на форму
-     * @RequestParam Map<String, String> params - пареметры получаемые от формы
+     * получить список СФ полный
+     * @return List<Invoice>
+     * @RequestParam Map<String, String> params - параметры получаемые от формы
      */
     @GetMapping
     public List<Invoice> getAllInvoices(@RequestParam Map<String, String> params) {
         return invoiceService.findAll();
     }
 
+    /**
+     * получить список СФ сокращенный
+     * @return List<InvoiceShort>
+     * @RequestParam Map<String, String> params - параметры получаемые от формы
+     */
+    @GetMapping("/dto")
+    public List<InvoiceShort> getInvoicesDTO() {
+        return invoiceService.getDtoData();
+    }
+
+    /**
+     * получить СФ полную по ID
+     * @return Invoice
+     * @RequestParam Map<String, String> params - параметры получаемые от формы
+     */
     @GetMapping("/{id}")
     public Invoice getInvoicesById(@PathVariable Long id) {
         return invoiceService.findById(id);

@@ -53,7 +53,7 @@ public class CustomerService implements UserDetailsService {
     }
 
     /**
-     * метод поиска заказчика по ID
+     * найти пользователя по ID
      *
      * @param id - искомое ID
      * @return - ссылка на заказчика или исключение
@@ -73,7 +73,7 @@ public class CustomerService implements UserDetailsService {
     }
 
     /**
-     * Сохранить измененную сущьность заказчика в базу
+     * Сохранить измененную сущность заказчика в базу
      *
      * @param customer - Сущьность которую нужно сохранить
      * @param <S>      - тип Customer

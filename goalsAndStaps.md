@@ -37,6 +37,7 @@
 ## Прочее: (не реализовано)
 1. 
 2. ход выполнения заказа
+   0) запрос цены если нужно!!!!!!!!!
    1) создан Я Вы (не сущьность - просто дата создания заказа)
    2) согласован Я ВЫ (cущьность approvals)
    3) на внутренней закупке. пукнт только для Вы: заказ оплачен вами + приложена платежка Макроса для ДНС 
@@ -61,3 +62,66 @@
        </pagination>-->
 3. heroku ps:scale web=1 - включить ПО на хероку
 4. <div ng-include="'invoice/invoiceEdit.html'"></div>
+5.  sessionStorage.setItem("userID", response.data.userId);
+    sessionStorage.setItem("userInfo", JSON.stringify(response.data));
+    return JSON.parse(sessionStorage.getItem("userInfo"));
+6.     {
+           "id": 1554,
+           "datacreate": "2020-11-20T11:03:45.065+00:00",
+           "department": "1",
+           "comment": "test",
+           "ordernumber": "WL-REQ-111111111",
+           "invoicenumber": null,
+           "senttoapprove": null,
+           "senttopurchase": null,
+           "senttoprice": null,
+           "totalprice": null,
+           "resolveddate": null,
+           "customer": {
+               "id": 1
+           },
+           "purchases": [
+               {
+                   "id": 3827,
+                   "nomenclature": {
+                       "id": 444,
+                       "comment": "test",
+                       "price": 100,
+                       "submitDate": "2020-06-01T00:00:00.000+00:00",
+                       "nomenclature": "HP 24ea 23.8",
+                       "manufacturer": "HP",
+                       "code": "00000275978",
+                       "expiredDate": null
+                   },
+                   "count": 2,
+                   "approver": null,
+                   "resolvingdate": null,
+                   "comment": "test",
+                   "buyingPrice": 100,
+                   "commentnumenclature": null
+               }
+           ],
+           "histories": [
+               {
+                   "id": 2,
+                   "submitdate": "2020-11-24T00:00:00.000+00:00",
+                   "customer": {
+                       "id": 17
+                   },
+                   "step": {
+                       "id": 2
+                   },
+                   "stepcomment": [
+                       {
+                           "id": 11,
+                           "customer": {
+                               "id": 17
+                           },
+                           "comment": "test",
+                           "attachedfileid": null,
+                           "submitdate": "2020-11-24T10:00:00.000+00:00"
+                       }
+                   ]
+               }
+           ]
+       }

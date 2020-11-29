@@ -40,7 +40,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String login, String firstName, String customerLastName) {
+    public Customer(String login, String firstName, String lastName) {
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,16 +49,6 @@ public class Customer {
     public Customer setActive(Boolean active) {
         this.active = active;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "ID=" + id + ",\n" +
-                "Login='" + login + "',\n" +
-                "FirstName='" + firstName + "',\n" +
-                "LastName='" + lastName + "',\n" +
-                '}';
     }
 
 }

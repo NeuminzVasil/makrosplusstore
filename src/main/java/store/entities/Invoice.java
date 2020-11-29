@@ -98,22 +98,4 @@ public class Invoice {
         this.customer = customer;
         this.purchases = purchases;
     }
-
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "id=" + id +
-                ", datacreate=" + datacreate +
-                ", department='" + department + '\'' +
-                ", comment='" + comment + '\'' +
-                ", ordernumber='" + ordernumber + '\'' +
-                ", invoicenumber='" + invoicenumber + '\'' +
-                ", senttoapprove=" + senttoapprove +
-                ", senttopurchase=" + senttopurchase +
-                ", senttoprice=" + senttoprice +
-                ", totalprice=" + totalprice +
-                ", resolveddate=" + resolveddate +
-                ", customer=" + customer.getLogin()+
-                '}';
-    }
 }

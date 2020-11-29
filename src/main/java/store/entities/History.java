@@ -56,15 +56,4 @@ public class History {
         this.submitdate = new Date();
     }
 
-    @Override
-    public String toString() {
-        return "History{" +
-                "id=" + id +
-                ", submitdate=" + submitdate +
-                ", customer=" + customer +
-                ", invoice=" + invoice +
-                ", step=" + step +
-//                ", stepcomment=" + stepcomment +
-                '}';
-    }
 }

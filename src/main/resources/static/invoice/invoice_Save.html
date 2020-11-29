@@ -17,7 +17,7 @@
 <!--content-->
 <div class="card"
      aria-expanded="false" aria-controls="collapseIndex{{$index}}"
-     ng-repeat="invoice in InvoiceList | filter:orderNumber">
+     ng-repeat="invoice in InvoiceList | filter:'orderNumber'">
 
     <!--content header-->
     <div class="container card-header"

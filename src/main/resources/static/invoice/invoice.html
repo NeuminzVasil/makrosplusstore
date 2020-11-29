@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="historyCtrl">
 
     <!--page name-->
     <div class="row">
@@ -17,21 +17,21 @@
                 <input class="col-12"
                        title="введите №заказа"
                        type="text"
-                       placeholder="Фильтровать по номеру заказа"
-                       ng-model="fltr.ordernumber">
+                       placeholder="Фильтровать по номеру заказа">
 
                 <input type="checkbox" checked data-toggle="toggle">
             </div>
 
             <!--invoice short card-->
             <div class="row invoice__card__short"
-                 ng-repeat="invoice in InvoiceList | filter: fltr"
-                 ng-click="prepareToEditInvoice(invoice)">
+                 ng-repeat="invoice in InvoiceList | orderBy: 'datacreate':true"
+                 ng-click="getInvoiceDetails(invoice.id)">
 
                 <h6 class="{{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
                 <p>{{invoice.comment}}<br>
                     сумма: {{invoice.totalprice | isEmpty }} р.<br>
-                    создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                    создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
+                    выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
             </div>
 
         </div>
@@ -100,95 +100,29 @@
 
             <div class="row h4">{{invoiceJSON.ordernumber}}</div>
 
-            <!--код\отдел\согласователь....-->
+            <!--details-->
             <div class="row invoice__main">
 
                 <form class="col was-validated">
 
-                    <button class="btn btn-outline-success col-12"
-                            data-toggle="modal"
-                            data-target="#editInvoiceModal"
-                            type="button">Сохранить изменения
-                    </button>
+                    <!--                    <button class="btn btn-outline-success col-12"
+                                                data-toggle="modal"
+                                                data-target="#editInvoiceModal"
+                                                type="button">Сохранить изменения
+                                        </button>-->
 
                     <!--iD скрыто-->
                     <input hidden placeholder="id" type="number" ng-model=invoiceJSON.id>
 
-                    <!--1c код-->
-                    <label for="orderNumber1c">Заказ (1c код)</label>
-                    <input class="form-control is-valid"
-                           id="orderNumber1c"
-                           type="text"
-                           ng-model=invoiceJSON.ordernumber
-                           placeholder="заполнить номер заказа из 1с"
-                           required>
-                    <div class="invalid-feedback"> Укажите код заказа из 1с.</div>
-
-                    <!--Отдел-->
-                    <label for="validationServer03">Отдел</label>
-                    <select class="form-control custom-select is-valid"
-                            id="validationServer03"
-                            ng-model=invoiceJSON.department
-                            required>
-                        <option value="{{invoiceJSON.department}}" selected="selected">
-                            ...({{invoiceJSON.department}})
-                        </option>
-                        <option value="FRAC (PL_215)">FRAC (PL_215)</option>
-                        <option value="COIL (PL_214)">COIL (PL_214)</option>
-                        <option value="DRT">DRT</option>
-                        <option value="General_C">General_C</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        укажите центр затрат (отдел).
-                    </div>
-
-                    <!--                        &lt;!&ndash;Согласователь todo не работает выбор согласователя&ndash;&gt;
-                                            <div class="col-md-4" ng-controller="customerCtrl">
-                                                <label for="validationApprover">Согласователь</label>
-                                                <select class="form-control custom-select is-valid"
-                                                        id="validationApprover"
-                                                        ng-model=invoiceJSON.customer
-                                                        required>
-                                                    <option value="{{invoiceJSON.customer.id}}" selected="selected">
-                                                        {{invoiceJSON.customer.login}}
-                                                    </option>
-                                                    <option ng-repeat="customer in customerList"
-                                                            value="{{customer.id}}"
-                                                            ng-model="customer.login">{{customer.login}}
-                                                    </option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    укажите руководителя подразделения.
-                                                </div>
-                                            </div>-->
-
-                    <!--Описание заказа-->
-                    <label for="validationOrderInfoShort">Описание заказа</label>
-                    <input type="text"
-                           class="form-control is-valid"
-                           id="validationOrderInfoShort"
-                           ng-model=invoiceJSON.comment
-                           placeholder="заполнить короткое описание заказа"
-                           required>
-                    <div class="invalid-feedback">введите короткое описание заказа.</div>
-
-
-                    <!--сумма заказа-->
-                    <label for="totalPrice">Сумма заказа</label>
-                    <input type="number"
-                           class="form-control"
-                           id="totalPrice"
-                           ng-model=invoiceJSON.totalprice
-                           placeholder="заполнить сумму заказа xx,00">
-
-                    <!--№ СФ-->
-                    <label for="validationServer05">№СФ</label>
-                    <input type="text"
-                           class="form-control "
-                           id="validationServer05"
-                           ng-model=invoiceJSON.invoicenumber
-                           placeholder="заполнить номер СФ">
-
+                    <p>
+                        Заказ (1c код): {{invoiceJSON.ordernumber}}<br>
+                        Отдел: {{invoiceJSON.department}}<br>
+                        Описание заказа: {{invoiceJSON.comment}}<br>
+                        Сумма заказа: {{invoiceJSON.totalprice}}<br>
+                        №СФ: {{invoiceJSON.invoicenumber}}<br>
+                        Дата создания заказа: {{invoiceJSON.datacreate | date: 'yyyy-MM-dd' | isEmpty}}
+                        Дата выполнения заказа: {{invoiceJSON.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}
+                    </p>
 
                     <!--                    &lt;!&ndash; на расценке \ на согласовании \ закупается&ndash;&gt;
                                         <div class="form-row cb_border">
@@ -223,43 +157,39 @@
 
                                         </div>-->
 
-                    <div class="form-row">
-                        <!--дата создания заказа-->
-                        <div class="col-md-6">
-                            <label for="validationDataCreate">Дата создания заказа</label>
-                            <input type="date" disabled
-                                   class="form-control is-valid"
-                                   id="validationDataCreate"
-                                   ng-value="invoiceJSON.datacreate | date: 'yyyy-MM-dd' | isEmpty">
-                            <!--ng-model=invoiceJSON.datacreate-->
-                        </div>
-
-                        <!--дата закрытия\выполнения заказа-->
-                        <div class="col-md-6">
-                            <label for="validationDataResolve">Дата выполнения заказа</label>
-                            <input type="date" disabled
-                                   class="form-control is-valid"
-                                   id="validationDataResolve"
-                                   ng-value="invoiceJSON.resolveddate | date: 'yyyy-MM-dd' | isEmpty"
-                                   ng-model=invoiceJSON.resolveddate>
-                        </div>
-                    </div>
 
                 </form>
 
             </div>
 
-            <!--hшstory-->
+            <div class="row h5">
+                Этапы выполнения:
+            </div>
+
+            <!--history-->
             <div class="row invoice__main">
 
                 <div class="col">
 
+                    <button data-toggle="modal"
+                            data-target="#saveHistoryModal"> добавить этап выполнения
+                    </button>
+
                     <div ng-repeat="history in invoiceJSON.histories | orderBy:'submitdate':false">
-                        <h6>{{history.submitdate | date: "yyyy.MM.dd hh:mm"}} {{history.step.name}} {{history.customer.firstName}} {{history.customer.lastName}}</h6>
+                        <h6>{{history.submitdate | date: "yyyy.MM.dd hh:mm"}} {{history.step.name}}
+                            {{history.customer.firstName}} {{history.customer.lastName}}</h6>
+
+                        <button class="btn-sm"
+                                data-toggle="modal"
+                                data-target="#stepСommentModal"
+                                ng-click="getCurrentHistory(history)">добавить комментарий
+                        </button>
+
                         <div ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
-                        <p> --{{comment.submitdate  | date: "yy.MM.dd hh:mm" }} {{comment.customer.lastName}} {{comment.customer.firstName[0]}} :
-                            {{comment.comment}}
-                        </p>
+                            <p> --{{comment.submitdate | date: "yy.MM.dd hh:mm" }} {{comment.customer.lastName}}
+                                {{comment.customer.firstName[0]}} :
+                                {{comment.comment}}
+                            </p>
                         </div>
                     </div>
 
@@ -268,7 +198,6 @@
             </div>
 
         </div>
-
 
     </div>
 
@@ -284,8 +213,8 @@
 
                 <div class="modal-header">
 
-                    <h5 class="modal-title"
-                        id="editInvoiceModalLabel">Сохранить изменения в заказе?</h5>
+                    <h6 class="modal-title"
+                        id="editInvoiceModalLabel">Сохранить изменения в заказе?</h6>
 
                     <button type="button"
                             class="close"
@@ -297,7 +226,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h4>{{invoiceJSON.ordernumber}}</h4>
+                    <h6>{{invoiceJSON.ordernumber}}</h6>
                     <p>{{invoiceJSON.comment}}</p>
                     <p>{{invoiceJSON.department}}</p>
                     <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
@@ -333,8 +262,8 @@
 
                 <div class="modal-header">
 
-                    <h5 class="modal-title"
-                        id="deleteInvoiceModalLabel">Удалить весь заказ из БД навсегда?</h5>
+                    <h6 class="modal-title"
+                        id="deleteInvoiceModalLabel">Удалить весь заказ из БД навсегда?</h6>
 
                     <button type="button"
                             class="close"
@@ -346,7 +275,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <h4>{{invoiceJSON.ordernumber}}</h4>
+                    <h6>{{invoiceJSON.ordernumber}}</h6>
                     <p>{{invoiceJSON.comment}}</p>
                     <p>{{invoiceJSON.department}}</p>
                     <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
@@ -358,6 +287,85 @@
                     <button type="button"
                             class="btn btn-primary"
                             ng-click="deleteInvoice(invoice)">Удалить
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal history save to DB -->
+    <div class="modal fade"
+         id="saveHistoryModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="saveHistoryModalLabel"
+         aria-hidden="true"
+         ng-init="historyInit()">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h6 class="modal-title"
+                        id="saveHistoryModalLabel">Добавить этап к заказу {{invoiceJSON.ordernumber}}</h6>
+                </div>
+
+                <div class="modal-body">
+                    <div ng-repeat="step in stepJSON">
+                        <button class="col-12"
+                                ng-click="historySave(invoiceJSON, step)">
+                            {{step.name}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal stepcomment save to DB -->
+    <div class="modal fade"
+         id="stepСommentModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="stepСommentModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h6 class="modal-title"
+                        id="stepСommentModalLabel">Добавление комментария к {{currentHistory.id}}</h6>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        <textarea aria-label="сообщение:" ng-model="stepCommentJSON.comment"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="stepCommentSave(currentHistory, stepCommentJSON.comment)">Добавить комментарий
                     </button>
 
                     <button type="button"
