@@ -5,10 +5,14 @@ app.controller('loginCtrl', function ($log, $scope, $window, $http, $sessionStor
 
         $http.post(contextPath + '/api/v1/login', $scope.user).then(function success(response) {
             if (response.data.token) {
+
                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                 // $log.info(response.data.token);
                 $sessionStorage.currentUser = {username: $scope.user.username, token: response.data.token};
+                // сохраняем id пользователя в фабрику
+                sessionStorage.setItem("userDetails", JSON.stringify(response.data));
                 $window.location.href = '#!/invoice';
+
             }
         }, function error(response) {
 
@@ -18,6 +22,9 @@ app.controller('loginCtrl', function ($log, $scope, $window, $http, $sessionStor
 
             $('#exampleModal').modal('show')
 
+        }).catch(function (response) {
+            $log.info("tryToAuth.catch: " + response);
+            alert(response);
         });
     };
 
@@ -28,13 +35,11 @@ app.controller('loginCtrl', function ($log, $scope, $window, $http, $sessionStor
     };
 
     $scope.isLoggedIn = function () {
-        if ($sessionStorage.currentUser) return true;
-        return false;
+        return !!$sessionStorage.currentUser;
     }
 
     $scope.getUserName = function () {
-        if ($sessionStorage.currentUser) return $sessionStorage.currentUser.username;
-        return null;
+        return $sessionStorage.currentUser ? $sessionStorage.currentUser.username : null;
     }
 
 });

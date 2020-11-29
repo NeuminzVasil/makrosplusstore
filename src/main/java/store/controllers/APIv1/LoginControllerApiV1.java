@@ -52,17 +52,26 @@ public class LoginControllerApiV1 {
      */
     @PostMapping
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) throws Exception {
+        // получить authenticationManager для пользователя
+        // отдаем в него Username, Password полученный из JwtRequest со стороны фронта
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(),
-                            authRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         } catch (BadCredentialsException ex) {
             return new ResponseEntity<>(new JulyMarketError(HttpStatus.UNAUTHORIZED.value(),
                     "Incorrect username or password"),
                     HttpStatus.UNAUTHORIZED);
         }
+
+        // получаем JWTUserDetails
         UserDetails userDetails = customerService.loadUserByUsername(authRequest.getUsername());
+
+        // генерируем Token пользователя.
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+
+        return ResponseEntity.ok(new JwtResponse(token,
+                customerService.findByLogin(authRequest.getUsername()).get().getId().toString(),
+                customerService.findByLogin(authRequest.getUsername()).get().getFirstName(),
+                customerService.findByLogin(authRequest.getUsername()).get().getLastName()));
     }
 }
