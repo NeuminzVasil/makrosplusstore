@@ -5,10 +5,15 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
     $scope.stepJSON = {};
     $scope.historyJSON = {};
     $scope.stepCommentJSON = {};
+    $scope.currentHistory = null;
 
     let getCurrentInvoice = function () {
         $log.info(JSON.parse(sessionStorage.getItem("currentInvoice")))
         return JSON.parse(sessionStorage.getItem("currentInvoice"));
+    }
+
+    $scope.getCurrentHistory = function (history) {
+        $scope.currentHistory = history;
     }
 
     /**
@@ -173,11 +178,13 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * добавить stepComment
      * @param stepComment
      */
-    $scope.stepCommentSave = function (historyID, newMessage) {
+    $scope.stepCommentSave = function (history, newMessage) {
 
         $scope.stepCommentJSON.customer = {"id": JSON.parse(sessionStorage.getItem("userDetails")).id};
-        $scope.stepCommentJSON.history = {"id": historyID};
+        $scope.stepCommentJSON.history = history;
         $scope.stepCommentJSON.comment = newMessage;
+
+        $log.info($scope.stepCommentJSON);
 
         $http.put(contextPath + '/api/v1/stepcomment/save', $scope.stepCommentJSON)
             .then(function (response) {
@@ -185,12 +192,12 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 $log.info("stepCommentSave.error.status: " + response.status);
                 alert(response.status);
             }, function error(response) {
-                $log.info("stepCommentSave.error: " + response);
-                alert(response);
+                $log.info("stepCommentSave.error: " + response.data);
+                alert(response.data);
             })
             .catch(function (response) {
-                $log.info("stepCommentSave.catch: " + response);
-                alert(response);
+                $log.info("stepCommentSave.catch: " + response.data);
+                alert(response.data);
             });
     };
 

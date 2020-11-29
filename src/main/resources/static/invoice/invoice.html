@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="historyCtrl">
 
     <!--page name-->
     <div class="row">
@@ -95,7 +95,6 @@
 
         </div>
 
-
         <!--details \ history section-->
         <div class="container col-lg-3">
 
@@ -170,7 +169,7 @@
             <!--history-->
             <div class="row invoice__main">
 
-                <div class="col" ng-controller="historyCtrl">
+                <div class="col">
 
                     <button data-toggle="modal"
                             data-target="#saveHistoryModal"> добавить этап выполнения
@@ -182,7 +181,8 @@
 
                         <button class="btn-sm"
                                 data-toggle="modal"
-                                data-target="#stepСommentModal">+
+                                data-target="#stepСommentModal"
+                                ng-click="getCurrentHistory(history)">добавить комментарий
                         </button>
 
                         <div ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
@@ -307,7 +307,6 @@
          role="dialog"
          aria-labelledby="saveHistoryModalLabel"
          aria-hidden="true"
-         ng-controller="historyCtrl"
          ng-init="historyInit()">
 
         <div class="modal-dialog">
@@ -315,7 +314,7 @@
 
                 <div class="modal-header">
                     <h6 class="modal-title"
-                        id="saveHistoryModalLabel">Добавить этап к заказу {{invoiceJSON.ordernumber}} {{invoiceJSON.id}}</h6>
+                        id="saveHistoryModalLabel">Добавить этап к заказу {{invoiceJSON.ordernumber}}</h6>
                 </div>
 
                 <div class="modal-body">
@@ -346,19 +345,19 @@
          tabindex="-1"
          role="dialog"
          aria-labelledby="stepСommentModalLabel"
-         aria-hidden="true"
-         ng-controller="historyCtrl">
+         aria-hidden="true">
+
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <h6 class="modal-title"
-                        id="stepСommentModalLabel">Добавление комментария</h6>
+                        id="stepСommentModalLabel">Добавление комментария к {{currentHistory.id}}</h6>
                 </div>
 
                 <div class="modal-body">
                     <div>
-                        <textarea aria-label="сообщение:" ng-model="stepcommentJson.comment"></textarea>
+                        <textarea aria-label="сообщение:" ng-model="stepCommentJSON.comment"></textarea>
                     </div>
                 </div>
 
@@ -366,7 +365,7 @@
 
                     <button type="button"
                             class="btn btn-primary"
-                            ng-click="stepCommentSave()">Добавить
+                            ng-click="stepCommentSave(currentHistory, stepCommentJSON.comment)">Добавить комментарий
                     </button>
 
                     <button type="button"
