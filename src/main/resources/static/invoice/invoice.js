@@ -1,34 +1,4 @@
 /// <reference path = "config.js"/>
-/*
-let invoiceJSON =
-    {
-        "id": null,
-        "ordernumber": null,
-        "comment": null,
-        "department": null,
-        "customer": null,
-        "senttoprice": null,
-        "senttoapprove": null,
-        "senttopurchase": null,
-        "datacreate": null,
-        "totalprice": null,
-        "invoicenumber": null,
-        "resolveddate": null,
-        "purchases": null
-    }*/
-
-let historyJSON =
-    {
-        "customer": {
-            "id": 1
-        },
-        "invoice": {
-            "id": 1553
-        },
-        "step": {
-            "id": 2
-        }
-    }
 
 app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope, $http, $sessionStorage, invoiceFactory) {
 

@@ -93,119 +93,106 @@
                             Удалить заказ Ⓧ
                         </button>-->
 
-            <!--testing section-->
-            <section class="container invoice__field" ng-controller="historyCtrl">
-                <div class="row">
-
-                    <textarea ng-model="stepCommentJSON.comment"></textarea> <br>
-                    <button ng-click="stepFindAll()">get</button> <br>
-                    <button ng-click="stepCommentSave(27, stepCommentJSON.comment)">save</button> <br>
-
-                    stepJSON: {{stepJSON}} <br>
-                    historyJSON: {{historyJSON}} <br>
-                    stepCommentJSON: {{stepCommentJSON.comment}} <br>
-
-                </div>
-            </section>
         </div>
 
-    </div>
 
-    <!--details \ history section-->
-    <div class="container col-lg-3">
+        <!--details \ history section-->
+        <div class="container col-lg-3">
 
-        <div class="row h4">{{invoiceJSON.ordernumber}}</div>
+            <div class="row h4">{{invoiceJSON.ordernumber}}</div>
 
-        <!--details-->
-        <div class="row invoice__main">
+            <!--details-->
+            <div class="row invoice__main">
 
-            <form class="col was-validated">
+                <form class="col was-validated">
 
-                <!--                    <button class="btn btn-outline-success col-12"
-                                            data-toggle="modal"
-                                            data-target="#editInvoiceModal"
-                                            type="button">Сохранить изменения
-                                    </button>-->
+                    <!--                    <button class="btn btn-outline-success col-12"
+                                                data-toggle="modal"
+                                                data-target="#editInvoiceModal"
+                                                type="button">Сохранить изменения
+                                        </button>-->
 
-                <!--iD скрыто-->
-                <input hidden placeholder="id" type="number" ng-model=invoiceJSON.id>
+                    <!--iD скрыто-->
+                    <input hidden placeholder="id" type="number" ng-model=invoiceJSON.id>
 
-                <p>
-                    Заказ (1c код): {{invoiceJSON.ordernumber}}<br>
-                    Отдел: {{invoiceJSON.department}}<br>
-                    Описание заказа: {{invoiceJSON.comment}}<br>
-                    Сумма заказа: {{invoiceJSON.totalprice}}<br>
-                    №СФ: {{invoiceJSON.invoicenumber}}<br>
-                    Дата создания заказа: {{invoiceJSON.datacreate | date: 'yyyy-MM-dd' | isEmpty}}
-                    Дата выполнения заказа: {{invoiceJSON.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}
-                </p>
+                    <p>
+                        Заказ (1c код): {{invoiceJSON.ordernumber}}<br>
+                        Отдел: {{invoiceJSON.department}}<br>
+                        Описание заказа: {{invoiceJSON.comment}}<br>
+                        Сумма заказа: {{invoiceJSON.totalprice}}<br>
+                        №СФ: {{invoiceJSON.invoicenumber}}<br>
+                        Дата создания заказа: {{invoiceJSON.datacreate | date: 'yyyy-MM-dd' | isEmpty}}
+                        Дата выполнения заказа: {{invoiceJSON.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}
+                    </p>
 
-                <!--                    &lt;!&ndash; на расценке \ на согласовании \ закупается&ndash;&gt;
-                                    <div class="form-row cb_border">
+                    <!--                    &lt;!&ndash; на расценке \ на согласовании \ закупается&ndash;&gt;
+                                        <div class="form-row cb_border">
 
-                                        &lt;!&ndash;На расценке&ndash;&gt;
-                                        <div class="form-check col-md-4">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   id="Check01"
-                                                   ng-model=invoiceJSON.senttoprice>
-                                            <label class="form-check-label" for="Check01"> На расценке </label>
-                                        </div>
+                                            &lt;!&ndash;На расценке&ndash;&gt;
+                                            <div class="form-check col-md-4">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       id="Check01"
+                                                       ng-model=invoiceJSON.senttoprice>
+                                                <label class="form-check-label" for="Check01"> На расценке </label>
+                                            </div>
 
-                                        &lt;!&ndash;на согласовании&ndash;&gt;
-                                        <div class="form-check col-md-4">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   id="Check02"
-                                                   ng-model=invoiceJSON.senttoapprove>
-                                            <label class="form-check-label" for="Check02">На согласовании</label>
-                                        </div>
+                                            &lt;!&ndash;на согласовании&ndash;&gt;
+                                            <div class="form-check col-md-4">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       id="Check02"
+                                                       ng-model=invoiceJSON.senttoapprove>
+                                                <label class="form-check-label" for="Check02">На согласовании</label>
+                                            </div>
 
-                                        &lt;!&ndash;Закупается&ndash;&gt;
-                                        <div class="form-check col-md-4">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   id="Check03"
-                                                   ng-model=invoiceJSON.senttopurchase>
-                                            <label class="form-check-label"
-                                                   for="Check03">Закупается</label>
-                                        </div>
+                                            &lt;!&ndash;Закупается&ndash;&gt;
+                                            <div class="form-check col-md-4">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       id="Check03"
+                                                       ng-model=invoiceJSON.senttopurchase>
+                                                <label class="form-check-label"
+                                                       for="Check03">Закупается</label>
+                                            </div>
 
-                                    </div>-->
+                                        </div>-->
 
 
-            </form>
+                </form>
 
-        </div>
+            </div>
 
-        <div class="row h5">
-            Этапы выполнения:
-        </div>
+            <div class="row h5">
+                Этапы выполнения:
+            </div>
 
-        <!--history-->
-        <div class="row invoice__main">
+            <!--history-->
+            <div class="row invoice__main">
 
-            <div class="col" ng-controller="historyCtrl">
+                <div class="col" ng-controller="historyCtrl">
 
-                <button data-toggle="modal"
-                        data-target="#saveHistoryModal"> добавить этап выполнения
-                </button>
-
-                <div ng-repeat="history in invoiceJSON.histories | orderBy:'submitdate':false">
-                    <h6>{{history.submitdate | date: "yyyy.MM.dd hh:mm"}} {{history.step.name}}
-                        {{history.customer.firstName}} {{history.customer.lastName}}</h6>
-
-                    <button class="btn-sm"
-                            data-toggle="modal"
-                            data-target="#stepСommentModal">+
+                    <button data-toggle="modal"
+                            data-target="#saveHistoryModal"> добавить этап выполнения
                     </button>
 
-                    <div ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
-                        <p> --{{comment.submitdate | date: "yy.MM.dd hh:mm" }} {{comment.customer.lastName}}
-                            {{comment.customer.firstName[0]}} :
-                            {{comment.comment}}
-                        </p>
+                    <div ng-repeat="history in invoiceJSON.histories | orderBy:'submitdate':false">
+                        <h6>{{history.submitdate | date: "yyyy.MM.dd hh:mm"}} {{history.step.name}}
+                            {{history.customer.firstName}} {{history.customer.lastName}}</h6>
+
+                        <button class="btn-sm"
+                                data-toggle="modal"
+                                data-target="#stepСommentModal">+
+                        </button>
+
+                        <div ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
+                            <p> --{{comment.submitdate | date: "yy.MM.dd hh:mm" }} {{comment.customer.lastName}}
+                                {{comment.customer.firstName[0]}} :
+                                {{comment.comment}}
+                            </p>
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -214,185 +201,184 @@
 
     </div>
 
-</div>
+    <!-- Modal Edit invoice -->
+    <div class="modal fade"
+         id="editInvoiceModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="editInvoiceModalLabel"
+         aria-hidden="true">
 
-<!-- Modal Edit invoice -->
-<div class="modal fade"
-     id="editInvoiceModal"
-     tabindex="-1" role="dialog"
-     aria-labelledby="editInvoiceModalLabel"
-     aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-    <div class="modal-dialog">
-        <div class="modal-content">
+                <div class="modal-header">
 
-            <div class="modal-header">
+                    <h6 class="modal-title"
+                        id="editInvoiceModalLabel">Сохранить изменения в заказе?</h6>
 
-                <h6 class="modal-title"
-                    id="editInvoiceModalLabel">Сохранить изменения в заказе?</h6>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                </div>
 
-            </div>
+                <div class="modal-body">
+                    <h6>{{invoiceJSON.ordernumber}}</h6>
+                    <p>{{invoiceJSON.comment}}</p>
+                    <p>{{invoiceJSON.department}}</p>
+                    <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
+                    <p>{{invoiceJSON.totalprice}}</p>
+                    <p>{{invoiceJSON.datacreate}}</p>
+                </div>
 
-            <div class="modal-body">
-                <h6>{{invoiceJSON.ordernumber}}</h6>
-                <p>{{invoiceJSON.comment}}</p>
-                <p>{{invoiceJSON.department}}</p>
-                <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
-                <p>{{invoiceJSON.totalprice}}</p>
-                <p>{{invoiceJSON.datacreate}}</p>
-            </div>
+                <div class="modal-footer">
 
-            <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="editInvoice($scope.invoiceJSON)">Сохранить
+                    </button>
 
-                <button type="button"
-                        class="btn btn-primary"
-                        ng-click="editInvoice($scope.invoiceJSON)">Сохранить
-                </button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+                    </button>
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal">Отменить
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Delete invoice from DB -->
-<div class="modal fade"
-     id="deleteInvoiceModal"
-     tabindex="-1" role="dialog"
-     aria-labelledby="deleteInvoiceModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <h6 class="modal-title"
-                    id="deleteInvoiceModalLabel">Удалить весь заказ из БД навсегда?</h6>
-
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-            </div>
-
-            <div class="modal-body">
-                <h6>{{invoiceJSON.ordernumber}}</h6>
-                <p>{{invoiceJSON.comment}}</p>
-                <p>{{invoiceJSON.department}}</p>
-                <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
-                <p>{{invoiceJSON.datacreate}}</p>
-            </div>
-
-            <div class="modal-footer">
-
-                <button type="button"
-                        class="btn btn-primary"
-                        ng-click="deleteInvoice(invoice)">Удалить
-                </button>
-
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal">Отменить
-
-                </button>
-
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal history save to DB -->
-<div class="modal fade"
-     id="saveHistoryModal"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="saveHistoryModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <!-- Modal Delete invoice from DB -->
+    <div class="modal fade"
+         id="deleteInvoiceModal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="deleteInvoiceModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <div class="modal-header">
-                <h6 class="modal-title"
-                    id="saveHistoryModalLabel">Добавление нового этапа выполнения заказа</h6>
+                <div class="modal-header">
+
+                    <h6 class="modal-title"
+                        id="deleteInvoiceModalLabel">Удалить весь заказ из БД навсегда?</h6>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+                    <h6>{{invoiceJSON.ordernumber}}</h6>
+                    <p>{{invoiceJSON.comment}}</p>
+                    <p>{{invoiceJSON.department}}</p>
+                    <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
+                    <p>{{invoiceJSON.datacreate}}</p>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="deleteInvoice(invoice)">Удалить
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+
+                    </button>
+
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="modal-body">
-                <div ng-controller="historyCtrl">
-                    <div ng-repeat="history in stepsAll">
+    <!-- Modal history save to DB -->
+    <div class="modal fade"
+         id="saveHistoryModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="saveHistoryModalLabel"
+         aria-hidden="true"
+         ng-controller="historyCtrl"
+         ng-init="historyInit()">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h6 class="modal-title"
+                        id="saveHistoryModalLabel">Добавить этап к заказу {{invoiceJSON.ordernumber}} {{invoiceJSON.id}}</h6>
+                </div>
+
+                <div class="modal-body">
+                    <div ng-repeat="step in stepJSON">
                         <button class="col-12"
-                                ng-click="historySave(history)">
-                            {{history.name}}
+                                ng-click="historySave(invoiceJSON, step)">
+                            {{step.name}}
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal-footer">
+                <div class="modal-footer">
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal">Отменить
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
 
-                </button>
+                    </button>
 
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal stepcomment save to DB -->
-<div class="modal fade"
-     id="stepСommentModal"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="stepСommentModalLabel"
-     aria-hidden="true"
-     ng-controller="historyCtrl">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h6 class="modal-title"
-                    id="stepСommentModalLabel">Добавление комментария</h6>
-            </div>
-
-            <div class="modal-body">
-                <div>
-                    <textarea aria-label="сообщение:" ng-model="stepcommentJson.comment"></textarea>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="modal-footer">
+    <!-- Modal stepcomment save to DB -->
+    <div class="modal fade"
+         id="stepСommentModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="stepСommentModalLabel"
+         aria-hidden="true"
+         ng-controller="historyCtrl">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-                <button type="button"
-                        class="btn btn-primary"
-                        ng-click="stepCommentSave()">Добавить
-                </button>
+                <div class="modal-header">
+                    <h6 class="modal-title"
+                        id="stepСommentModalLabel">Добавление комментария</h6>
+                </div>
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal">Отменить
+                <div class="modal-body">
+                    <div>
+                        <textarea aria-label="сообщение:" ng-model="stepcommentJson.comment"></textarea>
+                    </div>
+                </div>
 
-                </button>
+                <div class="modal-footer">
 
+                    <button type="button"
+                            class="btn btn-primary"
+                            ng-click="stepCommentSave()">Добавить
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Отменить
+
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 
