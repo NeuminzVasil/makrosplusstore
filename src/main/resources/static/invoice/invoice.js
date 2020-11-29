@@ -1,5 +1,5 @@
 /// <reference path = "config.js"/>
-
+/*
 let invoiceJSON =
     {
         "id": null,
@@ -15,6 +15,19 @@ let invoiceJSON =
         "invoicenumber": null,
         "resolveddate": null,
         "purchases": null
+    }*/
+
+let historyJSON =
+    {
+        "customer": {
+            "id": 1
+        },
+        "invoice": {
+            "id": 1553
+        },
+        "step": {
+            "id": 2
+        }
     }
 
 app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope, $http, $sessionStorage, invoiceFactory) {
@@ -26,22 +39,41 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         $http.defaults.headers.common.Authorization = 'Bearer ' + $sessionStorage.currentUser.token;
     }
 
-    $scope.invoiceFactory = invoiceFactory;
-    $scope.invoiceJSON = invoiceJSON;
+    // $scope.invoiceFactory = invoiceFactory;
+    // $scope.invoiceJSON = invoiceJSON;
 
     /**
-     * запросить из базы все СФ
+     * получить все СФ из базы
      */
     let showAllInvoices = function () {
-        $http.get(contextPath + "/api/v1/invoice")
+        $http.get(contextPath + "/api/v1/invoice/dto")
             .then(function (response) {
                 $scope.InvoiceList = response.data;
+            })
+            .catch(function (response) {
+                alert(response);
             });
     };
     /**
      * автоматически запустить метод получения всех СФ при старте странички Invoice
      */
     showAllInvoices();
+
+    /**
+     * получить детальное СФ из базы по ID
+     */
+    $scope.getInvoiceDetails = function (id) {
+        $http.get(contextPath + "/api/v1/invoice/" + id)
+            .then(function (response) {
+                sessionStorage.setItem("currentInvoice", JSON.stringify(response.data));
+                $scope.invoiceJSON = response.data;
+
+                // $log.info(sessionStorage.getItem("currentInvoice"));
+            })
+            .catch(function (response) {
+                alert(response);
+            });
+    }
 
     /**
      * удалить Invoice по ID
@@ -60,7 +92,7 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
     }
 
     /**
-     * добавить invoice
+     * добавить новый invoice
      * @param invoiceJSON
      */
     $scope.addInvoice = function (invoice) {
@@ -78,6 +110,22 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
             .then(function (response) {
                 //$log.info("addInvoice.response: ", response);
                 $location.path('/invoice');
+            });
+
+    };
+
+    /**
+     * добавить новый history
+     * @param invoiceJSON
+     */
+    $scope.addHistory = function (history) {
+
+        $http.put(contextPath + "/api/v1/history/save", historyJSON)
+            .then(function (response) {
+                //$log.info("addInvoice.response: ", response);
+                // $location.path('/invoice');
+            }, function error(response) {
+                alert(response);
             });
 
     };
@@ -181,7 +229,6 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         if (data === null || (!data)) return "ожидает закупки";
         else return "закупается";
     };
-
 
 });
 

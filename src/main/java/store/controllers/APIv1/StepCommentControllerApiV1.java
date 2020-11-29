@@ -23,7 +23,7 @@ public class StepCommentControllerApiV1 {
      * @PathVariable Long id - id Stepcomment
      */
     @GetMapping("/get/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+//    @ResponseStatus(HttpStatus.FOUND)
     @CrossOrigin("*")
     public StepComment findById(@PathVariable Long id) {
         return stepCommentService.findById(id);

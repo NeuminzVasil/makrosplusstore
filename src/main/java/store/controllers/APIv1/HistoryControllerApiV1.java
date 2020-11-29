@@ -22,7 +22,7 @@ public class HistoryControllerApiV1 {
      * @PathVariable Long id - id History
      */
     @GetMapping("/get/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+//    @ResponseStatus(HttpStatus.FOUND)
     @CrossOrigin("*")
     public History findById(@PathVariable Long id) {
         return historyService.findById(id);
@@ -38,10 +38,11 @@ public class HistoryControllerApiV1 {
 
         // если история в заказе уже есть то добавлять не добавлять а бросить а бросить ошибку
         if (historyService.alreadyInInvoice(history)) {
+            System.err.println("history: alreadyInInvoice");
             return new ResponseEntity<>("Этап '" + history.getStep().getName() +"' добавлялся ранее.", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(historyService.save(history), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(historyService.save(history), HttpStatus.OK);
     }
 
     /**
@@ -59,7 +60,7 @@ public class HistoryControllerApiV1 {
      * @param history - History
      */
     @DeleteMapping("/delete")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+//    @ResponseStatus(HttpStatus.ACCEPTED)
     public void delete(@RequestBody History history) {
         historyService.delete(history);
     }

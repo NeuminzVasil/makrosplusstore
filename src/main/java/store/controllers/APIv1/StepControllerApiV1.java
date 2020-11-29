@@ -19,13 +19,13 @@ public class StepControllerApiV1 {
     }
 
     /**
-     * найти Step по ID
+     * найти все типы Step
      *
      * @return Step
      * @PathVariable Long id - id Step
      */
     @GetMapping()
-    @ResponseStatus(HttpStatus.FOUND)
+//    @ResponseStatus(HttpStatus.FOUND)
     @CrossOrigin("*")
     public List<Step> findAll() {
         return stepService.findAll();
