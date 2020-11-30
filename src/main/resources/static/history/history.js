@@ -33,12 +33,18 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 $scope.stepJSON = response.data;
 
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
-                $log.info("stepFindAll.error: " + response);
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                $log.info("stepFindAll.catch: " + response);
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
 
         return $scope.stepJSON;
@@ -59,7 +65,11 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                         // $scope.stepJSON = response.data;
                         $log.info(response.data);
                     }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
-                        alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
                     });
 
                 return $scope.stepJSON;*/
@@ -95,11 +105,18 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 $scope.historyJSON = response.data;
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $log.info("historyGet.error: " + response);
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                $log.info("historyGet.catch: " + response);
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
 
         return $scope.historyJSON;
@@ -120,12 +137,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
         $http.put(contextPath + '/api/v1/history/save', $scope.historyJSON)
             .then(function (response) {
-
-                $log.info("historySave.good.response: " + response);
-                $log.info("historySave.good.data: " + response.data);
-                $log.info("historySave.good.message: " + response.message);
-                $log.info("historySave.good.status: " + response.status);
-                $log.info("historySave.good.timestamp: " + response.timestamp);
+                $log.info("historySave.good.response: " + response.data);
 
             }, function error(response) {
                 $log.info("historySave.error.data.status: " + response.data.status);
@@ -141,11 +153,11 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
             })
             .catch(function (response) {
-                $log.info("historySave.error.data.status: " + response.data.status);
-                $log.info("historySave.error.data.message: " + response.data.message);
-                $log.info("historySave.error.status: " + response.status);
-                $log.info("historySave.error.timestamp: " + response.timestamp);
-                // alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     }
 
@@ -181,12 +193,18 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 // return JSON.parse(sessionStorage.getItem("userInfo"));
                 $scope.stepCommentJSON = response.data;
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
-                $log.info("stepCommentGet.error: " + response);
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                $log.info("stepCommentGet.catch: " + response);
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
 
         return $scope.stepCommentJSON;
@@ -206,16 +224,20 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
         $http.put(contextPath + '/api/v1/stepcomment/save', $scope.stepCommentJSON)
             .then(function (response) {
-                $log.info("stepCommentSave.error: " + response);
-                $log.info("stepCommentSave.error.status: " + response.status);
-                alert(response.status);
+                $log.info("stepCommentSave.good: " + response.data);
             }, function error(response) {
-                $log.info("stepCommentSave.error: " + response.data);
-                alert(response.data);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                $log.info("stepCommentSave.catch: " + response.data);
-                alert(response.data);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     };
 
