@@ -16,6 +16,12 @@ app.controller('loginCtrl', function ($log, $scope, $window, $http, $sessionStor
             }
         }, function error(response) {
 
+            $log.info("tryToAuth.error.response: " + response);
+            $log.info("tryToAuth.error.data: " + response.data);
+            $log.info("tryToAuth.error.message: " + response.message);
+            $log.info("tryToAuth.error.status: " + response.status);
+            $log.info("tryToAuth.error.timestamp: " + response.timestamp);
+
             $scope.errorMessage = response.data.message;
             $scope.errorCode1 = response.data.status;
             $scope.errorTime = response.data.timestamp;
@@ -24,6 +30,11 @@ app.controller('loginCtrl', function ($log, $scope, $window, $http, $sessionStor
 
         }).catch(function (response) {
             $log.info("tryToAuth.catch: " + response);
+            $log.info("tryToAuth.catch.response: " + response);
+            $log.info("tryToAuth.catch.data: " + response.data);
+            $log.info("tryToAuth.catch.message: " + response.message);
+            $log.info("tryToAuth.catch.status: " + response.status);
+            $log.info("tryToAuth.catch.timestamp: " + response.timestamp);
             alert(response);
         });
     };

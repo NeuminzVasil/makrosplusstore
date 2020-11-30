@@ -1,58 +1,59 @@
 <div class="align-content-center text-center" ng-controller="loginCtrl">
 
-<form class="col-6 form-signin" ng-submit="tryToAuth()">
+    <form class="col-6 form-signin" ng-submit="tryToAuth()">
 
-    <img class="mb-4" src="../assets/img/favicon.png" alt="" width="72" height="72">
+        <img class="mb-4" src="../assets/img/favicon.png" alt="" width="72" height="72">
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email"
-           id="inputEmail"
-           class="form-control"
-           placeholder="Email address"
-           required autofocus
-           ng-model="user.username">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email"
+               id="inputEmail"
+               class="form-control"
+               placeholder="Email address"
+               required autofocus
+               ng-model="user.username">
 
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password"
-           id="inputPassword"
-           class="form-control"
-           placeholder="Password"
-           required
-           ng-model="user.password">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password"
+               id="inputPassword"
+               class="form-control"
+               placeholder="Password"
+               required
+               ng-model="user.password">
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
 
-    <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
-    <button class="btn btn-lg btn-secondary btn-block" ng-click="tryToLogout()">Sign out</button>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-secondary btn-block" ng-click="tryToLogout()">Sign out</button>
 
-</form>
+    </form>
 
-<!--Модальное окно по ошибке ввода логина и пароля-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ошибка ввода логина и пароля.</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div>ErrMess: {{ errorMessage }}</div>
-                <div>ErrCode: {{ errorCode1 }}</div>
-                <div>ErrTime: {{ errorTime }}</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!--Модальное окно по ошибке ввода логина и пароля-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ошибка ввода логина и пароля.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>{{ errorMessage }}</h3>
+                    <p>код ошибки: {{ errorCode1 }} <br>
+                        время ошибки: {{ errorTime | date: "yyyy.MM.dd HH:MM" }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
