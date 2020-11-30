@@ -120,14 +120,32 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
         $http.put(contextPath + '/api/v1/history/save', $scope.historyJSON)
             .then(function (response) {
-                alert(response.status);
+
+                $log.info("historySave.good.response: " + response);
+                $log.info("historySave.good.data: " + response.data);
+                $log.info("historySave.good.message: " + response.message);
+                $log.info("historySave.good.status: " + response.status);
+                $log.info("historySave.good.timestamp: " + response.timestamp);
+
             }, function error(response) {
-                $log.info("historySave.error: " + response.data);
-                alert(response);
+                $log.info("historySave.error.data.status: " + response.data.status);
+                $log.info("historySave.error.data.message: " + response.data.message);
+                $log.info("historySave.error.status: " + response.status);
+                $log.info("historySave.error.timestamp: " + response.timestamp);
+
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
+
             })
             .catch(function (response) {
-                $log.info("historySave.catch: " + response.data);
-                alert(response);
+                $log.info("historySave.error.data.status: " + response.data.status);
+                $log.info("historySave.error.data.message: " + response.data.message);
+                $log.info("historySave.error.status: " + response.status);
+                $log.info("historySave.error.timestamp: " + response.timestamp);
+                // alert(response);
             });
     }
 

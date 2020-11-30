@@ -17,14 +17,15 @@
                 <input class="col-12"
                        title="введите №заказа"
                        type="text"
-                       placeholder="Фильтровать по номеру заказа">
+                       placeholder="Фильтровать по номеру заказа"
+                       ng-model="searchText">
 
                 <input type="checkbox" checked data-toggle="toggle">
             </div>
 
             <!--invoice short card-->
             <div class="row invoice__card__short"
-                 ng-repeat="invoice in InvoiceList | orderBy: 'datacreate':true"
+                 ng-repeat="invoice in InvoiceList | filter:searchText | orderBy: 'datacreate':true "
                  ng-click="getInvoiceDetails(invoice.id)">
 
                 <h6 class="{{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
@@ -176,7 +177,7 @@
                     </button>
 
                     <div ng-repeat="history in invoiceJSON.histories | orderBy:'submitdate':false">
-                        <h6>{{history.submitdate | date: "yyyy.MM.dd hh:mm"}} {{history.step.name}}
+                        <h6>{{history.submitdate | date: "yyyy.MM.dd HH:mm:ss"}} {{history.step.name}}
                             {{history.customer.firstName}} {{history.customer.lastName}}</h6>
 
                         <button class="btn-sm"
@@ -186,7 +187,7 @@
                         </button>
 
                         <div ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
-                            <p> --{{comment.submitdate | date: "yy.MM.dd hh:mm" }} {{comment.customer.lastName}}
+                            <p>-{{comment.submitdate | date: "yy.MM.dd HH:mm:ss" }} {{comment.customer.lastName}}
                                 {{comment.customer.firstName[0]}} :
                                 {{comment.comment}}
                             </p>
@@ -319,7 +320,9 @@
 
                 <div class="modal-body">
                     <div ng-repeat="step in stepJSON">
-                        <button class="col-12"
+                        <button type="button"
+                                class="col-12 btn btn-primary"
+                                data-dismiss="modal"
                                 ng-click="historySave(invoiceJSON, step)">
                             {{step.name}}
                         </button>
@@ -374,6 +377,26 @@
 
                     </button>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Модальное окно по ошибке-->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Ошибка добавления данных.</h5>
+                </div>
+                <div class="modal-body">
+                    <h3>{{ errorMessage2 }}</h3>
+                    <p>код ошибки: {{ errorCode2 }} <br>
+                        время ошибки: {{ errorTime2 | date: "yyyy.MM.dd HH:MM" }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import store.entities.History;
+import store.exceptions.JulyMarketError;
 import store.services.HistoryService;
 
 @RestController
@@ -39,7 +40,9 @@ public class HistoryControllerApiV1 {
         // если история в заказе уже есть то добавлять не добавлять а бросить а бросить ошибку
         if (historyService.alreadyInInvoice(history)) {
             System.err.println("history: alreadyInInvoice");
-            return new ResponseEntity<>("Этап '" + history.getStep().getName() +"' добавлялся ранее.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new JulyMarketError(HttpStatus.BAD_REQUEST.value(),
+                    "Этап '" + history.getStep().getName() +"' добавлялся ранее."),
+                    HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(historyService.save(history), HttpStatus.OK);

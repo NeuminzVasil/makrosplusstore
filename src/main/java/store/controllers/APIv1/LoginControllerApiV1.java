@@ -59,7 +59,7 @@ public class LoginControllerApiV1 {
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         } catch (BadCredentialsException ex) {
             return new ResponseEntity<>(new JulyMarketError(HttpStatus.UNAUTHORIZED.value(),
-                    "Incorrect username or password"),
+                                                    "Неверный логин или пароль"),
                     HttpStatus.UNAUTHORIZED);
         }
 
