@@ -140,10 +140,6 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 $log.info("historySave.good.response: " + response.data);
 
             }, function error(response) {
-                $log.info("historySave.error.data.status: " + response.data.status);
-                $log.info("historySave.error.data.message: " + response.data.message);
-                $log.info("historySave.error.status: " + response.status);
-                $log.info("historySave.error.timestamp: " + response.timestamp);
 
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
