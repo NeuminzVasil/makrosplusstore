@@ -20,19 +20,27 @@
                        placeholder="Фильтровать по номеру заказа"
                        ng-model="searchText">
 
-                <input type="checkbox" checked data-toggle="toggle">
+                <input id="hideResolved"
+                       type="checkbox"
+                       title="показать выполненные заказы"
+                       checked="checked"
+                       ng-model="hideResolved">
+                <label for="hideResolved">показать выполненные заказы</label>
             </div>
 
             <!--invoice short card-->
-            <div class="row invoice__card__short"
-                 ng-repeat="invoice in InvoiceList | filter:searchText | orderBy: 'datacreate':true "
-                 ng-click="getInvoiceDetails(invoice.id)">
+            <div ng-repeat="invoice in InvoiceList | filter:searchText | orderBy: 'datacreate':true ">
+                <div class="row invoice__card__short"
+                     ng-show="(invoice.resolveddate | isNotResolved) || (hideResolved)"
+                     ng-click="getInvoiceDetails(invoice.id)">
 
-                <h6 class="{{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
-                <p>{{invoice.comment}}<br>
-                    сумма: {{invoice.totalprice | isEmpty }} р.<br>
-                    создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
-                    выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                    <h6 class="{{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
+                    <p>{{invoice.comment}}<br>
+                        сумма: {{invoice.totalprice | isEmpty }} р.<br>
+                        создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
+                        выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                </div>
+
             </div>
 
         </div>
@@ -293,7 +301,6 @@
                     <button type="button"
                             class="btn btn-secondary"
                             data-dismiss="modal">Отменить
-
                     </button>
 
                 </div>
@@ -355,12 +362,12 @@
 
                 <div class="modal-header">
                     <h6 class="modal-title"
-                        id="stepСommentModalLabel">Добавление комментария к {{currentHistory.id}}</h6>
+                        id="stepСommentModalLabel">Добавление комментария к {{currentHistory.name}}</h6>
                 </div>
 
                 <div class="modal-body">
                     <div>
-                        <textarea aria-label="сообщение:" ng-model="stepCommentJSON.comment"></textarea>
+                        <textarea class="col-12" aria-label="сообщение:" ng-model="stepCommentJSON.comment"></textarea>
                     </div>
                 </div>
 
@@ -368,13 +375,13 @@
 
                     <button type="button"
                             class="btn btn-primary"
+                            data-dismiss="modal"
                             ng-click="stepCommentSave(currentHistory, stepCommentJSON.comment)">Добавить комментарий
                     </button>
 
                     <button type="button"
                             class="btn btn-secondary"
                             data-dismiss="modal">Отменить
-
                     </button>
 
                 </div>

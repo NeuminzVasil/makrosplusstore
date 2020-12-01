@@ -7,16 +7,17 @@ app.filter('isEmpty', function () {
     }
 });
 
+app.filter('isNotResolved', function () {
+    return function (date) {
+        if (date == null) return true;
+        else return false;
+    }
+});
+
 app.filter('unachieved', function () {
     return function (date) {
         if (date == null) return "выполняется";
         else return date;
     }
 });
-
-
-
-
-
-
 

@@ -137,7 +137,8 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
         $http.put(contextPath + '/api/v1/history/save', $scope.historyJSON)
             .then(function (response) {
-                $log.info("historySave.good.response: " + response.data);
+
+                $scope.getInvoiceDetails($scope.invoiceJSON.id);
 
             }, function error(response) {
 
@@ -220,12 +221,12 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
         $http.put(contextPath + '/api/v1/stepcomment/save', $scope.stepCommentJSON)
             .then(function (response) {
-                $log.info("stepCommentSave.good: " + response.data);
+                $scope.getInvoiceDetails($scope.invoiceJSON.id);
             }, function error(response) {
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
                 $scope.errorTime2 = response.data.timestamp;
-
+                $scope.getInvoiceDetails()
                 $('#errorModal').modal('show')
             })
             .catch(function (response) {
