@@ -7,6 +7,13 @@ app.filter('isEmpty', function () {
     }
 });
 
+app.filter('isLink', function () {
+    return function (date) {
+        if (date == null) return "";
+        else return date;
+    }
+});
+
 app.filter('isNotResolved', function () {
     return function (date) {
         if (date == null) return true;
