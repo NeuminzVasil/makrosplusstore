@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import store.entities.StepComment;
+import store.exceptions.JulyMarketError;
 import store.services.StepCommentService;
 
 @RestController
@@ -37,17 +38,19 @@ public class StepCommentControllerApiV1 {
      */
     @PutMapping("/save")
     public ResponseEntity<?> save(@RequestBody StepComment stepComment) {
-/*
-        // если история в заказе уже есть то добавлять не добавлять а бросить а бросить ошибку
-        if (historyService.alreadyInInvoice(stepComment)) {
-            return new ResponseEntity<>("Этап '" + stepComment.getStep().getName() + "' добавлялся ранее.", HttpStatus.BAD_REQUEST);
-        }*/
-
-        return new ResponseEntity<>(stepCommentService.save(stepComment), HttpStatus.ACCEPTED);
+        try {
+            return new ResponseEntity<>(stepCommentService.save(stepComment), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            System.err.println("Невозможно добавить сообщение");
+            return new ResponseEntity<>(new JulyMarketError(HttpStatus.BAD_REQUEST.value(),
+                    "Невозможно добавить сообщение"),
+                    HttpStatus.BAD_REQUEST);
+        }
     }
 
     /**
      * Изменить StepComment по ID
+     *
      * @param stepComment StepComment
      * @return - ссылка на сохраненный StepComment
      */
@@ -58,6 +61,7 @@ public class StepCommentControllerApiV1 {
 
     /**
      * удалить StepComment
+     *
      * @param stepComment StepComment
      */
     @DeleteMapping("/delete")
@@ -66,5 +70,7 @@ public class StepCommentControllerApiV1 {
         stepCommentService.delete(stepComment);
     }
 
+/*    @ExceptionHandler
+    public ResponseEntity<?> handleException(ex)*/
 
 }
