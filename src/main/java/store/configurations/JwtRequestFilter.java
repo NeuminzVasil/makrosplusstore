@@ -44,7 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwt);
             } catch (ExpiredJwtException e) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "{ msg: The token is expired }");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Время сеанса завершено. Войдите в систему");
                 return;
             }
         }
