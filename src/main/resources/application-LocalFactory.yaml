@@ -1,7 +1,0 @@
-spring:
-  jpa:
-    show-sql : true
-  datasource:
-    url: ${JDBC_DATABASE_URL_LF}
-    username: ${JDBC_DATABASE_USERNAME_LF}
-    password: ${JDBC_DATABASE_PASSWORD_LF}

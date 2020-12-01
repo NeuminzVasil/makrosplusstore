@@ -1,11 +1,10 @@
 ///<reference path = "https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"/>
 let app = angular.module('makrosPlusStore', ['ngRoute', 'ngStorage']);
-const contextPath = 'http://localhost:8189/makrosplusstore'
+const contextPath = 'https://makrosplusstore.herokuapp.com'
 
 app.config(function ($routeProvider) {
 
     $routeProvider
-        .otherwise({redirectTo: 'welcome/welcome.html'})
         .when('/', {
             templateUrl: 'welcome/welcome.html'
         })
