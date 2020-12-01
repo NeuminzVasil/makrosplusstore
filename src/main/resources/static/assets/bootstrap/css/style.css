@@ -1,4 +1,4 @@
-*{
+* {
     padding: 0;
     margin: 0;
     /*    box-sizing: border-box;
@@ -17,7 +17,7 @@ body {
     height: 100vh; !*растянуть на всю высоту экрана*!
 }*/
 
-.row, .col, .container, .container-fluid{
+.row, .col, .container, .container-fluid, .p {
     border-color: darkred;
     margin-right: 0;
     margin-left: 0;
@@ -35,7 +35,7 @@ body {
 }
 
 .invoice__card__short {
-    margin-top: 10px; /* внешний отступ сверху */
+    margin-top: 5px; /* внешний отступ сверху */
     padding: 2px; /* внутренний отступ */
     border: 1px solid #cecece;
     cursor: pointer;
@@ -48,16 +48,26 @@ body {
     color: red;
 }
 
-.invoice__main {
-    margin-bottom: 20px; /* внешний отступ снизу */
+
+.purchases_field {
+    border: 1px solid #494f54;
+    height: 80vh; /*растянуть на всю высоту экрана*/
+    overflow-y: scroll;
+}
+
+
+.invoice__details {
+    margin-bottom: 5px; /* внешний отступ снизу */
     padding: 5px; /* внутренний отступ */
     border: 1px solid #494f54;
     cursor: pointer;
     font-size: smaller;
+    height: 18vh; /*растянуть на всю высоту экрана*/
+    overflow-y: scroll;
 }
 
 .invoice__element {
-    margin-top: 1px; /* внешний отступ сверху */
+    margin-top: 5px; /* внешний отступ сверху */
     padding: 5px; /* внутренний отступ */
     border: 1px solid #494f54;
     cursor: pointer;
@@ -69,6 +79,25 @@ body {
     background-color: #b1ffce; /* Цвет фона */
     color: red;
 }
+
+.history__field {
+    margin-top: 5px; /* внешний отступ сверху */
+    padding: 5px; /* внутренний отступ */
+    border: 1px solid #494f54;
+    /*position: fixed; изьять из общей схемы и зафиксировать позицию*/
+    height: 56vh; /*растянуть на всю высоту экрана*/
+    overflow-y: scroll;
+}
+
+.font-weight-bold{
+    cursor: pointer;
+    font-size: 11pt
+}
+
+.font-weight-normal{
+    font-size: 9pt
+}
+
 
 
 /*.card-element-left, .card-element-right {
@@ -102,7 +131,7 @@ body {
 }*/
 
 .footer {
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 10px;
     color: #756f6f;
     text-align: left;

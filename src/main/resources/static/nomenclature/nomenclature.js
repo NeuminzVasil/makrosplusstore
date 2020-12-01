@@ -65,11 +65,11 @@ app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $ro
      */
     $scope.addToInvoice = function (nomenclature) {
 
-        let indexX = invoiceFactory.invoiceJSON.purchases.findIndex((x) =>
+        let indexX = $scope.newInvoice.purchases.findIndex((x) =>
             x.nomenclature === nomenclature);
 
         // добавить в JSON запись о новом товаре
-        if (indexX < 0) invoiceFactory.invoiceJSON.purchases.push({
+        if (indexX < 0) $scope.newInvoice.purchases.push({
             nomenclature,
             "count": 1,
             "approver": null,
@@ -77,8 +77,8 @@ app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $ro
             "comment": null,
             "buyingPrice": nomenclature.price
         });
-        // добавить в JSON колличесвто + 1
-        else invoiceFactory.invoiceJSON.purchases[indexX].count++;
+        // добавить в JSON количество + 1
+        else $scope.newInvoice.purchases[indexX].count++;
     };
 
     /**

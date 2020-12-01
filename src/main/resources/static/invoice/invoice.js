@@ -9,7 +9,7 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         $http.defaults.headers.common.Authorization = 'Bearer ' + $sessionStorage.currentUser.token;
     }
 
-    // $scope.invoiceFactory = invoiceFactory;
+    $scope.newInvoice = {};
     // $scope.invoiceJSON = invoiceJSON;
 
     /**
@@ -65,8 +65,8 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
      * добавить новый invoice
      * @param invoiceJSON
      */
-    $scope.addInvoice = function (invoice) {
-        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
+    $scope.addInvoice = function (newInvoice) {
+/*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
         invoiceFactory.invoiceJSON.department = invoice.department;
         invoiceFactory.invoiceJSON.comment = invoice.comment;
         invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
@@ -74,13 +74,15 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
         invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
         invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
-        invoiceFactory.invoiceJSON.customer.id = invoice.customer;
+        invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
 
-        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
+        $log.info(newInvoice);
+
+/*        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
             .then(function (response) {
                 //$log.info("addInvoice.response: ", response);
                 $location.path('/invoice');
-            });
+            });*/
 
     };
 

@@ -4,7 +4,9 @@
         <h4 class="col-12 header__h4">Новый заказ</h4>
 
         <!--ввод основных значений Invoice-->
-        <form class="col was-validated" ng-submit="addInvoice(invoice)">
+        <form class="col was-validated"
+              ng-controller="invoiceCtrl"
+              ng-submit="addInvoice(newInvoice)">
 
             <button class="btn form__button col-sm-12" type="submit">Сохранить заказ</button>
 
@@ -17,7 +19,7 @@
                     <input class="form-control is-valid"
                            id="orderNumber1c"
                            type="text"
-                           ng-model="invoice.ordernumber"
+                           ng-model="newInvoice.ordernumber"
                            placeholder="заполнить номер заказа из 1с"
                            required>
                     <div class="invalid-feedback"> <!--поменять на class="valid-feedback" когда заполнено-->
@@ -30,7 +32,7 @@
                     <label for="validationServer03">Отдел</label>
                     <select class="form-control custom-select is-valid"
                             id="validationServer03"
-                            ng-model="invoice.department"
+                            ng-model="newInvoice.department"
                             required>
                         <option value="">...</option>
                         <option value="1">FRAC (PL_215)</option>
@@ -48,7 +50,7 @@
                     <label for="validationApprover">Согласователь</label>
                     <select class="form-control custom-select is-valid"
                             id="validationApprover"
-                            ng-model="invoice.customer"
+                            ng-model="newInvoice.customer.id"
                             required>
                         <option value="">...</option>
                         <option ng-repeat="customer in customerList"
@@ -72,7 +74,7 @@
                     <input type="text"
                            class="form-control is-valid"
                            id="validationOrderInfoShort"
-                           ng-model="invoice.comment"
+                           ng-model="newInvoice.comment"
                            placeholder="заполнить короткое описание заказа"
                            required>
                     <div class="invalid-feedback">
@@ -90,7 +92,7 @@
                     <input type="number"
                            class="form-control"
                            id="totalPrice"
-                           ng-model="invoice.totalprice"
+                           ng-model="newInvoice.totalprice"
                            placeholder="заполнить сумму заказа xx,00">
                 </div>
 
@@ -100,7 +102,7 @@
                     <input type="text"
                            class="form-control"
                            id="validationServer05"
-                           ng-model="invoice.invoicenumber"
+                           ng-model="newInvoice.invoicenumber"
                            placeholder="заполнить номер СФ">
                 </div>
 
@@ -114,7 +116,7 @@
                     <input class="form-check-input"
                            type="checkbox"
                            id="Check01"
-                           ng-model="invoice.senttoprice">
+                           ng-model="newInvoice.senttoprice">
                     <label class="form-check-label" for="Check01"> На расценке </label>
                 </div>
 
@@ -123,7 +125,7 @@
                     <input class="form-check-input"
                            type="checkbox"
                            id="Check02"
-                           ng-model="invoice.senttoapprove">
+                           ng-model="newInvoice.senttoapprove">
                     <label class="form-check-label" for="Check02">На согласовании</label>
                 </div>
 
@@ -132,7 +134,7 @@
                     <input class="form-check-input"
                            type="checkbox"
                            id="Check03"
-                           ng-model="invoice.senttopurchase">
+                           ng-model="newInvoice.senttopurchase">
                     <label class="form-check-label"
                            for="Check03">Закупается</label>
                 </div>
