@@ -7,7 +7,7 @@
 }
 
 body {
-    padding-top: 56px;
+    padding-top: 40px;
 }
 
 
@@ -17,7 +17,8 @@ body {
     height: 100vh; !*растянуть на всю высоту экрана*!
 }*/
 
-.row, .col, .container, .container-fluid, .p {
+
+.row, .col, .container-fluid, .p {
     border-color: darkred;
     margin-right: 0;
     margin-left: 0;
@@ -133,8 +134,7 @@ body {
 .footer {
     margin-top: 5px;
     padding: 10px;
-    color: #756f6f;
     text-align: left;
-    border-top: 1px solid chocolate;
+    border-top: 1px solid ;
 }
 

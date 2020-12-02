@@ -29,63 +29,81 @@
 <!--<body class="d-flex flex-column h-100" ng-controller="routeUpdating">-->
 <body>
 
-<header>
+<header class="navbar-dark bg-dark navbar-expand-sm ml-auto fixed-top" ng-controller="loginCtrl">
 
-    <!-- Навигация по страницам -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" ng-controller="loginCtrl">
+    <container>
 
-        <a class="navbar-brand" href="#!/">Mąƙřǿƨ+</a>
+        <div class="row">
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{getUserName()}}</a>
-            </li>
-        </ul>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="nav-item">
+                <a class="navbar-brand" href="#!/">Mąƙřǿƨ+</a>
+            </div>
 
             <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item" ng-show="isLoggedIn()">
-                    <a class="nav-link" href="#!/nomenclature">Товары</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#!/login" ng-hide="isLoggedIn()">Войти</a>
                 </li>
-                <li class="nav-item" ng-show="isLoggedIn()">
-                    <a class="nav-link" href="#!/invoice">Счет-Фактуры</a>
-                </li>
-                <!--                <li class="nav-item" ng-show="isLoggedIn()">-->
-                <!--                    <a class="nav-link" href="#!/category">Категории</a>-->
-                <!--                </li>-->
-                <!--                <li class="nav-item" ng-show="isLoggedIn()">-->
-                <!--                    <a class="nav-link" href="#!/customer">Покупатели</a>-->
-                <!--                </li>-->
-                <li class="nav-item" ng-hide="isLoggedIn()">
-                    <a class="nav-link" href="#!/login">Войти</a></li>
-                <li class="nav-item" ng-show="isLoggedIn()">
-                    <a class="nav-link" href="#!/login" ng-click="tryToLogout()">Выйти</a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#!/login" ng-show="isLoggedIn()"
+                       ng-click="tryToLogout()">{{getUserName()}}(Выйти)</a>
                 </li>
 
             </ul>
 
+
         </div>
 
-    </nav>
+    </container>
 
 </header>
+
+<!-- Навигация по страницам -->
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm ml-auto"
+     ng-controller="loginCtrl"
+     ng-show="isLoggedIn()">
+
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#!/nomenclature">Товары</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#!/invoice">Счет-Фактуры</a>
+            </li>
+            <!--                <li class="nav-item" ng-show="isLoggedIn()">-->
+            <!--                    <a class="nav-link" href="#!/category">Категории</a>-->
+            <!--                </li>-->
+            <!--                <li class="nav-item" ng-show="isLoggedIn()">-->
+            <!--                    <a class="nav-link" href="#!/customer">Покупатели</a>-->
+            <!--                </li>-->
+
+
+        </ul>
+
+    </div>
+
+</nav>
 <!--all content-->
 <div class="container-fluid">
 
     <div class="row">
         <!--вывод списка данных на страницу -->
         <div class="col">
-            <!--        <h1 class="mt-5">Sticky footer with fixed navbar</h1>
-                    <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A
-                        fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>main &gt; .container</code>.
-                    </p>-->
             <ng-view></ng-view>
         </div>
 
@@ -93,15 +111,15 @@
 
 </div>
 
-<footer class="footer mt-auto py-3">
+<!--<footer class="footer mt-auto py-3">
     <div class="container">
         <div class="text-muted">&copy; Copyright. 2020. All rights reserved.</div>
         <div class="text-muted">&copy; Заявление правообладателя. 2020. Все права защищены.</div>
     </div>
-</footer>
+</footer>-->
 
 <!--Модальное окно по истечению срока Токена-->
-<div class="modal fade" id="indexModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="indexModal" tabindex="-1" role="dialog" aria-labelledby="indexModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -16,33 +16,28 @@ app.controller('loginCtrl', function ($log, $scope, $window, $http, $sessionStor
             }
         }, function error(response) {
 
-            $log.info("tryToAuth.error.response: " + response);
-            $log.info("tryToAuth.error.data: " + response.data);
-            $log.info("tryToAuth.error.message: " + response.message);
+            $log.info("tryToAuth.error.data.message: " + response.data.message);
             $log.info("tryToAuth.error.status: " + response.status);
-            $log.info("tryToAuth.error.timestamp: " + response.timestamp);
 
             $scope.errorMessage = response.data.message;
-            $scope.errorCode1 = response.data.status;
-            $scope.errorTime = response.data.timestamp;
+            $scope.errorStatus = response.status;
 
-            $('#exampleModal').modal('show')
+            $('#errorLoginModal').modal('show')
 
         }).catch(function (response) {
-            $log.info("tryToAuth.catch: " + response);
-            $log.info("tryToAuth.catch.response: " + response);
-            $log.info("tryToAuth.catch.data: " + response.data);
-            $log.info("tryToAuth.catch.message: " + response.message);
-            $log.info("tryToAuth.catch.status: " + response.status);
-            $log.info("tryToAuth.catch.timestamp: " + response.timestamp);
-            alert(response);
+            $log.info("tryToAuth.error.data.message: " + response.data.message);
+            $log.info("tryToAuth.error.status: " + response.status);
+
+            $scope.errorMessage = response.data.message;
+            $scope.errorStatus = response.status;
+
+            $('#errorLoginModal').modal('show')
         });
     };
 
     $scope.tryToLogout = function () {
-        delete $sessionStorage.currentUser;
-        $http.defaults.headers.common.Authorization = '';
-        $window.location.href = '#!/login';
+        sessionStorage.clear();
+        $window.location.href = '#/';
     };
 
     $scope.isLoggedIn = function () {
