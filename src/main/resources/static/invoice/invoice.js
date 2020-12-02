@@ -19,9 +19,19 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         $http.get(contextPath + "/api/v1/invoice/dto")
             .then(function (response) {
                 $scope.InvoiceList = response.data;
+            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     };
     /**
@@ -39,9 +49,19 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
                 $scope.invoiceJSON = response.data;
 
                 // $log.info(sessionStorage.getItem("currentInvoice"));
+            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                alert(response);
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     }
 
@@ -58,6 +78,19 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
                 $route.reload();
                 // $location.path('/invoice');
 
+            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
+            })
+            .catch(function (response) {
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     }
 
@@ -96,8 +129,19 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
             .then(function (response) {
                 //$log.info("addInvoice.response: ", response);
                 // $location.path('/invoice');
-            }, function error(response) {
-                alert(response);
+            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
+            })
+            .catch(function (response) {
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
 
     };
@@ -128,6 +172,19 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
             .then(function (response) {
                 //$log.info("editInvoice.response: ", response);
                 $location.path('/invoice');
+            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
+            })
+            .catch(function (response) {
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     };
 
@@ -144,6 +201,19 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
                 if (response.status === 200) invoiceJSON.purchases.splice(index, 1);
                 $scope.prepareToEditInvoice(invoiceJSON);
                 // $route.reload();
+            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
+            })
+            .catch(function (response) {
+                $scope.errorMessage2 = response.data.message;
+                $scope.errorCode2 = response.data.status;
+                $scope.errorTime2 = response.data.timestamp;
+
+                $('#errorModal').modal('show')
             });
     }
 
