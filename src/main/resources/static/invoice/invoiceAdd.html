@@ -146,9 +146,8 @@
     </div>
 </div>
 
-
 <!--вывод товаров в Invoice-->
-<div class="card">
+<div class="container">
 
     <table class="table table-responsive-lg table-bordered table-hover table-info">
         <thead>
@@ -163,7 +162,7 @@
 
         <tbody>
 
-        <tr ng-repeat="purchase in invoiceFactory.invoiceJSON.purchases">
+        <tr ng-repeat="purchase in newInvoice.purchases">
             <td>{{purchase.nomenclature.nomenclature}}</td>
             <td><input type="number" placeholder="количество: " ng-model='purchase.count'/></td>
             <td>

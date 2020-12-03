@@ -5,75 +5,57 @@
         <div class="col-12 h4">Список товаров</div>
     </div>
 
-    <!--main content for this page-->
+    <!--short\control\filters\nomenclatures-->
     <div class="row">
 
-        <!--nomenclatures short-->
-        <div class="well col-lg-3">
+        <!--short section -->
+        <div class="col-lg-2 nomenclature__field">
 
-            <!--control\filters-->
+            <!--filters-->
             <div class="row">
-                <div class="well col-12">
-                    <!--ссылка на форму добавления нового товара-->
-                    <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
-                    <button class="col-12" ng-click="sortData('nomenclature')">Добавить новый товар
-                    </button>
 
-                    <!-- sorting AngularJS -->
-                    <input class="col-12"
-                           type="text"
-                           placeholder="Фильтровать по названию"
-                           ng-model="nomenclatureFilter">
+                <!--ссылка на форму добавления нового товара-->
+                <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
+                <button class="col-12 btn btn-outline-primary" ng-click="sortData('nomenclature')">Добавить новый товар
+                </button>
 
-                    <!-- sorting AngularJS by name -->
-                    <button class="col-12" ng-click="sortData('nomenclature')">Сотр по имени</button>
+                <!-- sorting AngularJS -->
+                <input class="col-12 form-control"
+                       title="введите наименование товара"
+                       type="text"
+                       placeholder="Фильтровать по названию"
+                       ng-model="nomenclatureFilter">
+                <small class="form-text text-muted">фильтр по названию товара</small>
 
-                    <!-- sorting AngularJS via select -->
-                    <select class="col-12" ng-model="sortColumn">
-                        <option value="nomenclature">Наименование (A-Z)</option>
-                        <option value="-nomenclature">Наименование (Z-A)</option>
-                        <option value="price">price (0-9)</option>
-                        <option value="-price">price (9-0)</option>
-                    </select>
-                </div>
             </div>
 
-            <!--nomenclatures-->
-            <div class="row">
-                <div class="well col-12"
-                     ng-repeat="nomenclature in nomenclatureList | orderBy: sortColumn:reversSortColumn | filter :nomenclatureFilter">
-
-                    <div>{{nomenclature.nomenclature}}</div>
-
-                    <div>{{nomenclature.price | isEmpty }} р.</div>
-
-                    <div>{{nomenclature.comment | isEmpty }}</div>
-
-                    <div>{{nomenclature.code }}</div>
-
-                    <div>{{nomenclature.manufacturer | isEmpty}}</div>
-
-                    <div>{{nomenclature.category.category | isEmpty}}</div>
-
-                    <button class="col-sm-1 card__button" ng-click="addToInvoice(nomenclature)">+</button>
-
-                    <button class="col-sm card__button" ng-click="editNomenclature(nomenclature)">
-                        редактировать
+            <!--nomenclatures card-->
+            <div ng-repeat="nomenclature in nomenclatureList | filter:nomenclatureFilter | orderBy:'nomenclature':false ">
+                <div class="row nomenclature__card__short">
+                    <p><b>{{nomenclature.nomenclature}}</b><br>
+                        {{nomenclature.price | isEmpty }} р.<br>
+                        {{nomenclature.comment | isEmpty }}<br>
+                        {{nomenclature.code }}<br>
+                        {{nomenclature.manufacturer | isEmpty}}</p><br>
+                    <button class="col-md-4 btn btn-sm btn-outline-secondary" ng-click="editNomenclature(nomenclature)">
+                        edit
                     </button>
+                    <button class="col-md-8 btn btn-sm btn-outline-success" ng-click="addToInvoice(nomenclature)">add to order</button>
                 </div>
+
             </div>
 
         </div>
 
         <!--basket-->
-        <div class="well col-lg-7">
+        <div class="col-lg-7">
 
             <div ng-include="'invoice/invoiceAdd.html'"></div>
 
         </div>
 
         <!--nomenclature info-->
-        <div class="well col-lg-2">
+        <div class="col-lg-3">
             <p> nomenclature info </p>
         </div>
 

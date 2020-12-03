@@ -1,6 +1,13 @@
 /// <reference path = "config.js"/>
 
-app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope, $http, $sessionStorage, invoiceFactory) {
+app.controller('invoiceCtrl', function ($window,
+                                        $location,
+                                        $route,
+                                        $log,
+                                        $scope,
+                                        $http,
+                                        $sessionStorage,
+                                        newInvoiceService) {
 
 
     // проверяем вошедшего пользователя (см loginController)
@@ -8,9 +15,6 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
     if ($sessionStorage.currentUser) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + $sessionStorage.currentUser.token;
     }
-
-    $scope.newInvoice = {};
-    // $scope.invoiceJSON = invoiceJSON;
 
     /**
      * получить все СФ из базы
@@ -99,23 +103,23 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
      * @param invoiceJSON
      */
     $scope.addInvoice = function (newInvoice) {
-/*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
-        invoiceFactory.invoiceJSON.department = invoice.department;
-        invoiceFactory.invoiceJSON.comment = invoice.comment;
-        invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
-        invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
-        invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
-        invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
-        invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
-        invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
+        /*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
+                invoiceFactory.invoiceJSON.department = invoice.department;
+                invoiceFactory.invoiceJSON.comment = invoice.comment;
+                invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
+                invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
+                invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
+                invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
+                invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
+                invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
 
         $log.info(newInvoice);
 
-/*        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
-            .then(function (response) {
-                //$log.info("addInvoice.response: ", response);
-                $location.path('/invoice');
-            });*/
+        /*        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
+                    .then(function (response) {
+                        //$log.info("addInvoice.response: ", response);
+                        $location.path('/invoice');
+                    });*/
 
     };
 
@@ -272,26 +276,6 @@ app.controller('invoiceCtrl', function ($window, $location, $route, $log, $scope
         else return "закупается";
     };
 
-});
-
-app.factory('invoiceFactory', function () {
-    return {
-        invoiceJSON:
-            {
-                dataCreate: new Date(),
-                orderNumber: null,
-                department: null,
-                comment: null,
-                invoiceNumber: null,
-                totalPrice: null,
-                sentToPrice: false,
-                sentToApprove: false,
-                sentToPurchase: false,
-                resolveDate: null,
-                customer: {id: null},
-                purchases: []
-            }
-    }
 });
 
 

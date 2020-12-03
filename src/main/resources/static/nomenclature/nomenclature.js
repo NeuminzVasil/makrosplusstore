@@ -13,7 +13,14 @@ let nomenclatureJSON =
         "category": 2
     }
 
-app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $routeParams, invoiceFactory, $sessionStorage) {
+app.controller('nomenclatureCtrl', function ($location,
+                                             $log,
+                                             $scope,
+                                             $http,
+                                             $routeParams,
+                                             // invoiceFactory,
+                                             $sessionStorage,
+                                             newInvoiceService) {
     // проверяем вошедшего пользователя (см loginController)
     // не забыть инжектнуть в контроллер параметр $sessionStorage
     if ($sessionStorage.currentUser) {
@@ -21,9 +28,10 @@ app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $ro
     }
 
     $scope.nomenclatureJSON = nomenclatureJSON;
-    $scope.invoiceFactory = invoiceFactory;
+    // $scope.invoiceFactory = invoiceFactory;
     $scope.sortColumn = "nomenclature";
     $scope.reversSortColumn = false;
+    newInvoiceService.initNewPurchase();
 
     $scope.showAllNomenclature = function () {
         let localPath = contextPath + "/api/v1/nomenclature";
@@ -65,30 +73,13 @@ app.controller('nomenclatureCtrl', function ($location, $log, $scope, $http, $ro
      */
     $scope.addToInvoice = function (nomenclature) {
 
-        let indexX = $scope.newInvoice.purchases.findIndex((x) =>
-            x.nomenclature === nomenclature);
+        newInvoiceService.putNomenclature(nomenclature);
 
-        // добавить в JSON запись о новом товаре
-        if (indexX < 0) $scope.newInvoice.purchases.push({
-            nomenclature,
-            "count": 1,
-            "approver": null,
-            "resolvingDate": null,
-            "comment": null,
-            "buyingPrice": nomenclature.price
-        });
-        // добавить в JSON количество + 1
-        else $scope.newInvoice.purchases[indexX].count++;
+        $log.info(newInvoiceService.getNewInvoiceJSON());
+
+        $scope.newInvoice = newInvoiceService.getNewInvoiceJSON();
+
     };
-
-    /**
-     * сортировка товаров
-     * @param column
-     */
-    $scope.sortData = function (column) {
-        $scope.reversSortColumn = ($scope.sortColumn == column) ? !$scope.reversSortColumn : false;
-        $scope.sortColumn = column;
-    }
 
     // используй это когда при сортировке нужно изменить CSS для элемента
     $scope.getSortClass = function (column) {
