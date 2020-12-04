@@ -1,6 +1,6 @@
 /// <reference path = "customer.js"/>
 
-app.controller('customerCtrl', function ($scope, $http, $routeParams, invoiceFactory, $sessionStorage) {
+app.controller('customerCtrl', function ($scope, $http, $routeParams, $sessionStorage) {
     // проверяем вошедшего пользователя (см loginController)
     // не забыть инжектнуть в контроллер параметр $sessionStorage
     if ($sessionStorage.currentUser) {
