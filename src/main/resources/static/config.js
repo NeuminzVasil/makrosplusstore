@@ -3,7 +3,7 @@ let app = angular.module('makrosPlusStore', ['ngRoute', 'ngStorage']);
 const contextPath = 'http://localhost:8189/makrosplusstore'
 
 app.config(function ($routeProvider) {
-
+    $routeProvider.caseInsensitiveMatch =true;
     $routeProvider
         .when('/', {
             templateUrl: 'welcome/welcome.html'
@@ -36,7 +36,7 @@ app.config(function ($routeProvider) {
             templateUrl: 'invoice/invoiceEdit.html',
             controller: 'invoiceCtrl'
         })
-        .otherwise({redirectTo: {template: '<h1>404 Error (роутинг провайденр не нашел такой путь)</h1>'}});
+        .otherwise({redirectTo: {templateUrl:'welcome/welcome.html'}});
 
     // $locationProvider.html5Mode(true);
 });

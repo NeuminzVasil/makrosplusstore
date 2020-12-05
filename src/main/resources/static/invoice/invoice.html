@@ -47,7 +47,7 @@
         </div>
 
         <!--purchase section-->
-        <div class="col-lg-7 purchases_field">
+        <div class="col-lg-7 purchases_field" ng-hide="invoiceJSON == undefined">
 
             <!--invoice elements-->
             <div class="row">
@@ -105,12 +105,12 @@
         </div>
 
         <!--details \ history section-->
-        <div class="col-lg-3">
+        <div class="col-lg-3" ng-hide="invoiceJSON == undefined">
 
             <!--details-->
-            <div class="row invoice__details">
+            <div class="row invoice__details d-none d-lg-block">
 
-                <p class="col"><u>Заказ: {{invoiceJSON.ordernumber}}</u><br>
+                <p class="col-12"><b>Заказ: {{invoiceJSON.ordernumber}}</b><br>
                     Отдел: {{invoiceJSON.department}}<br>
                     Описание заказа: {{invoiceJSON.comment}}<br>
                     Сумма заказа: {{invoiceJSON.totalprice}}<br>
