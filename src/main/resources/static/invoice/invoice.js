@@ -5,9 +5,10 @@ app.controller('invoiceCtrl', function ($window,
                                         $route,
                                         $log,
                                         $scope,
+                                        $rootScope,
                                         $http,
                                         $sessionStorage,
-                                        newInvoiceService) {
+                                        currentInvoiceService) {
 
 
     // проверяем вошедшего пользователя (см loginController)
@@ -20,6 +21,7 @@ app.controller('invoiceCtrl', function ($window,
      * получить все СФ из базы
      */
     let showAllInvoices = function () {
+
         $http.get(contextPath + "/api/v1/invoice/dto")
             .then(function (response) {
                 $scope.InvoiceList = response.data;
@@ -47,12 +49,16 @@ app.controller('invoiceCtrl', function ($window,
      * получить детальное СФ из базы по ID
      */
     $scope.getInvoiceDetails = function (id) {
+
+
+
         $http.get(contextPath + "/api/v1/invoice/" + id)
             .then(function (response) {
                 sessionStorage.setItem("currentInvoice", JSON.stringify(response.data));
-                $scope.invoiceJSON = response.data;
+                $rootScope.invoiceJSON2 = response.data;
+                $window.location.href = '#!/invoiceDetails';// или $location.path('/invoice/edit');
+                // $log.debug(sessionStorage.getItem("currentInvoice"));
 
-                // $log.info(sessionStorage.getItem("currentInvoice"));
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
@@ -75,10 +81,10 @@ app.controller('invoiceCtrl', function ($window,
      */
     $scope.deleteInvoice = function (invoice) {
 
-        //$log.info("deleteInvoice.invoice", invoice);
+        //$log.debug("deleteInvoice.invoice", invoice);
         $http.post(contextPath + "/api/v1/invoice/delete", invoice)
             .then(function (response) {
-                //$log.info("deleteInvoice.response: ", response);
+                //$log.debug("deleteInvoice.response: ", response);
                 $route.reload();
                 // $location.path('/invoice');
 
@@ -113,11 +119,11 @@ app.controller('invoiceCtrl', function ($window,
                 invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
                 invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
 
-        $log.info(newInvoice);
+        $log.debug(newInvoice);
 
         /*        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
                     .then(function (response) {
-                        //$log.info("addInvoice.response: ", response);
+                        //$log.debug("addInvoice.response: ", response);
                         $location.path('/invoice');
                     });*/
 
@@ -131,7 +137,7 @@ app.controller('invoiceCtrl', function ($window,
 
         $http.put(contextPath + "/api/v1/history/save", historyJSON)
             .then(function (response) {
-                //$log.info("addInvoice.response: ", response);
+                //$log.debug("addInvoice.response: ", response);
                 // $location.path('/invoice');
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
@@ -159,11 +165,11 @@ app.controller('invoiceCtrl', function ($window,
         /*        $http.get(contextPath + "/api/v1/invoice/" + invoice.id)
                     .then(function (response) {
                         invoiceJSON = response.data;
-                        // //$log.info("prepareToEditInvoice.invoiceJSON: ", invoiceJSON);
+                        // //$log.debug("prepareToEditInvoice.invoiceJSON: ", invoiceJSON);
                         $location.path('/invoice/edit');
                     });*/
         $scope.invoiceJSON = invoice;
-        $log.info($scope.invoiceJSON);
+        $log.debug($scope.invoiceJSON);
     }
 
     /**
@@ -171,10 +177,10 @@ app.controller('invoiceCtrl', function ($window,
      * @param invoiceJSON
      */
     $scope.editInvoice = function (invoice) {
-        // //$log.info("editInvoice.invoice: ", invoice);
+        // //$log.debug("editInvoice.invoice: ", invoice);
         $http.put(contextPath + "/api/v1/invoice/edit", invoice)
             .then(function (response) {
-                //$log.info("editInvoice.response: ", response);
+                //$log.debug("editInvoice.response: ", response);
                 $location.path('/invoice');
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
@@ -201,7 +207,7 @@ app.controller('invoiceCtrl', function ($window,
 
         $http.put(contextPath + "/api/v1/invoice/edit/deletePurchase/" + invoiceJSON.purchases[index].id)
             .then(function (response) {
-                //$log.info("deletePurchaseFromInvoice.response: ", response);
+                //$log.debug("deletePurchaseFromInvoice.response: ", response);
                 if (response.status === 200) invoiceJSON.purchases.splice(index, 1);
                 $scope.prepareToEditInvoice(invoiceJSON);
                 // $route.reload();

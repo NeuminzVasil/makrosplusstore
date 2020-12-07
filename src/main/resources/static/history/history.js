@@ -8,7 +8,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
     $scope.currentHistory = null;
 
     let getCurrentInvoice = function () {
-        $log.info(JSON.parse(sessionStorage.getItem("currentInvoice")))
+        $log.debug(JSON.parse(sessionStorage.getItem("currentInvoice")))
         return JSON.parse(sessionStorage.getItem("currentInvoice"));
     }
 
@@ -23,8 +23,6 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * @PathVariable Long id - id Step
      */
     $scope.stepFindAll = function () {
-
-        $log.info("stepFindAll: " + contextPath + '/api/v1/step');
 
         $http.get(contextPath + '/api/v1/step')
             .then(function (response) {
@@ -57,13 +55,13 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * @return - ссылка на сохраненный Step
      */
     $scope.stepSave = function (sJ) {
-        $log.info("stepSave:");
-        $log.info(sJ);
+        $log.debug("stepSave:");
+        $log.debug(sJ);
 
         /*        $http.get(contextPath + '/api/v1/step/save', sJ)
                     .then(function (response) {
                         // $scope.stepJSON = response.data;
-                        $log.info(response.data);
+                        $log.debug(response.data);
                     }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
@@ -96,7 +94,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * найти history по ID
      */
     $scope.historyGet = function (id) {
-        $log.info("historyGet: " + contextPath + '/api/v1/history/get/' + id);
+        $log.debug("historyGet: " + contextPath + '/api/v1/history/get/' + id);
 
         $http.get(contextPath + '/api/v1/history/get/' + id)
             .then(function (response) {
@@ -104,7 +102,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 // return JSON.parse(sessionStorage.getItem("userInfo"));
                 $scope.historyJSON = response.data;
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
-                $log.info("historyGet.error: " + response);
+                $log.debug("historyGet.error: " + response);
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
                 $scope.errorTime2 = response.data.timestamp;
@@ -182,7 +180,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * @PathVariable Long id - id Stepcomment
      */
     $scope.stepCommentGet = function (id) {
-        $log.info("stepCommentGet: " + contextPath + '/api/v1/stepcomment/get/' + id);
+        $log.debug("stepCommentGet: " + contextPath + '/api/v1/stepcomment/get/' + id);
 
         $http.get(contextPath + '/api/v1/stepcomment/get/' + id)
             .then(function (response) {
@@ -217,7 +215,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
         $scope.stepCommentJSON.history = history;
         $scope.stepCommentJSON.comment = newMessage;
 
-        $log.info($scope.stepCommentJSON);
+        $log.debug($scope.stepCommentJSON);
 
         $http.put(contextPath + '/api/v1/stepcomment/save', $scope.stepCommentJSON)
             .then(function (response) {

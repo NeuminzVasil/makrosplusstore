@@ -5,159 +5,41 @@
         <div class="col-12 h4">Список заказов</div>
     </div>
 
-    <!--filter\invoice\purchase\history-->
+    <!--filters-->
+    <div class="row">
+        <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
+        <input class="col-12 form-control"
+               title="введите №заказа"
+               type="text"
+               placeholder="Фильтровать заказа"
+               ng-model="searchText">
+
+        <input id="hideResolved"
+               type="checkbox"
+               title="показать выполненные заказы"
+               checked="checked"
+               ng-model="hideResolved">
+        <label for="hideResolved">показать выполненные заказы</label>
+
+    </div>
+
+    <!--invoice shortCards-->
     <div class="row">
 
-        <!--short section -->
-        <div class="col-lg-2 invoice__field">
+        <div class="col-md-3 mb-3"
+             ng-repeat="invoice in InvoiceList | filter:searchText | orderBy: 'datacreate':true "
+             ng-show="(invoice.resolveddate | isNotResolved) || (hideResolved)"
+             ng-click="getInvoiceDetails(invoice.id)">
 
-            <!--filters-->
-            <div class="row">
-                <!--<input type="text" placeholder="Фильтровать по всем полям" ng-model="orderNumber">-->
-                <input class="col-12 form-control"
-                       title="введите №заказа"
-                       type="text"
-                       placeholder="Фильтровать заказа"
-                       ng-model="searchText">
-
-                <input id="hideResolved"
-                       type="checkbox"
-                       title="показать выполненные заказы"
-                       checked="checked"
-                       ng-model="hideResolved">
-                <label for="hideResolved">показать выполненные заказы</label>
-
-            </div>
-
-            <!--invoice short card-->
-            <div ng-repeat="invoice in InvoiceList | filter:searchText | orderBy: 'datacreate':true ">
-                <div class="row invoice__card__short"
-                     ng-show="(invoice.resolveddate | isNotResolved) || (hideResolved)"
-                     ng-click="getInvoiceDetails(invoice.id)">
-
-                    <h6 class="{{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
-                    <p>{{invoice.comment}}<br>
-                        сумма: {{invoice.totalprice | isEmpty }} р.<br>
-                        создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
-                        выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!--purchase section-->
-        <div class="col-lg-7 purchases_field" ng-hide="invoiceJSON == undefined">
-
-            <!--invoice elements-->
-            <div class="row">
-                <div class="col-12">
-
-                    <div class="invoice__element" ng-repeat="purchase in invoiceJSON.purchases">
-                        <div class="container-fluid">
-                            <div class="row">
-
-                                <!--товар\описаниеТовара\количество-->
-                                <div class="col-lg-9 ">
-                                    <p class="font-weight-bold">
-                                        {{purchase.nomenclature.nomenclature}}
-                                        ({{purchase.nomenclature.code | isEmpty }})
-                                        {{purchase.count | isEmpty }} шт.</p>
-                                    <p class="font-weight-normal">
-                                        {{purchase.nomenclature.comment | isEmpty }} <br>
-                                        {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}<br>
-                                        <a class="card-link"
-                                           target="_blank"
-                                           ng-href="{{purchase.commentnumenclature | isLink }}">
-                                            ссылка на товар </a><br>
-                                        {{purchase.comment | isEmpty }}</p>
-                                </div>
-
-                                <!--датаПолучения-->
-                                <div class="col-lg-3">
-                                    <div class="row">
-                                        <div class="col-lg-6 {{isWarning(purchase.resolvingdate)}}">
-                                            {{purchase.resolvingdate | date: "yyyy.MM.dd" | unachieved }}
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <button class="btn btn-sm text-center btn-outline-danger"
-                                                    ng-click="deletePurchaseFromInvoice($index)">Ⓧ
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title {{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
+                        <p>{{invoice.comment}}<br>
+                            сумма: {{invoice.totalprice | isEmpty }} р.<br>
+                            создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
+                            выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
                     </div>
-
                 </div>
-            </div>
-
-            <!--            &lt;!&ndash;<button ng-click="deleteNomenclature(invoiceJSON)">Удалить</button>&ndash;&gt;
-                        <button class="row btn text-center btn-outline-danger col-12"
-                                data-toggle="modal"
-                                data-target="#deleteInvoiceModal"
-                                type="button">
-                            Удалить заказ Ⓧ
-                        </button>-->
-
-        </div>
-
-        <!--details \ history section-->
-        <div class="col-lg-3" ng-hide="invoiceJSON == undefined">
-
-            <!--details-->
-            <div class="row invoice__details d-none d-lg-block">
-
-                <p class="col-12"><b>Заказ: {{invoiceJSON.ordernumber}}</b><br>
-                    Отдел: {{invoiceJSON.department}}<br>
-                    Описание заказа: {{invoiceJSON.comment}}<br>
-                    Сумма заказа: {{invoiceJSON.totalprice}}<br>
-                    №СФ: {{invoiceJSON.invoicenumber}}<br>
-                    Дата создания заказа: {{invoiceJSON.datacreate | date: 'yyyy-MM-dd' | isEmpty}}
-                    Дата выполнения заказа: {{invoiceJSON.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}
-                </p>
-
-            </div>
-
-            <div class="row">
-                <div class="col-4 h5">
-                    Этапы выполнения:
-                </div>
-                <button class="col-8 btn btn-sm btn-outline-primary" data-toggle="modal"
-                        data-target="#saveHistoryModal"> добавить этап выполнения
-                </button>
-            </div>
-
-            <!--history-->
-            <div class="row history__field">
-
-                <div class="col-12">
-
-                    <div ng-repeat="history in invoiceJSON.histories | orderBy:'submitdate':false">
-
-                        <p class="col-11 font-weight-bold"
-                           data-toggle="modal"
-                           data-target="#stepСommentModal"
-                           ng-click="getCurrentHistory(history)">
-                            {{history.submitdate | date: "yyyy.MM.dd HH:mm:ss"}}
-                            {{history.customer.lastName}}
-                            {{history.customer.firstName[0]}}. : {{history.step.name}}</p>
-
-                        <p class="font-weight-normal"
-                           ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
-                            -{{comment.submitdate | date: "yy.MM.dd HH:mm:ss" }}
-                            {{comment.customer.lastName}}
-                            {{comment.customer.firstName[0]}}. :
-                            {{comment.comment}}
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
 

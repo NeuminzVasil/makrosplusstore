@@ -41,12 +41,14 @@
 
             <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#!/login" ng-hide="isLoggedIn()">Войти</a>
+                <li class="nav-item" ng-hide="isLoggedIn()">
+                    <a class="nav-link" href="#!/login">Войти</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#!/login" ng-show="isLoggedIn()"
+                <li class="nav-item"
+                    ng-show="isLoggedIn()"
+                    ng-click="tryToLogout()">
+                    <a class="nav-link" href="#!/login"
                        ng-click="tryToLogout()">{{getUserName()}}(Выйти)</a>
                 </li>
 
