@@ -32,6 +32,10 @@ app.config(function ($routeProvider) {
             templateUrl: 'invoice/invoice.html',
             controller: 'invoiceCtrl'
         })
+        .when('/invoiceDetails', {
+            templateUrl: 'invoice/invoiceDetails.html',
+            controller: 'invoiceCtrl',
+        })
         .when('/invoice/edit', {
             templateUrl: 'invoice/invoiceEdit.html',
             controller: 'invoiceCtrl'
@@ -108,6 +112,16 @@ app.factory('newInvoiceService', function ($log, $sessionStorage) {
         },
         getNewInvoiceJSON: function () {
             return JSON.parse(sessionStorage.getItem("newInvoice"))
+        }
+    };
+});
+
+
+
+app.factory('stepsService', function ($log, $sessionStorage) {
+    return {
+        getStepsJSON: function () {
+            return JSON.parse(sessionStorage.getItem("stepsJSON"))
         }
     };
 });

@@ -31,6 +31,7 @@ app.controller('nomenclatureCtrl', function ($location,
     // $scope.invoiceFactory = invoiceFactory;
     $scope.sortColumn = "nomenclature";
     $scope.reversSortColumn = false;
+    // инициализация для нового invoice
     newInvoiceService.initNewPurchase();
 
     $scope.showAllNomenclature = function () {
@@ -62,7 +63,7 @@ app.controller('nomenclatureCtrl', function ($location,
                 $scope.PageNumber = response.data.number + 1;
                 $scope.nomenclatureList = response.data.content;
 
-                //$log.info("showAllNomenclature.response: ", response);
+                //$log.debug("showAllNomenclature.response: ", response);
             });
     };
     $scope.showAllNomenclature();
@@ -75,7 +76,7 @@ app.controller('nomenclatureCtrl', function ($location,
 
         newInvoiceService.putNomenclature(nomenclature);
 
-        $log.info(newInvoiceService.getNewInvoiceJSON());
+        $log.debug(newInvoiceService.getNewInvoiceJSON());
 
         $scope.newInvoice = newInvoiceService.getNewInvoiceJSON();
 
@@ -94,10 +95,10 @@ app.controller('nomenclatureCtrl', function ($location,
      * @param nomenclatureJSON
      */
     $scope.addNomenclature = function (nomenclature) {
-        //$log.info("addNomenclature.nomenclature", nomenclature);
+        //$log.debug("addNomenclature.nomenclature", nomenclature);
         $http.put(contextPath + "/api/v1/nomenclature/add", nomenclature)
             .then(function (response) {
-                //$log.info("addNomenclature.response", response);
+                //$log.debug("addNomenclature.response", response);
                 $location.path('/nomenclature');
             });
     };
@@ -116,10 +117,10 @@ app.controller('nomenclatureCtrl', function ($location,
      * @param nomenclature
      */
     $scope.deleteNomenclature = function (nomenclature) {
-        //$log.info("deleteNomenclature.nomenclature: ", nomenclature);
+        //$log.debug("deleteNomenclature.nomenclature: ", nomenclature);
         $http.post(contextPath + "/api/v1/nomenclature/delete", nomenclature)
             .then(function (response) {
-                //$log.info("deleteNomenclature.response: ", response);
+                //$log.debug("deleteNomenclature.response: ", response);
                 $location.path('/nomenclature');
             });
     }

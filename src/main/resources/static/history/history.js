@@ -1,19 +1,26 @@
 /// <reference path = "config.js"/>
 
-app.controller('historyCtrl', function ($window, $location, $route, $log, $scope, $http, $sessionStorage) {
+app.controller('historyCtrl', function ($window,
+                                        $location,
+                                        $route,
+                                        $log,
+                                        $scope,
+                                        $rootScope,
+                                        $http,
+                                        $sessionStorage,
+                                        invoiceService) {
 
-    $scope.stepJSON = {};
+    $scope.stepsJSON = {};
     $scope.historyJSON = {};
     $scope.stepCommentJSON = {};
-    $scope.currentHistory = null;
+    $rootScope.currentHistory = null;
 
-    let getCurrentInvoice = function () {
-        $log.info(JSON.parse(sessionStorage.getItem("currentInvoice")))
-        return JSON.parse(sessionStorage.getItem("currentInvoice"));
-    }
-
+    /**
+     * получить текущую историю и записать ее в скоуп для отображения ее в модальном окне добавления комментария
+      * @param history кликнутая история
+     */
     $scope.getCurrentHistory = function (history) {
-        $scope.currentHistory = history;
+        $rootScope.currentHistory = history;
     }
 
     /**
@@ -24,14 +31,10 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      */
     $scope.stepFindAll = function () {
 
-        $log.info("stepFindAll: " + contextPath + '/api/v1/step');
-
         $http.get(contextPath + '/api/v1/step')
             .then(function (response) {
-                sessionStorage.setItem("stepJSON", JSON.stringify(response.data));
-                // return JSON.parse(sessionStorage.getItem("userInfo"));
-                $scope.stepJSON = response.data;
-
+                sessionStorage.setItem("stepsJSON", JSON.stringify(response.data));
+                $scope.stepsJSON = response.data;
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
@@ -47,7 +50,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 $('#errorModal').modal('show')
             });
 
-        return $scope.stepJSON;
+        return $scope.stepsJSON;
     };
 
     /**
@@ -57,13 +60,13 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * @return - ссылка на сохраненный Step
      */
     $scope.stepSave = function (sJ) {
-        $log.info("stepSave:");
-        $log.info(sJ);
+        $log.debug("stepSave:");
+        $log.debug(sJ);
 
         /*        $http.get(contextPath + '/api/v1/step/save', sJ)
                     .then(function (response) {
-                        // $scope.stepJSON = response.data;
-                        $log.info(response.data);
+                        // $scope.stepsJSON = response.data;
+                        $log.debug(response.data);
                     }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
@@ -72,7 +75,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
                 $('#errorModal').modal('show')
                     });
 
-                return $scope.stepJSON;*/
+                return $scope.stepsJSON;*/
     }
 
     /**
@@ -96,15 +99,15 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * найти history по ID
      */
     $scope.historyGet = function (id) {
-        $log.info("historyGet: " + contextPath + '/api/v1/history/get/' + id);
+        $log.debug("historyGet: " + contextPath + '/api/v1/history/get/' + id);
 
         $http.get(contextPath + '/api/v1/history/get/' + id)
             .then(function (response) {
-                sessionStorage.setItem("historyJSON", JSON.stringify(response.data));
-                // return JSON.parse(sessionStorage.getItem("userInfo"));
+                // sessionStorage.setItem("historyJSON", JSON.stringify(response.data));
                 $scope.historyJSON = response.data;
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
-                $log.info("historyGet.error: " + response);
+                $log.debug("historyGet.error");
+                $log.debug(response);
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
                 $scope.errorTime2 = response.data.timestamp;
@@ -118,41 +121,40 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
                 $('#errorModal').modal('show')
             });
-
-        return $scope.historyJSON;
     }
 
     /**
      * сохранить History в BD
-     * @param history - History
-     * @return - ссылка на сохраненный History
+     * @param step который кликнули и который нужно добавить в базу
      */
-    $scope.historySave = function (invoice, step) {
+    $scope.historySave = function (step) {
 
         $scope.historyJSON.customer = {"id": JSON.parse(sessionStorage.getItem("userDetails")).id};
-        $scope.historyJSON.invoice = invoice
-        $scope.historyJSON.step = step
-
-        $log.log($scope.historyJSON)
+        $scope.historyJSON.invoice = invoiceService.getCurrentInvoiceJSON();
+        $scope.historyJSON.step = step;
 
         $http.put(contextPath + '/api/v1/history/save', $scope.historyJSON)
             .then(function (response) {
-
-                $scope.getInvoiceDetails($scope.invoiceJSON.id);
-
+                $log.info("historySave.put");
+                //после внесения нового шага истории в БД обновляем currentInvoice в sessionStorage
+                invoiceService.putInvoiceByIdToSessionStorage($scope.historyJSON.invoice.id);
             }, function error(response) {
+                $log.debug("historySave.error");
+                $log.debug(response)
 
-                $scope.errorMessage2 = response.data.message;
-                $scope.errorCode2 = response.data.status;
-                $scope.errorTime2 = response.data.timestamp;
+                $scope.historySaveerrorMessage = response;
+                $scope.historySaveerrorStatus = response.data.status;
+                $scope.historySaveerrorTime = response.data.timestamp;
 
                 $('#errorModal').modal('show')
 
             })
             .catch(function (response) {
-                $scope.errorMessage2 = response.data.message;
-                $scope.errorCode2 = response.data.status;
-                $scope.errorTime2 = response.data.timestamp;
+                $log.error("historySave.catch");
+                $log.error(response)
+
+                $scope.historySaveerrorMessage = response.data.message;
+                $scope.historySaveerrorStatus = response.data.status;
 
                 $('#errorModal').modal('show')
             });
@@ -182,7 +184,7 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
      * @PathVariable Long id - id Stepcomment
      */
     $scope.stepCommentGet = function (id) {
-        $log.info("stepCommentGet: " + contextPath + '/api/v1/stepcomment/get/' + id);
+        $log.debug("stepCommentGet: " + contextPath + '/api/v1/stepcomment/get/' + id);
 
         $http.get(contextPath + '/api/v1/stepcomment/get/' + id)
             .then(function (response) {
@@ -217,16 +219,13 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
         $scope.stepCommentJSON.history = history;
         $scope.stepCommentJSON.comment = newMessage;
 
-        $log.info($scope.stepCommentJSON);
-
         $http.put(contextPath + '/api/v1/stepcomment/save', $scope.stepCommentJSON)
             .then(function (response) {
-                $scope.getInvoiceDetails($scope.invoiceJSON.id);
+                $rootScope.currentInvoice = invoiceService.putInvoiceByIdToSessionStorage(invoiceService.getCurrentInvoiceJSON().id); //fixme не уверен что это должно быть сздесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
             }, function error(response) {
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
                 $scope.errorTime2 = response.data.timestamp;
-                $scope.getInvoiceDetails()
                 $('#errorModal').modal('show')
             })
             .catch(function (response) {
@@ -236,6 +235,9 @@ app.controller('historyCtrl', function ($window, $location, $route, $log, $scope
 
                 $('#errorModal').modal('show')
             });
+
+        $scope.stepCommentJSON = {};
+        $scope.commentText = null;
     };
 
     /**

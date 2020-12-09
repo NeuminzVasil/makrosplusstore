@@ -45,7 +45,7 @@ public class HistoryControllerApiV1 {
                     HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(historyService.save(history), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(historyService.save(history), HttpStatus.OK);
     }
 
     /**
