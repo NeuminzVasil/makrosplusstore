@@ -34,7 +34,7 @@ app.config(function ($routeProvider) {
         })
         .when('/invoiceDetails', {
             templateUrl: 'invoice/invoiceDetails.html',
-            controller: 'invoiceCtrl'
+            controller: 'invoiceCtrl',
         })
         .when('/invoice/edit', {
             templateUrl: 'invoice/invoiceEdit.html',
@@ -116,27 +116,12 @@ app.factory('newInvoiceService', function ($log, $sessionStorage) {
     };
 });
 
-app.factory('currentInvoiceService', function ($log, $sessionStorage) {
+
+
+app.factory('stepsService', function ($log, $sessionStorage) {
     return {
-        initCurrentPurchase: function () {
-            sessionStorage.setItem("currentInvoice", JSON.stringify({
-                "datacreate": null,
-                "department": null,
-                "comment": null,
-                "ordernumber": null,
-                "invoicenumber": null,
-                "senttoapprove": null,
-                "senttopurchase": null,
-                "senttoprice": null,
-                "totalprice": null,
-                "resolveddate": null,
-                "customer": null,
-                "purchases": []
-            }));
-        },
-        getCurrentInvoiceJSON: function () {
-            $log.debug(JSON.parse(sessionStorage.getItem("currentInvoice")).id)
-            return JSON.parse(sessionStorage.getItem("currentInvoice"))
+        getStepsJSON: function () {
+            return JSON.parse(sessionStorage.getItem("stepsJSON"))
         }
     };
 });

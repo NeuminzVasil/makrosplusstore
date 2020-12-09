@@ -8,7 +8,8 @@ app.controller('invoiceCtrl', function ($window,
                                         $rootScope,
                                         $http,
                                         $sessionStorage,
-                                        currentInvoiceService) {
+                                        invoiceService,
+                                        stepsService) {
 
 
     // проверяем вошедшего пользователя (см loginController)
@@ -25,6 +26,9 @@ app.controller('invoiceCtrl', function ($window,
         $http.get(contextPath + "/api/v1/invoice/dto")
             .then(function (response) {
                 $scope.InvoiceList = response.data;
+                $scope.steps = stepsService.getStepsJSON();
+                // обновляем данные в html чтобы отобразились все новые шаги истории.
+                $rootScope.currentInvoice = invoiceService.getCurrentInvoiceJSON(); //fixme не уверен что это должно быть сздесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
@@ -45,35 +49,6 @@ app.controller('invoiceCtrl', function ($window,
      */
     showAllInvoices();
 
-    /**
-     * получить детальное СФ из базы по ID
-     */
-    $scope.getInvoiceDetails = function (id) {
-
-
-
-        $http.get(contextPath + "/api/v1/invoice/" + id)
-            .then(function (response) {
-                sessionStorage.setItem("currentInvoice", JSON.stringify(response.data));
-                $rootScope.invoiceJSON2 = response.data;
-                $window.location.href = '#!/invoiceDetails';// или $location.path('/invoice/edit');
-                // $log.debug(sessionStorage.getItem("currentInvoice"));
-
-            }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
-                $scope.errorMessage2 = response.data.message;
-                $scope.errorCode2 = response.data.status;
-                $scope.errorTime2 = response.data.timestamp;
-
-                $('#errorModal').modal('show')
-            })
-            .catch(function (response) {
-                $scope.errorMessage2 = response.data.message;
-                $scope.errorCode2 = response.data.status;
-                $scope.errorTime2 = response.data.timestamp;
-
-                $('#errorModal').modal('show')
-            });
-    }
 
     /**
      * удалить Invoice по ID
@@ -282,6 +257,87 @@ app.controller('invoiceCtrl', function ($window,
         else return "закупается";
     };
 
+    /**
+     * Перейти в оно детального отображения invoice
+     * @param invoiceId
+     */
+    $scope.expandShortInvoiceToDetailed = function (invoiceId) {
+        invoiceService.putInvoiceByIdToSessionStorage(invoiceId);
+        $rootScope.currentInvoice = invoiceService.getCurrentInvoiceJSON(); //fixme не уверен что это должно быть сздесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
+        $window.location.href = '#!/invoiceDetails';// или $location.path('/invoice/edit');
+    }
+
+});
+
+/**
+ * Сервис нужен для передачи данных между контроллерами скоупами invoice.js и history.js
+ * задачи сервиса работа с invoice, по-этому размещен здесь.
+ */
+app.factory('invoiceService', function ($log,
+                                        $sessionStorage,
+                                        $http,
+                                        $rootScope) {
+    /**
+     * инициализация пустого invoiceJSON в sessionStorage
+     */
+    function initCurrentInvoice() {
+        sessionStorage.setItem("currentInvoice", JSON.stringify({
+            "datacreate": null,
+            "department": null,
+            "comment": null,
+            "ordernumber": null,
+            "invoicenumber": null,
+            "senttoapprove": null,
+            "senttopurchase": null,
+            "senttoprice": null,
+            "totalprice": null,
+            "resolveddate": null,
+            "customer": null,
+            "purchases": []
+        }));
+    }
+
+    /**
+     * получить CurrentInvoiceJSON из $sessionStorage чтобы не нагружать базу
+     * @returns {any}
+     */
+    function getCurrentInvoiceJSON() {
+        return JSON.parse(sessionStorage.getItem("currentInvoice"))
+    }
+
+    /**
+     * получить детализированный invoice из базы по его ID
+     * при положительном ответе от BD записываем детальный JSON в $sessionStorage.currentInvoice и возвращаем его из функции
+     * при ошибки .. что делать не ясно , как вернуть ошибку пока возвращаю NULL
+     * @param id invoice
+     */
+    function putInvoiceByIdToSessionStorage(invoiceId) {
+        initCurrentInvoice();
+        $http.get(contextPath + "/api/v1/invoice/" + invoiceId)
+            .then(function (response) {
+                $log.info("putInvoiceByIdToSessionStorage.get");
+                sessionStorage.setItem("currentInvoice", JSON.stringify(response.data));
+                // обновляем данные в html чтобы отобразились все новые шаги истории.
+                $rootScope.currentInvoice = getCurrentInvoiceJSON();
+            }, function error(response) {
+                $log.info("putInvoiceByIdToSessionStorage.catch");
+                $log.info(response);
+                $rootScope.errorMessage11 = response;
+                $('#invoiceErrorModal').modal('show');
+            })
+            .catch(function (response) {
+                $log.info("putInvoiceByIdToSessionStorage.catch");
+                $log.info(response);
+                $rootScope.errorMessage11 = response;
+                $('#invoiceErrorModal').modal('show');
+            });
+    }
+
+    return {
+        initCurrentInvoice: initCurrentInvoice,
+        getCurrentInvoiceJSON: getCurrentInvoiceJSON,
+        putInvoiceByIdToSessionStorage: putInvoiceByIdToSessionStorage
+    };
 });
 
 

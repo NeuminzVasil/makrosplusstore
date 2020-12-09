@@ -1,25 +1,20 @@
-<div class="container-fluid" ng-controller="historyCtrl">
-
-
-
-    <section ng-hide="invoiceJSON2 == undefined">
+<div class="container-fluid">
+    <section ng-hide="currentInvoice == undefined">
 
         <!--details-->
         <div class="row d-none d-lg-block">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Детализация заказа {{invoiceJSON2.ordernumber}}</h5>
+                    <h5 class="card-title">Детализация заказа {{currentInvoice.ordernumber}}</h5>
                     <div class="card-text">
                         <p class="col-12">
-                            Отдел: {{invoiceJSON2.department}}<br>
-                            Описание заказа: {{invoiceJSON2.comment}}<br>
-                            Сумма заказа: {{invoiceJSON2.totalprice}}<br>
-                            №СФ: {{invoiceJSON2.invoicenumber}}<br>
-                            Дата создания заказа: {{invoiceJSON2.datacreate | date: 'yyyy-MM-dd' | isEmpty}}
+                            Отдел: {{currentInvoice.department}}<br>
+                            Описание заказа: {{currentInvoice.comment}}<br>
+                            Сумма заказа: {{currentInvoice.totalprice}}<br>
+                            №СФ: {{currentInvoice.invoicenumber}}<br>
+                            Дата создания заказа: {{currentInvoice.datacreate | date: 'yyyy-MM-dd' | isEmpty}}<br>
+                            <span class="{{isWarning(currentInvoice.resolveddate)}}">Дата выполнения заказа: {{currentInvoice.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}</span>
                         </p>
-                    </div>
-                    <div class="card-subtitle">Дата выполнения заказа:
-                        {{invoiceJSON2.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}
                     </div>
                 </div>
             </div>
@@ -29,49 +24,69 @@
         <div class="row">
 
             <!--history section-->
-            <div class="col-md-6">
+            <div class="col-xl-3 col-lg-4 col-md-6 mt-3">
                 <!--history add button-->
                 <div class="row">
-                    <h5 class="col-md-8">Этапы выполнения: </h5>
-                    <button class="col-md-4 btn btn-sm btn-outline-primary" data-toggle="modal"
-                            data-target="#saveHistoryModal"> добавить этап выполнения
+                    <h5 class="col-md-6">Этапы: </h5>
+                    <button class="col-md-6 btn btn-sm btn-outline-primary" data-toggle="modal"
+                            data-target="#saveHistoryModal"
+                            ng-click="stepFindAll()"> добавить этап выполнения
                     </button>
                 </div>
 
-                <!--history steps-->
-                <div class="row">
-                    <div class="card col-md-6 mb-3"
-                         ng-repeat="history in invoiceJSON2.histories | orderBy:'submitdate':false">
-                        <div class="card-body">
-                            <p class="card-title"
-                               data-toggle="modal"
-                               data-target="#stepСommentModal"
-                               ng-click="getCurrentHistory(history)">
-                                {{history.submitdate | date: "yyyy.MM.dd HH:mm:ss"}}
-                                {{history.customer.lastName}}
-                                {{history.customer.firstName[0]}}. : {{history.step.name}}</p>
+                <!--history steps \ comments-->
+                <div class="row" ng-controller="historyCtrl">
+                    <div class="card card__history col-md-12 m-1"
+                         ng-repeat="history in currentInvoice.histories | orderBy:'submitdate':false">
+                        <div class="card-body card__body__history">
+                            <!--history steps-->
+                            <h6 class="card-title">
 
+                                {{history.step.name}}
+                                <small class="text-muted">({{history.submitdate | date: "yyyy.MM.dd HH:mm"}}
+                                    {{history.customer.lastName}}
+                                    {{history.customer.firstName[0]}})</small></h6>
+                            <!--comments-->
                             <p class="card-text font-weight-normal"
                                ng-repeat="comment in history.stepcomment | orderBy:'submitdate':false">
-                                -{{comment.submitdate | date: "yy.MM.dd HH:mm:ss" }}
-                                {{comment.customer.lastName}}
-                                {{comment.customer.firstName[0]}}. :
+                                <small class="text-muted">
+                                    {{comment.submitdate | date: "yy.MM.dd HH:mm" }}
+                                    {{comment.customer.lastName}}
+                                    {{comment.customer.firstName[0]}} :</small>
                                 {{comment.comment}}
                             </p>
+
+                            <!--add comments-->
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input class="col-12 form-control-sm card__input__history"
+                                           title="введите комментарий к этапу выполнения"
+                                           type="text"
+                                           placeholder="добавьте комментарий к этапу выполнения"
+                                           ng-model="commentText">
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-sm btn-outline-secondary"
+                                            type="button"
+                                            ng-click="stepCommentSave(history, commentText)">+
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
             <!--invoice section-->
-            <div class="col-md-6"> <!--ng-hide="getCurrentInvoiceJSON().id == undefined"-->
+            <div class="col-xl-9 col-lg-8 col-md-6 mt-3">
                 <!--invoices title-->
                 <div class="row">
                     <h5 class="col-12">Товары в заказе:</h5>
                 </div>
                 <!--invoices elements-->
                 <div class="row">
-                    <div class="card col-md-6 mb-3 invoice__element" ng-repeat="purchase in invoiceJSON2.purchases">
+                    <div class="card col-xl-3 col-lg-4 col-md-12 invoice__element" ng-repeat="purchase in currentInvoice.purchases">
                         <div class="card-body">
                             <!--товар\описаниеТовара\количество-->
                             <h6 class="card-title">
@@ -86,14 +101,15 @@
                                    ng-href="{{purchase.commentnumenclature | isLink }}">
                                     ссылка на товар </a><br>
                                 {{purchase.comment | isEmpty }}<br>
-                                <span class="{{isWarning(purchase.resolvingdate)}}">
-                                {{purchase.resolvingdate | date: "yyyy.MM.dd" | unachieved }}</span>
+
                             </p>
-                            <div class="card-subtitle">
-                                <button class="btn btn-sm text-center btn-outline-danger"
-                                        ng-click="deletePurchaseFromInvoice($index)">Ⓧ
-                                </button>
-                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="{{isWarning(purchase.resolvingdate)}}">
+                                {{purchase.resolvingdate | date: "yyyy.MM.dd" | unachieved }}</span>
+<!--                            <button class="btn btn-sm text-center btn-outline-danger"-->
+<!--                                    ng-click="deletePurchaseFromInvoice($index)">Ⓧ-->
+<!--                            </button>-->
                         </div>
                     </div>
                 </div>
@@ -136,19 +152,19 @@
             </div>
 
             <div class="modal-body">
-                <h6>{{invoiceJSON.ordernumber}}</h6>
-                <p>{{invoiceJSON.comment}}</p>
-                <p>{{invoiceJSON.department}}</p>
-                <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
-                <p>{{invoiceJSON.totalprice}}</p>
-                <p>{{invoiceJSON.datacreate}}</p>
+                <h6>{{currentInvoice.ordernumber}}</h6>
+                <p>{{currentInvoice.comment}}</p>
+                <p>{{currentInvoice.department}}</p>
+                <p>{{currentInvoice.customer.firstName}} {{currentInvoice.customer.lastName}}</p>
+                <p>{{currentInvoice.totalprice}}</p>
+                <p>{{currentInvoice.datacreate}}</p>
             </div>
 
             <div class="modal-footer">
 
                 <button type="button"
                         class="btn btn-primary"
-                        ng-click="editInvoice($scope.invoiceJSON)">Сохранить
+                        ng-click="editInvoice($rootScope.currentInvoice)">Сохранить
                 </button>
 
                 <button type="button"
@@ -185,11 +201,11 @@
             </div>
 
             <div class="modal-body">
-                <h6>{{invoiceJSON.ordernumber}}</h6>
-                <p>{{invoiceJSON.comment}}</p>
-                <p>{{invoiceJSON.department}}</p>
-                <p>{{invoiceJSON.customer.firstName}} {{invoiceJSON.customer.lastName}}</p>
-                <p>{{invoiceJSON.datacreate}}</p>
+                <h6>{{currentInvoice.ordernumber}}</h6>
+                <p>{{currentInvoice.comment}}</p>
+                <p>{{currentInvoice.department}}</p>
+                <p>{{currentInvoice.customer.firstName}} {{currentInvoice.customer.lastName}}</p>
+                <p>{{currentInvoice.datacreate}}</p>
             </div>
 
             <div class="modal-footer">
@@ -216,6 +232,7 @@
      role="dialog"
      aria-labelledby="saveHistoryModalLabel"
      aria-hidden="true"
+     ng-controller="historyCtrl"
      ng-init="historyInit()">
 
     <div class="modal-dialog">
@@ -223,15 +240,15 @@
 
             <div class="modal-header">
                 <h6 class="modal-title"
-                    id="saveHistoryModalLabel">Добавить этап к заказу {{invoiceJSON.ordernumber}}</h6>
+                    id="saveHistoryModalLabel">Добавить этап к заказу {{currentInvoice.ordernumber}}</h6>
             </div>
 
             <div class="modal-body">
-                <div ng-repeat="step in stepJSON">
+                <div ng-repeat="step in stepsJSON">
                     <button type="button"
                             class="col-12 btn btn-primary"
                             data-dismiss="modal"
-                            ng-click="historySave(invoiceJSON, step)">
+                            ng-click="historySave(step)">
                         {{step.name}}
                     </button>
                 </div>
@@ -250,46 +267,6 @@
     </div>
 </div>
 
-<!-- Modal stepcomment save to DB -->
-<div class="modal fade"
-     id="stepСommentModal"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="stepСommentModalLabel"
-     aria-hidden="true">
-
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h6 class="modal-title"
-                    id="stepСommentModalLabel">Добавление комментария к {{currentHistory.name}}</h6>
-            </div>
-
-            <div class="modal-body">
-                <div>
-                    <textarea class="col-12" aria-label="сообщение:" ng-model="stepCommentJSON.comment"></textarea>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-
-                <button type="button"
-                        class="btn btn-primary"
-                        data-dismiss="modal"
-                        ng-click="stepCommentSave(currentHistory, stepCommentJSON.comment)">Добавить комментарий
-                </button>
-
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-dismiss="modal">Отменить
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--Модальное окно по ошибке-->
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
      aria-hidden="true">
@@ -299,9 +276,9 @@
                 <h5 class="modal-title" id="errorModalLabel">Ошибка добавления данных.</h5>
             </div>
             <div class="modal-body">
-                <h3>{{ errorMessage2 }}</h3>
-                <p>код ошибки: {{ errorCode2 }} <br>
-                    время ошибки: {{ errorTime2 | date: "yyyy.MM.dd HH:MM" }}</p>
+                <h3>{{ errorMessage11 }}</h3>
+                <p>код ошибки: {{ errorMessage11 }} <br>
+                    время ошибки: {{ errorMessage11 | date: "yyyy.MM.dd HH:MM" }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

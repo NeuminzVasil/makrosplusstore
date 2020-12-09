@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="historyCtrl">
+<div class="container-fluid">
 
     <!--page name-->
     <div class="row">
@@ -29,17 +29,17 @@
         <div class="col-md-3 mb-3"
              ng-repeat="invoice in InvoiceList | filter:searchText | orderBy: 'datacreate':true "
              ng-show="(invoice.resolveddate | isNotResolved) || (hideResolved)"
-             ng-click="getInvoiceDetails(invoice.id)">
+             ng-click="expandShortInvoiceToDetailed(invoice.id)">
 
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title {{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
-                        <p>{{invoice.comment}}<br>
-                            сумма: {{invoice.totalprice | isEmpty }} р.<br>
-                            создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
-                            выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
-                    </div>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title {{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
+                    <p>{{invoice.comment}}<br>
+                        сумма: {{invoice.totalprice | isEmpty }} р.<br>
+                        создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
+                        выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
                 </div>
+            </div>
 
         </div>
 
@@ -143,99 +143,18 @@
         </div>
     </div>
 
-    <!-- Modal history save to DB -->
-    <div class="modal fade"
-         id="saveHistoryModal"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="saveHistoryModalLabel"
-         aria-hidden="true"
-         ng-init="historyInit()">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h6 class="modal-title"
-                        id="saveHistoryModalLabel">Добавить этап к заказу {{invoiceJSON.ordernumber}}</h6>
-                </div>
-
-                <div class="modal-body">
-                    <div ng-repeat="step in stepJSON">
-                        <button type="button"
-                                class="col-12 btn btn-primary"
-                                data-dismiss="modal"
-                                ng-click="historySave(invoiceJSON, step)">
-                            {{step.name}}
-                        </button>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">Отменить
-
-                    </button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal stepcomment save to DB -->
-    <div class="modal fade"
-         id="stepСommentModal"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="stepСommentModalLabel"
-         aria-hidden="true">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h6 class="modal-title"
-                        id="stepСommentModalLabel">Добавление комментария к {{currentHistory.name}}</h6>
-                </div>
-
-                <div class="modal-body">
-                    <div>
-                        <textarea class="col-12" aria-label="сообщение:" ng-model="stepCommentJSON.comment"></textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button"
-                            class="btn btn-primary"
-                            data-dismiss="modal"
-                            ng-click="stepCommentSave(currentHistory, stepCommentJSON.comment)">Добавить комментарий
-                    </button>
-
-                    <button type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">Отменить
-                    </button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--Модальное окно по ошибке-->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+    <div class="modal fade" id="invoiceErrorModal" tabindex="-1" role="dialog" aria-labelledby="invoiceErrorModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Ошибка добавления данных.</h5>
+                    <h5 class="modal-title" id="invoiceErrorModalLabel">Ошибка добавления данных.</h5>
                 </div>
                 <div class="modal-body">
-                    <h3>{{ errorMessage2 }}</h3>
-                    <p>код ошибки: {{ errorCode2 }} <br>
-                        время ошибки: {{ errorTime2 | date: "yyyy.MM.dd HH:MM" }}</p>
+                    <h3>{{ errorMessage11 }}</h3>
+                    <p>код ошибки: {{ errorMessage11 }} <br>
+                        время ошибки: {{ errorMessage11 | date: "yyyy.MM.dd HH:MM" }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

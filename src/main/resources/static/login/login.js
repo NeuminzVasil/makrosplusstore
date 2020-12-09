@@ -1,6 +1,6 @@
 /// <reference path = "login.js"/>
 
-app.controller('loginCtrl', function ($log, $scope, $window, $location, $http, $sessionStorage) {
+app.controller('loginCtrl', function ($log, $scope, $window, $location, $http, $sessionStorage, invoiceService) {
     $scope.tryToAuth = function () {
 
         $http.post(contextPath + '/api/v1/login', $scope.user).then(function success(response) {
@@ -15,27 +15,33 @@ app.controller('loginCtrl', function ($log, $scope, $window, $location, $http, $
                 sessionStorage.setItem("userDetails", JSON.stringify(response.data));
 
                 // инициализация выбранного invoice
-                currentInvoiceService.initCurrentPurchase();
+                invoiceService.initCurrentInvoice();
 
                 $window.location.href = '#!/invoice';
 
             }
         }, function error(response) {
 
-            $log.debug("tryToAuth.error.data.message: " + response.data.message);
+            $log.debug("tryToAuth.error.response: " + response);
+            $log.debug("tryToAuth.error.response.data: " + response.data);
+            $log.debug("tryToAuth.error.response.data.message: " + response.data.message);
             $log.debug("tryToAuth.error.status: " + response.status);
 
             $scope.errorMessage = response.data.message;
             $scope.errorStatus = response.status;
+            $scope.errortest = response;
 
             $('#errorLoginModal').modal('show')
 
         }).catch(function (response) {
-            $log.debug("tryToAuth.error.data.message: " + response.data.message);
-            $log.debug("tryToAuth.error.status: " + response.status);
+            // $log.debug("tryToAuth.catch.data.message: " + response.data.message);
+            $log.debug("tryToAuth.catch.response: " + response);
+            $log.debug("tryToAuth.catch.data: " + response.data);
+            $log.debug("tryToAuth.catch..message: " + response.data.message);
+            $log.debug("tryToAuth.catch.status: " + response.status);
 
-            $scope.errorMessage = response.data.message;
-            $scope.errorStatus = response.status;
+/*            $scope.errorMessage = response.data.message;
+            $scope.errorStatus = response.status;*/
 
             $('#errorLoginModal').modal('show')
         });

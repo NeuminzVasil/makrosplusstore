@@ -28,6 +28,10 @@ body {
     /*min-height: 200px; !* минимальная высота *!*/
 }
 
+.modal{
+    color: red;
+}
+
 .section__wrap {
     border: 2px solid #686868;
 }
@@ -52,20 +56,20 @@ body {
 .card, .card-body {
     background-color: #303132; /* Цвет фона */
     border-color: #686868;
-    cursor: pointer;
+    /*cursor: pointer;*/
     font-size: smaller;
     transition: 0.7s;
 }
 
-.card:hover {
-    background-color: #474b4e; /* Цвет фона */
+.card__history, .card__body__history, .card__input__history{
+    background-color: #0e1621; /* Цвет фона */
+    color: whitesmoke;
+}
+/*
+.card-title:hover {
+    background-color: #474b4e; !* Цвет фона *!
     color: papayawhip;
-}
-
-.font-weight-bold {
-    cursor: pointer;
-    font-size: 11pt
-}
+}*/
 
 .font-weight-normal {
     font-size: 9pt
