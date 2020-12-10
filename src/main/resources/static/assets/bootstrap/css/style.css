@@ -36,7 +36,7 @@ body {
     border: 2px solid #686868;
 }
 
-.invoice__field, .nomenclature__field {
+.invoice__field {
     padding: 2px; /* внутренний отступ */
     cursor: pointer;
     /*position: fixed; изьять из общей схемы и зафиксировать позицию*/

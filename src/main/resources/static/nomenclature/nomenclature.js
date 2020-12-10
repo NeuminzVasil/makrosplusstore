@@ -28,17 +28,17 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
     $scope.nomenclatureJSON = nomenclatureJSON;
-    // $scope.invoiceFactory = invoiceFactory;
     $scope.sortColumn = "nomenclature";
     $scope.reversSortColumn = false;
-    // инициализация для нового invoice
-    newInvoiceService.initNewPurchase();
+    $scope.buttonBackShow = "";
+    $scope.buttonForwardShow = "";
 
-    $scope.showAllNomenclature = function () {
+    $scope.showAllNomenclatures = function () {
+
         let localPath = contextPath + "/api/v1/nomenclature";
 
-        $scope.buttonBackShow = "";
-        $scope.buttonForwardShow = "";
+        // получить текущее состояние корзины (newInvoiceJson)
+        $scope.newInvoiceJSON = newInvoiceService.getNewInvoiceJSON();
 
         if ($routeParams.pageNumber == null || $routeParams.pageNumber <= 1) {
             localPath = localPath + "?pageNumber=" + 1;
@@ -66,7 +66,15 @@ app.controller('nomenclatureCtrl', function ($location,
                 //$log.debug("showAllNomenclature.response: ", response);
             });
     };
-    $scope.showAllNomenclature();
+    /**
+     * Запустить при обновлении странички
+     */
+    $scope.showAllNomenclatures();
+
+    $scope.clearNewInvoice = function (){
+        newInvoiceService.initNewInvoice();
+        $scope.newInvoiceJSON = newInvoiceService.getNewInvoiceJSON();
+    }
 
     /**
      * добавить товар в корзину
@@ -74,11 +82,11 @@ app.controller('nomenclatureCtrl', function ($location,
      */
     $scope.addToInvoice = function (nomenclature) {
 
-        newInvoiceService.putNomenclature(nomenclature);
+        newInvoiceService.putNomenclatureToNewInvoiceJSON(nomenclature);
 
-        $log.debug(newInvoiceService.getNewInvoiceJSON());
+        // $log.debug(newInvoiceService.getNewInvoiceJSON());
 
-        $scope.newInvoice = newInvoiceService.getNewInvoiceJSON();
+        $scope.newInvoiceJSON = newInvoiceService.getNewInvoiceJSON();
 
     };
 
@@ -126,4 +134,6 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
 });
+
+
 

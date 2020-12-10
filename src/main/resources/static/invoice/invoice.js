@@ -49,7 +49,6 @@ app.controller('invoiceCtrl', function ($window,
      */
     showAllInvoices();
 
-
     /**
      * удалить Invoice по ID
      * @param invoice ID
@@ -83,24 +82,25 @@ app.controller('invoiceCtrl', function ($window,
      * добавить новый invoice
      * @param invoiceJSON
      */
-    $scope.addInvoice = function (newInvoice) {
-        /*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
-                invoiceFactory.invoiceJSON.department = invoice.department;
-                invoiceFactory.invoiceJSON.comment = invoice.comment;
-                invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
-                invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
-                invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
-                invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
-                invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
-                invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
+    $scope.addNewInvoiceToDB = function (invoice) {
+        // invoiceFactory.invoiceJSON = invoice;
+/*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
+        invoiceFactory.invoiceJSON.department = invoice.department;
+        invoiceFactory.invoiceJSON.comment = invoice.comment;
+        invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
+        invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
+        invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
+        invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
+        invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
+        invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
+        console.clear();
+        $log.debug(invoice);
 
-        $log.debug(newInvoice);
-
-        /*        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
-                    .then(function (response) {
-                        //$log.debug("addInvoice.response: ", response);
-                        $location.path('/invoice');
-                    });*/
+        $http.put(contextPath + "/api/v1/invoice/add", invoice)
+            .then(function (response) {
+                $log.debug("addInvoice.response: ", response);
+                $location.path('/invoice');
+            });
 
     };
 

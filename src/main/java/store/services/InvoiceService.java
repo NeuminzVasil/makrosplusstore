@@ -21,7 +21,6 @@ public class InvoiceService {
     private InvoiceRepository invoiceRepository;
     private PurchaseService purchaseService;
 
-    private Long invoiceIdTemp;
 
     @Autowired
     public InvoiceService(InvoiceRepository invoiceRepository, PurchaseService purchaseService) {
@@ -34,7 +33,8 @@ public class InvoiceService {
 
     /**
      * получить все СФ широкий формат в виде страницы
-     * @param spec - спецификация для фильтра
+     *
+     * @param spec     - спецификация для фильтра
      * @param pageable - страница для фильтра
      * @return Page<Invoice>
      */
@@ -57,6 +57,7 @@ public class InvoiceService {
 
     /**
      * найти СФ по ID
+     *
      * @param id - искомое ID
      * @return - ссылка на СФ или исключение
      */
@@ -89,12 +90,16 @@ public class InvoiceService {
      */
 //    @Secured("ROLE_ADMIN")
     public Invoice save(Invoice invoice) {
+
         // сохраняем invoice без элементов чтобы получить invoice.ID
-        invoiceIdTemp = invoiceRepository.save(getCopy(invoice)).getId();
-        //сохраняем все товары в новый invoice
+        Invoice invoiceTemp = invoiceRepository.save(getCopy(invoice));
+
+        // сохраняем все товары в новый invoice
         invoice.getPurchases().forEach(purchase ->
-                purchaseService.save(purchase, invoiceRepository.getOne(invoiceIdTemp)));
-        return invoice;
+                purchaseService.save(purchase, invoiceRepository.getOne(invoiceTemp.getId())));
+
+        return invoiceRepository.findById(invoiceTemp.getId()).orElseThrow(() ->
+                new SearchingNotFoundException("Не могу найти товар с id =" + invoiceTemp.getId()));
     }
 
     /**
@@ -110,6 +115,7 @@ public class InvoiceService {
 
     /**
      * удалить Invoice и все елементы
+     *
      * @param invoice - удаляемый invoice
      */
 //    @Secured("ROLE_ADMIN")
@@ -119,6 +125,7 @@ public class InvoiceService {
 
     /**
      * Удалить Purchase из Invoice по ID
+     *
      * @param id удаляемого Purchase
      */
 //    @Secured("ROLE_ADMIN")

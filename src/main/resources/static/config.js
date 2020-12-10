@@ -74,7 +74,7 @@ app.controller("routeUpdating", function ($scope, $sessionStorage, $rootScope, $
 
 app.factory('newInvoiceService', function ($log, $sessionStorage) {
     return {
-        initNewPurchase: function () {
+        initNewInvoice: function () {
             sessionStorage.setItem("newInvoice", JSON.stringify({
                 "datacreate": new Date(),
                 "department": null,
@@ -90,12 +90,15 @@ app.factory('newInvoiceService', function ($log, $sessionStorage) {
                 "purchases": []
             }));
         },
-        putNomenclature: function (nom) {
+        getNewInvoiceJSON: function () {
+            return JSON.parse(sessionStorage.getItem("newInvoice"))
+        },
+        putNomenclatureToNewInvoiceJSON: function (nom) {
 
-            let newInvoice = JSON.parse(sessionStorage.getItem("newInvoice"));
+            let tempInvoice = JSON.parse(sessionStorage.getItem("newInvoice"));
 
-            if (newInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id) < 0)
-                newInvoice.purchases.push({
+            if (tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id) < 0)
+                tempInvoice.purchases.push({
                 nomenclature: nom,
                 count: 1,
                 approver: null,
@@ -105,18 +108,13 @@ app.factory('newInvoiceService', function ($log, $sessionStorage) {
                 commentnumenclature: null
             })
             // добавить в JSON количество + 1
-            else newInvoice.purchases[newInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id)].count++; // добавить в JSON количество + 1
+            else tempInvoice.purchases[tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id)].count++; // добавить в JSON количество + 1
 
-            sessionStorage.setItem("newInvoice", JSON.stringify(newInvoice));
-            return newInvoice;
-        },
-        getNewInvoiceJSON: function () {
-            return JSON.parse(sessionStorage.getItem("newInvoice"))
+            sessionStorage.setItem("newInvoice", JSON.stringify(tempInvoice));
+            return tempInvoice;
         }
     };
 });
-
-
 
 app.factory('stepsService', function ($log, $sessionStorage) {
     return {

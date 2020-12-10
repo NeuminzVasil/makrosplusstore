@@ -50,8 +50,7 @@ public class InvoiceControllerApiV1 {
 
     @PutMapping("/add")
     public Invoice putInvoiceToDB(@RequestBody Invoice invoice) {
-        invoiceService.save(invoice);
-        return invoice;
+        return invoiceService.save(invoice);
     }
 
     @PutMapping("/edit")
