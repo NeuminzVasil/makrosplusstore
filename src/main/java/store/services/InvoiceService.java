@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import store.entities.Invoice;
 import store.entities.dto.InvoiceShort;
@@ -116,7 +117,7 @@ public class InvoiceService {
      *
      * @param invoice - удаляемый invoice
      */
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public void delete(Invoice invoice) {
         // сначала удаляем все товары в заказе из БД.
         purchaseService.deleteAll(invoice.getPurchases());
@@ -128,7 +129,7 @@ public class InvoiceService {
      *
      * @param id удаляемого Purchase
      */
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public void deletePurchaseById(Long id) {
         purchaseService.deleteById(id);
     }

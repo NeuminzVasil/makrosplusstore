@@ -84,25 +84,11 @@ app.controller('invoiceCtrl', function ($window,
      * @param invoiceJSON
      */
     $scope.addNewInvoiceToDB = function (invoice) {
-        // invoiceFactory.invoiceJSON = invoice;
-/*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
-        invoiceFactory.invoiceJSON.department = invoice.department;
-        invoiceFactory.invoiceJSON.comment = invoice.comment;
-        invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
-        invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
-        invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
-        invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
-        invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
-        invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
-        console.clear();
-        $log.debug(invoice);
-
         $http.put(contextPath + "/api/v1/invoice/add", invoice)
             .then(function (response) {
                 $log.debug("addInvoice.response: ", response);
                 $location.path('/invoice');
             });
-
     };
 
     /**

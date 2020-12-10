@@ -90,14 +90,16 @@
                 </div>
                 <!--invoices elements-->
                 <div class="row">
-                    <div class="card col-xl-3 col-lg-4 col-md-12 invoice__element" ng-repeat="purchase in currentInvoice.purchases">
+                    <div class="card col-xl-3 col-lg-4 col-md-12 invoice__element"
+                         ng-repeat="purchase in currentInvoice.purchases">
+                        <div class="card-header">
+                            <h6 class="card-title">{{purchase.nomenclature.nomenclature}}</h6>
+                        </div>
                         <div class="card-body">
                             <!--товар\описаниеТовара\количество-->
-                            <h6 class="card-title">
-                                {{purchase.nomenclature.nomenclature}}
-                                ({{purchase.nomenclature.code | isEmpty }})
-                                {{purchase.count | isEmpty }} шт.</h6>
                             <p class="card-text">
+                                количество: {{purchase.count | isEmpty }} шт.<br>
+                                код 1с: {{purchase.nomenclature.code | isEmpty }}<br>
                                 {{purchase.nomenclature.comment | isEmpty }} <br>
                                 {{purchase.buyingPrice | currency: "Ꝑ" : 2 | isEmpty }}<br>
                                 <a class="card-link"
@@ -105,15 +107,14 @@
                                    ng-href="{{purchase.commentnumenclature | isLink }}">
                                     ссылка на товар </a><br>
                                 {{purchase.comment | isEmpty }}<br>
-
                             </p>
                         </div>
                         <div class="card-footer">
                             <span class="{{isWarning(purchase.resolvingdate)}}">
                                 {{purchase.resolvingdate | date: "yyyy.MM.dd" | unachieved }}</span>
-<!--                            <button class="btn btn-sm text-center btn-outline-danger"-->
-<!--                                    ng-click="deletePurchaseFromInvoice($index)">Ⓧ-->
-<!--                            </button>-->
+                            <!--                            <button class="btn btn-sm text-center btn-outline-danger"-->
+                            <!--                                    ng-click="deletePurchaseFromInvoice($index)">Ⓧ-->
+                            <!--                            </button>-->
                         </div>
                     </div>
                 </div>
