@@ -81,4 +81,8 @@ public class PurchaseService {
     public void deleteById(long id) {
         purchaseRepository.deleteById(id);
     }
+
+    public void deleteAll(List<Purchase> purchaseList) {
+        purchaseRepository.deleteAll(purchaseList);
+    }
 }

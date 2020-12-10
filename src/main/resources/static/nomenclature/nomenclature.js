@@ -18,9 +18,8 @@ app.controller('nomenclatureCtrl', function ($location,
                                              $scope,
                                              $http,
                                              $routeParams,
-                                             // invoiceFactory,
                                              $sessionStorage,
-                                             newInvoiceService) {
+                                             invoiceService) {
     // проверяем вошедшего пользователя (см loginController)
     // не забыть инжектнуть в контроллер параметр $sessionStorage
     if ($sessionStorage.currentUser) {
@@ -28,17 +27,17 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
     $scope.nomenclatureJSON = nomenclatureJSON;
-    // $scope.invoiceFactory = invoiceFactory;
     $scope.sortColumn = "nomenclature";
     $scope.reversSortColumn = false;
-    // инициализация для нового invoice
-    newInvoiceService.initNewPurchase();
+    $scope.buttonBackShow = "";
+    $scope.buttonForwardShow = "";
 
-    $scope.showAllNomenclature = function () {
+    $scope.showAllNomenclatures = function () {
+
         let localPath = contextPath + "/api/v1/nomenclature";
 
-        $scope.buttonBackShow = "";
-        $scope.buttonForwardShow = "";
+        // получить текущее состояние корзины (newInvoiceJson)
+        $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
 
         if ($routeParams.pageNumber == null || $routeParams.pageNumber <= 1) {
             localPath = localPath + "?pageNumber=" + 1;
@@ -66,7 +65,15 @@ app.controller('nomenclatureCtrl', function ($location,
                 //$log.debug("showAllNomenclature.response: ", response);
             });
     };
-    $scope.showAllNomenclature();
+    /**
+     * Запустить при обновлении странички
+     */
+    $scope.showAllNomenclatures();
+
+    $scope.clearNewInvoice = function (){
+        invoiceService.initNewInvoice();
+        $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
+    }
 
     /**
      * добавить товар в корзину
@@ -74,11 +81,12 @@ app.controller('nomenclatureCtrl', function ($location,
      */
     $scope.addToInvoice = function (nomenclature) {
 
-        newInvoiceService.putNomenclature(nomenclature);
+        invoiceService.putNomenclatureToNewInvoiceJSON(nomenclature);
 
-        $log.debug(newInvoiceService.getNewInvoiceJSON());
+        // $log.debug(invoiceService.getNewInvoiceJSON());
+        $log.debug(invoiceService.newInvoice);
 
-        $scope.newInvoice = newInvoiceService.getNewInvoiceJSON();
+        $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
 
     };
 
@@ -126,4 +134,6 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
 });
+
+
 

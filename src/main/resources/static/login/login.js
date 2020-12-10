@@ -1,6 +1,12 @@
 /// <reference path = "login.js"/>
 
-app.controller('loginCtrl', function ($log, $scope, $window, $location, $http, $sessionStorage, invoiceService) {
+app.controller('loginCtrl', function ($log,
+                                      $scope,
+                                      $window,
+                                      $location,
+                                      $http,
+                                      $sessionStorage,
+                                      invoiceService) {
     $scope.tryToAuth = function () {
 
         $http.post(contextPath + '/api/v1/login', $scope.user).then(function success(response) {
@@ -17,15 +23,15 @@ app.controller('loginCtrl', function ($log, $scope, $window, $location, $http, $
                 // инициализация выбранного invoice
                 invoiceService.initCurrentInvoice();
 
+                // инициализация нового invoice
+                invoiceService.initNewInvoice();
+
                 $window.location.href = '#!/invoice';
 
             }
         }, function error(response) {
 
             $log.debug("tryToAuth.error.response: " + response);
-            $log.debug("tryToAuth.error.response.data: " + response.data);
-            $log.debug("tryToAuth.error.response.data.message: " + response.data.message);
-            $log.debug("tryToAuth.error.status: " + response.status);
 
             $scope.errorMessage = response.data.message;
             $scope.errorStatus = response.status;
@@ -35,10 +41,8 @@ app.controller('loginCtrl', function ($log, $scope, $window, $location, $http, $
 
         }).catch(function (response) {
             // $log.debug("tryToAuth.catch.data.message: " + response.data.message);
-            $log.debug("tryToAuth.catch.response: " + response);
-            $log.debug("tryToAuth.catch.data: " + response.data);
-            $log.debug("tryToAuth.catch..message: " + response.data.message);
-            $log.debug("tryToAuth.catch.status: " + response.status);
+            $log.debug("tryToAuth.catch.response:");
+            $log.debug(response);
 
 /*            $scope.errorMessage = response.data.message;
             $scope.errorStatus = response.status;*/

@@ -49,14 +49,13 @@ app.controller('invoiceCtrl', function ($window,
      */
     showAllInvoices();
 
-
     /**
      * удалить Invoice по ID
      * @param invoice ID
      */
-    $scope.deleteInvoice = function (invoice) {
+    $scope.deleteInvoiceFromDB = function (invoice) {
 
-        //$log.debug("deleteInvoice.invoice", invoice);
+        $log.debug("deleteInvoice.invoice", invoice.id);
         $http.post(contextPath + "/api/v1/invoice/delete", invoice)
             .then(function (response) {
                 //$log.debug("deleteInvoice.response: ", response);
@@ -77,30 +76,32 @@ app.controller('invoiceCtrl', function ($window,
 
                 $('#errorModal').modal('show')
             });
+        $window.location.href = '#!/invoice';
     }
 
     /**
      * добавить новый invoice
      * @param invoiceJSON
      */
-    $scope.addInvoice = function (newInvoice) {
-        /*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
-                invoiceFactory.invoiceJSON.department = invoice.department;
-                invoiceFactory.invoiceJSON.comment = invoice.comment;
-                invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
-                invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
-                invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
-                invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
-                invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
-                invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
+    $scope.addNewInvoiceToDB = function (invoice) {
+        // invoiceFactory.invoiceJSON = invoice;
+/*        invoiceFactory.invoiceJSON.ordernumber = invoice.ordernumber;
+        invoiceFactory.invoiceJSON.department = invoice.department;
+        invoiceFactory.invoiceJSON.comment = invoice.comment;
+        invoiceFactory.invoiceJSON.invoicenumber = invoice.invoicenumber;
+        invoiceFactory.invoiceJSON.totalprice = invoice.totalprice;
+        invoiceFactory.invoiceJSON.senttoprice = invoice.senttoprice;
+        invoiceFactory.invoiceJSON.senttoapprov = invoice.senttoapprove;
+        invoiceFactory.invoiceJSON.senttopurchase = invoice.senttopurchase;
+        invoiceFactory.invoiceJSON.customer.id = invoice.customer;*/
+        console.clear();
+        $log.debug(invoice);
 
-        $log.debug(newInvoice);
-
-        /*        $http.put(contextPath + "/api/v1/invoice/add", invoiceFactory.invoiceJSON)
-                    .then(function (response) {
-                        //$log.debug("addInvoice.response: ", response);
-                        $location.path('/invoice');
-                    });*/
+        $http.put(contextPath + "/api/v1/invoice/add", invoice)
+            .then(function (response) {
+                $log.debug("addInvoice.response: ", response);
+                $location.path('/invoice');
+            });
 
     };
 
@@ -334,9 +335,49 @@ app.factory('invoiceService', function ($log,
     }
 
     return {
+        newInvoice: {id:111111},
         initCurrentInvoice: initCurrentInvoice,
         getCurrentInvoiceJSON: getCurrentInvoiceJSON,
-        putInvoiceByIdToSessionStorage: putInvoiceByIdToSessionStorage
+        putInvoiceByIdToSessionStorage: putInvoiceByIdToSessionStorage,
+        initNewInvoice: function () {
+            sessionStorage.setItem("newInvoice", JSON.stringify({
+                "datacreate": new Date(),
+                "department": null,
+                "comment": null,
+                "ordernumber": null,
+                "invoicenumber": null,
+                "senttoapprove": null,
+                "senttopurchase": null,
+                "senttoprice": null,
+                "totalprice": null,
+                "resolveddate": null,
+                "customer": null,
+                "purchases": []
+            }));
+        },
+        getNewInvoiceJSON: function () {
+            return JSON.parse(sessionStorage.getItem("newInvoice"))
+        },
+        putNomenclatureToNewInvoiceJSON: function (nom) {
+
+            let tempInvoice = JSON.parse(sessionStorage.getItem("newInvoice"));
+
+            if (tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id) < 0)
+                tempInvoice.purchases.push({
+                    nomenclature: nom,
+                    count: 1,
+                    approver: null,
+                    resolvingdate: null,
+                    comment: null,
+                    buyingPrice: null,
+                    commentnumenclature: null
+                })
+            // добавить в JSON количество + 1
+            else tempInvoice.purchases[tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id)].count++; // добавить в JSON количество + 1
+
+            sessionStorage.setItem("newInvoice", JSON.stringify(tempInvoice));
+            return tempInvoice;
+        }
     };
 });
 
