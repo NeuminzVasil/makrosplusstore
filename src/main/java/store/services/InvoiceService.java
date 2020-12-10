@@ -21,7 +21,6 @@ public class InvoiceService {
     private InvoiceRepository invoiceRepository;
     private PurchaseService purchaseService;
 
-
     @Autowired
     public InvoiceService(InvoiceRepository invoiceRepository, PurchaseService purchaseService) {
         this.invoiceRepository = invoiceRepository;
@@ -53,7 +52,6 @@ public class InvoiceService {
                 .sorted(Comparator.comparing(Invoice::getDatacreate).reversed())
                 .collect(Collectors.toList());
     }
-
 
     /**
      * найти СФ по ID
@@ -120,6 +118,8 @@ public class InvoiceService {
      */
 //    @Secured("ROLE_ADMIN")
     public void delete(Invoice invoice) {
+        // сначала удаляем все товары в заказе из БД.
+        purchaseService.deleteAll(invoice.getPurchases());
         invoiceRepository.delete(invoice);
     }
 

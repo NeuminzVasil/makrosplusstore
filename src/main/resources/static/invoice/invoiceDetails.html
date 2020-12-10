@@ -4,8 +4,10 @@
         <!--details-->
         <div class="row d-none d-lg-block">
             <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Детализация заказа {{currentInvoice.ordernumber}}</h6>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Детализация заказа {{currentInvoice.ordernumber}}</h5>
                     <div class="card-text">
                         <p class="col-12">
                             Отдел: {{currentInvoice.department}}<br>
@@ -16,6 +18,11 @@
                             <span class="{{isWarning(currentInvoice.resolveddate)}}">Дата выполнения заказа: {{currentInvoice.resolveddate | date: 'yyyy-MM-dd hh:mm' | isEmpty}}</span>
                         </p>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <button class="col-1 btn btn-sm btn-outline-danger"
+                            ng-click="deleteInvoiceFromDB(currentInvoice)">удалить заказ
+                    </button>
                 </div>
             </div>
         </div>

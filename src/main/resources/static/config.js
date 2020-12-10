@@ -72,7 +72,7 @@ app.controller("routeUpdating", function ($scope, $sessionStorage, $rootScope, $
     });
 });
 
-app.factory('newInvoiceService', function ($log, $sessionStorage) {
+/*app.factory('newInvoiceService', function ($log, $sessionStorage) {
     return {
         initNewInvoice: function () {
             sessionStorage.setItem("newInvoice", JSON.stringify({
@@ -114,7 +114,7 @@ app.factory('newInvoiceService', function ($log, $sessionStorage) {
             return tempInvoice;
         }
     };
-});
+});*/
 
 app.factory('stepsService', function ($log, $sessionStorage) {
     return {

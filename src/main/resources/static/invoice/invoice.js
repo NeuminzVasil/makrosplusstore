@@ -53,9 +53,9 @@ app.controller('invoiceCtrl', function ($window,
      * удалить Invoice по ID
      * @param invoice ID
      */
-    $scope.deleteInvoice = function (invoice) {
+    $scope.deleteInvoiceFromDB = function (invoice) {
 
-        //$log.debug("deleteInvoice.invoice", invoice);
+        $log.debug("deleteInvoice.invoice", invoice.id);
         $http.post(contextPath + "/api/v1/invoice/delete", invoice)
             .then(function (response) {
                 //$log.debug("deleteInvoice.response: ", response);
@@ -76,6 +76,7 @@ app.controller('invoiceCtrl', function ($window,
 
                 $('#errorModal').modal('show')
             });
+        $window.location.href = '#!/invoice';
     }
 
     /**
@@ -334,9 +335,49 @@ app.factory('invoiceService', function ($log,
     }
 
     return {
+        newInvoice: {id:111111},
         initCurrentInvoice: initCurrentInvoice,
         getCurrentInvoiceJSON: getCurrentInvoiceJSON,
-        putInvoiceByIdToSessionStorage: putInvoiceByIdToSessionStorage
+        putInvoiceByIdToSessionStorage: putInvoiceByIdToSessionStorage,
+        initNewInvoice: function () {
+            sessionStorage.setItem("newInvoice", JSON.stringify({
+                "datacreate": new Date(),
+                "department": null,
+                "comment": null,
+                "ordernumber": null,
+                "invoicenumber": null,
+                "senttoapprove": null,
+                "senttopurchase": null,
+                "senttoprice": null,
+                "totalprice": null,
+                "resolveddate": null,
+                "customer": null,
+                "purchases": []
+            }));
+        },
+        getNewInvoiceJSON: function () {
+            return JSON.parse(sessionStorage.getItem("newInvoice"))
+        },
+        putNomenclatureToNewInvoiceJSON: function (nom) {
+
+            let tempInvoice = JSON.parse(sessionStorage.getItem("newInvoice"));
+
+            if (tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id) < 0)
+                tempInvoice.purchases.push({
+                    nomenclature: nom,
+                    count: 1,
+                    approver: null,
+                    resolvingdate: null,
+                    comment: null,
+                    buyingPrice: null,
+                    commentnumenclature: null
+                })
+            // добавить в JSON количество + 1
+            else tempInvoice.purchases[tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id)].count++; // добавить в JSON количество + 1
+
+            sessionStorage.setItem("newInvoice", JSON.stringify(tempInvoice));
+            return tempInvoice;
+        }
     };
 });
 

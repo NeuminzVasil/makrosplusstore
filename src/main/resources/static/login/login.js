@@ -6,7 +6,6 @@ app.controller('loginCtrl', function ($log,
                                       $location,
                                       $http,
                                       $sessionStorage,
-                                      newInvoiceService,
                                       invoiceService) {
     $scope.tryToAuth = function () {
 
@@ -25,7 +24,7 @@ app.controller('loginCtrl', function ($log,
                 invoiceService.initCurrentInvoice();
 
                 // инициализация нового invoice
-                newInvoiceService.initNewInvoice();
+                invoiceService.initNewInvoice();
 
                 $window.location.href = '#!/invoice';
 

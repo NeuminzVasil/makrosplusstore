@@ -18,9 +18,8 @@ app.controller('nomenclatureCtrl', function ($location,
                                              $scope,
                                              $http,
                                              $routeParams,
-                                             // invoiceFactory,
                                              $sessionStorage,
-                                             newInvoiceService) {
+                                             invoiceService) {
     // проверяем вошедшего пользователя (см loginController)
     // не забыть инжектнуть в контроллер параметр $sessionStorage
     if ($sessionStorage.currentUser) {
@@ -38,7 +37,7 @@ app.controller('nomenclatureCtrl', function ($location,
         let localPath = contextPath + "/api/v1/nomenclature";
 
         // получить текущее состояние корзины (newInvoiceJson)
-        $scope.newInvoiceJSON = newInvoiceService.getNewInvoiceJSON();
+        $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
 
         if ($routeParams.pageNumber == null || $routeParams.pageNumber <= 1) {
             localPath = localPath + "?pageNumber=" + 1;
@@ -72,8 +71,8 @@ app.controller('nomenclatureCtrl', function ($location,
     $scope.showAllNomenclatures();
 
     $scope.clearNewInvoice = function (){
-        newInvoiceService.initNewInvoice();
-        $scope.newInvoiceJSON = newInvoiceService.getNewInvoiceJSON();
+        invoiceService.initNewInvoice();
+        $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
     }
 
     /**
@@ -82,11 +81,12 @@ app.controller('nomenclatureCtrl', function ($location,
      */
     $scope.addToInvoice = function (nomenclature) {
 
-        newInvoiceService.putNomenclatureToNewInvoiceJSON(nomenclature);
+        invoiceService.putNomenclatureToNewInvoiceJSON(nomenclature);
 
-        // $log.debug(newInvoiceService.getNewInvoiceJSON());
+        // $log.debug(invoiceService.getNewInvoiceJSON());
+        $log.debug(invoiceService.newInvoice);
 
-        $scope.newInvoiceJSON = newInvoiceService.getNewInvoiceJSON();
+        $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
 
     };
 
