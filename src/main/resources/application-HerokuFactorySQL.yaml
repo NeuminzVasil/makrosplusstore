@@ -2,12 +2,9 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:postgresql://ec2-52-200-134-180.compute-1.amazonaws.com:5432/de1h0kf5obhvs4
-    username: vyunydlrwviido
-    password: bf4dcfb6cab5f6d1868e147123cc3896ea5bb947a482c199c42f768be67d520b
-
-jwt:
-  secret: topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123
+    url: ${DB_URL_H}
+    username: ${DB_USERNAME_H}
+    password: ${DB_PASSWORD_H}
 
 #server:
 #  servlet:
