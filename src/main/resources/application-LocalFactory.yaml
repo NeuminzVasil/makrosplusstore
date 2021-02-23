@@ -2,9 +2,9 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/makrosfactory?currentSchema=public
-    username: postgres
-    password: j1j2j3j4
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
 jwt:
   secret: ${JWT_SECRET}
