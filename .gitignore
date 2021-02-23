@@ -30,4 +30,3 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/ignoreMe/
-/src/main/resources/values.properties
