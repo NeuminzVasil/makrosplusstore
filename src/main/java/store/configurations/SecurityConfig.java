@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity //(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-//@PropertySource("classpath:ignoreMe/values.properties")
+//@PropertySource("classpath:ignoreMe/values.properties") // ключи укладываем с системе Kerure в разделе Settings приложения
 //@EnableGlobalMethodSecurity(securedEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
