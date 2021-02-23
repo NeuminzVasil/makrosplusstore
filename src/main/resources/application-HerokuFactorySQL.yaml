@@ -6,6 +6,9 @@ spring:
     username: vyunydlrwviido
     password: bf4dcfb6cab5f6d1868e147123cc3896ea5bb947a482c199c42f768be67d520b
 
+jwt:
+  secret: topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123
+
 #server:
 #  servlet:
 #    context-path: ${CONTEXT_PATH}
