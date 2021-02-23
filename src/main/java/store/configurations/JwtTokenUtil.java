@@ -21,12 +21,19 @@ public class JwtTokenUtil {
     private String secret;
 
 
+    /**
+     * Генерируем токен вкладывая в него роли
+     * @param userDetails - пользователь
+     * @return - Токен
+     */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         List<String> rolesList = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority) // получаем авторити
                 .collect(Collectors.toList());
+        // внедряем любые данные в токен
         claims.put("role", rolesList);
+//        claims.put("test1", "test1");
         return doGenerateToken(claims, userDetails.getUsername()); // кладем авторити в токен
     }
 
