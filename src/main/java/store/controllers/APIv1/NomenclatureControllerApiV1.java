@@ -1,6 +1,5 @@
 package store.controllers.APIv1;
 
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/nomenclature")
-@PropertySource("classpath:values.properties")
+//@PropertySource("classpath:values.properties")
 public class NomenclatureControllerApiV1 {
 
     private final NomenclatureService nomenclatureService;
