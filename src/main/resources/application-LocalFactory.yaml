@@ -7,4 +7,4 @@ spring:
     password: j1j2j3j4
 
 jwt:
-  secret: topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123
+  secret: ${JWT_SECRET}
