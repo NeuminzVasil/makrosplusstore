@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/makrosfactory?currentSchema=public
+    username: postgres
+    password: j1j2j3j4
+
+jwt:
+  secret: topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123topSecretKey123
