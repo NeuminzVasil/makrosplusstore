@@ -61,7 +61,7 @@ public class InvoiceService {
      * @return - ссылка на СФ или исключение
      */
     public Invoice findById(Long id) {
-        return invoiceRepository.findById(id).orElseThrow(() -> new SearchingNotFoundException("Не могу найти товар с id =" + id));
+        return invoiceRepository.findById(id).orElseThrow(() -> new SearchingNotFoundException("Не могу найти заказ с id =" + id));
     }
 
     private Invoice getCopy(Invoice invoice) {
@@ -98,7 +98,7 @@ public class InvoiceService {
                 purchaseService.save(purchase, invoiceRepository.getOne(invoiceTemp.getId())));
 
         return invoiceRepository.findById(invoiceTemp.getId()).orElseThrow(() ->
-                new SearchingNotFoundException("Не могу найти товар с id =" + invoiceTemp.getId()));
+                new SearchingNotFoundException("Не могу найти invoice с id =" + invoiceTemp.getId()));
     }
 
     /**

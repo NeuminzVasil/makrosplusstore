@@ -70,7 +70,7 @@ app.controller('nomenclatureCtrl', function ($location,
      */
     $scope.showAllNomenclatures();
 
-    $scope.clearNewInvoice = function (){
+    $scope.clearNewInvoice = function () {
         invoiceService.initNewInvoice();
         $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
     }
@@ -121,15 +121,21 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
     /**
-     * Удалить товар из базы
+     * Удаление товара из БД
      * @param nomenclature
      */
     $scope.deleteNomenclature = function (nomenclature) {
-        //$log.debug("deleteNomenclature.nomenclature: ", nomenclature);
+        $log.info("deleteNomenclature");
         $http.post(contextPath + "/api/v1/nomenclature/delete", nomenclature)
             .then(function (response) {
-                //$log.debug("deleteNomenclature.response: ", response);
+                $log.info(response);
                 $location.path('/nomenclature');
+            }, function (response) {
+                $log.info(response.status);
+                $log.info(response.data.error);
+                $log.info(response.data.message);
+                $log.info(response.data.path);
+                $log.info(response.config);
             });
     }
 

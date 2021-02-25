@@ -48,6 +48,11 @@ public class NomenclatureControllerApiV1 {
         return page;
     }
 
+    @GetMapping ("{id}")
+    public Nomenclature findNomenclatureById (@PathVariable Long id){
+        return nomenclatureService.findById(id);
+    }
+
     /**
      * Добавление нового товара в БД
      * @param nomenclature
@@ -58,10 +63,14 @@ public class NomenclatureControllerApiV1 {
         return nomenclatureService.save(nomenclature);
     }
 
+    /**
+     * Удаление товара из БД
+     * @param nomenclature
+     */
     @PostMapping("/delete")
-    public Nomenclature deleteNomenclatureFromDB(@RequestBody Nomenclature nomenclature) {
+    public void deleteNomenclature(@RequestBody Nomenclature nomenclature) {
+        System.err.println(nomenclature);
         nomenclatureService.delete(nomenclature);
-        return nomenclature;
     }
 
 }
