@@ -37,7 +37,7 @@ public class NomenclatureControllerApiV1 {
         if (params.containsKey("pageNumber")) {
             pageIndex = Integer.parseInt(params.get("pageNumber")) - 1;
         }
-        Pageable pageRequest = PageRequest.of(pageIndex, 500);  //fixme перестал видеть переменную countElementsOnPage
+        Pageable pageRequest = PageRequest.of(pageIndex, 1500);  //fixme перестал видеть переменную countElementsOnPage
 
         NomenclatureFilter nomenclatureFilter = new NomenclatureFilter(params);
         Page<Nomenclature> page = nomenclatureService.findAll(
@@ -60,6 +60,7 @@ public class NomenclatureControllerApiV1 {
      */
     @PutMapping("/add")
     public Nomenclature addNomenclatureToDB(@RequestBody Nomenclature nomenclature) {
+        System.err.println(nomenclature);
         return nomenclatureService.save(nomenclature);
     }
 

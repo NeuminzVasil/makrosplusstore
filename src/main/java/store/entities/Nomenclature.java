@@ -16,22 +16,29 @@ public class Nomenclature {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column
     private String comment;
+
     @Column
     private Float price;
+
     @Column
     private final Date submitDate;
+
     @Column
     private String nomenclature;
+
     @Column
     private String manufacturer;
+
     @Column
     private String code;
+
     @Column
     private Date expiredDate;
+
     @ManyToOne
-    @JsonIgnore //todo удалить  - временная запись
     @JoinColumn(name = "categoryid")
     private Category category;
 
@@ -56,7 +63,6 @@ public class Nomenclature {
                 ", manufacturer='" + manufacturer + '\'' +
                 ", code='" + code + '\'' +
                 ", expiredDate=" + expiredDate +
-                ", category=" + category +
                 '}';
     }
 }

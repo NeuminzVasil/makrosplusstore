@@ -10,7 +10,7 @@ let nomenclatureJSON =
         "code": "00000000000",
         "submitDate": new Date(),
         "expiredDate": null,
-        "category": 2
+        "category": null
     }
 
 app.controller('nomenclatureCtrl', function ($location,
@@ -99,25 +99,48 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
     /**
-     * Добавить новый товар
+     * Добавить новый \ обновить существующий товар
      * @param nomenclatureJSON
      */
-    $scope.addNomenclature = function (nomenclature) {
-        //$log.debug("addNomenclature.nomenclature", nomenclature);
+    $scope.addEditNomenclature = function (nomenclature) {
+
+        $log.debug("addEditNomenclature(): ", nomenclature);
+
         $http.put(contextPath + "/api/v1/nomenclature/add", nomenclature)
             .then(function (response) {
-                //$log.debug("addNomenclature.response", response);
-                $location.path('/nomenclature');
+                $log.debug("addEditNomenclature.response: ", response);
+                $location.path('/nomenclature/catalog');
+            }, function error(response) {
+                $log.debug("addEditNomenclature.error: ", response);
+                $log.debug(response.data.status + ": " + response.data.error);
+                $log.debug(response.data.message);
+                $log.debug(response.config.data);
             });
+
     };
 
     /**
-     * Редактировать товар
+     * на форму редактирования товара
      * @param nomenclatureJSON
      */
-    $scope.editNomenclature = function (nomenclature) {
+    $scope.editFormNomenclature = function (nomenclature) {
         nomenclatureJSON = nomenclature;
-        $location.path('/nomenclature/add');
+        $location.path('/nomenclature/edit');
+    }
+
+    /**
+     * на форму каталога товаров
+     */
+    $scope.catalogFormNomenclature = function () {
+        window.history.back() // вернуться на предыдущую страницу
+    }
+
+    /**
+     * Загрузить новый прайс лист
+     * @param newPriceList
+     */
+    $scope.loadNewPriceList = function (newPriceList) {
+        $location.path('/nomenclature/load');
     }
 
     /**
@@ -129,7 +152,7 @@ app.controller('nomenclatureCtrl', function ($location,
         $http.post(contextPath + "/api/v1/nomenclature/delete", nomenclature)
             .then(function (response) {
                 $log.info(response);
-                $location.path('/nomenclature');
+                window.history.back() // вернуться на предыдущую страницу
             }, function (response) {
                 $log.info(response.status);
                 $log.info(response.data.error);

@@ -2,6 +2,53 @@
 
     <!--nomenclatures\control\filters-->
     <div class="row">
+
+        <!--nomenclatures -->
+        <div class="col-xl-9 col-lg-8 col-md-6 mt-3">
+            <!--page name-->
+            <h4 class="row-col-12">Список товаров</h4>
+
+            <!--controls \ filter-->
+            <div class="row">
+                <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
+                <button class="col-12 btn btn-sm btn-outline-primary"
+                        ng-click="sortData('nomenclature')">Добавить новый товар
+                </button>
+
+                <input class="col-12 form-control-sm"
+                       title="введите наименование товара"
+                       type="text"
+                       placeholder="Фильтровать по названию"
+                       ng-model="nomenclatureFilter">
+            </div>
+
+            <!--nomenclatures shortCards-->
+            <div class="row">
+                <div class="card col-md-3 mt-1"
+                     ng-repeat="nomenclature in nomenclatureList | filter:nomenclatureFilter | orderBy:'nomenclature':false">
+                    <div class="card-body">
+                        <h6 class="card-title">{{nomenclature.nomenclature}}</h6>
+                        <p class="card-subtitle font-weight-normal">{{nomenclature.comment | isEmpty }}</p>
+                        <p class="card-text font-weight-normal"><br>
+                            {{nomenclature.price | isEmpty }} р.<br>
+                            {{nomenclature.code }}<br>
+                            {{nomenclature.manufacturer | isEmpty}}</p><br>
+                    </div>
+                    <div class="card-footer justify-content-lg-center">
+                        <button class="col-4 btn btn-sm btn-outline-secondary"
+                                ng-click="editFormNomenclature(nomenclature)"> edit
+                        </button>
+                        <button class="col-3 btn btn-sm btn-outline-success"
+                                ng-click="addToInvoice(nomenclature)">+
+                        </button>
+                        <button class="col-3 btn btn-sm btn-outline-success"
+                                ng-click="removeFromInvoice(nomenclature)">-
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--basket-->
         <div class="col-xl-3 col-lg-4 col-md-6 mt-3">
             <!--page name-->
@@ -147,52 +194,6 @@
                     <div class="card-footer">
                         <button class="col-12 btn btn-xs btn-outline-secondary"
                                 ng-click="deletePurchaseFromInvoice($index)">убрать
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--nomenclatures -->
-        <div class="col-xl-9 col-lg-8 col-md-6 mt-3">
-            <!--page name-->
-            <h4 class="row-col-12">Список товаров</h4>
-
-            <!--controls \ filter-->
-            <div class="row">
-                <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
-                <button class="col-12 btn btn-sm btn-outline-primary"
-                        ng-click="sortData('nomenclature')">Добавить новый товар
-                </button>
-
-                <input class="col-12 form-control-sm"
-                       title="введите наименование товара"
-                       type="text"
-                       placeholder="Фильтровать по названию"
-                       ng-model="nomenclatureFilter">
-            </div>
-
-            <!--nomenclatures shortCards-->
-            <div class="row">
-                <div class="card col-md-3 mt-1"
-                     ng-repeat="nomenclature in nomenclatureList | filter:nomenclatureFilter | orderBy:'nomenclature':false">
-                    <div class="card-body">
-                        <h6 class="card-title">{{nomenclature.nomenclature}}</h6>
-                        <p class="card-subtitle font-weight-normal">{{nomenclature.comment | isEmpty }}</p>
-                        <p class="card-text font-weight-normal"><br>
-                            {{nomenclature.price | isEmpty }} р.<br>
-                            {{nomenclature.code }}<br>
-                            {{nomenclature.manufacturer | isEmpty}}</p><br>
-                    </div>
-                    <div class="card-footer justify-content-lg-center">
-                        <button class="col-4 btn btn-sm btn-outline-secondary"
-                                ng-click="editNomenclature(nomenclature)"> edit
-                        </button>
-                        <button class="col-3 btn btn-sm btn-outline-success"
-                                ng-click="addToInvoice(nomenclature)">+
-                        </button>
-                        <button class="col-3 btn btn-sm btn-outline-success"
-                                ng-click="removeFromInvoice(nomenclature)">-
                         </button>
                     </div>
                 </div>

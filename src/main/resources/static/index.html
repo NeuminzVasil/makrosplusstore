@@ -29,35 +29,33 @@
 <!--<body class="d-flex flex-column h-100" ng-controller="routeUpdating">-->
 <body>
 
-<header class="navbar-dark bg-dark navbar-expand-sm ml-auto fixed-top" ng-controller="loginCtrl">
-
-    <container>
-
-        <div class="row">
-
-            <div class="nav-item">
-                <a class="navbar-brand" href="#!/">Mąƙřǿƨ+</a>
-            </div>
-
-            <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item" ng-hide="isLoggedIn()">
-                    <a class="nav-link" href="#!/login">Войти</a>
-                </li>
-
-                <li class="nav-item"
-                    ng-show="isLoggedIn()"
-                    ng-click="tryToLogout()">
-                    <a class="nav-link" href="#!/login"
-                       ng-click="tryToLogout()">{{getUserName()}}(Выйти)</a>
-                </li>
-
-            </ul>
+<header class="navbar-dark bg-dark navbar-expand-sm ml-auto fixed-top"
+        ng-controller="loginCtrl">
 
 
+    <div class="row">
+
+        <div class="nav-item">
+            <a class="navbar-brand" href="#!/">Mąƙřǿƨ+</a>
         </div>
 
-    </container>
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item" ng-hide="isLoggedIn()">
+                <a class="nav-link" href="#!/login">Войти</a>
+            </li>
+
+            <li class="nav-item"
+                ng-show="isLoggedIn()"
+                ng-click="tryToLogout()">
+                <a class="nav-link" href="#!/login"
+                   ng-click="tryToLogout()">{{getUserName()}}(Выйти)</a>
+            </li>
+
+        </ul>
+
+    </div>
+
 
 </header>
 
@@ -80,6 +78,10 @@
 
         <ul class="navbar-nav ml-auto">
 
+            <li class="nav-item" ng-show="isLoggedIn()">
+                <a class="nav-link" href="#!/nomenclature/catalog">Каталог товаров</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#!/nomenclature">Корзина</a>
             </li>
@@ -88,12 +90,8 @@
                 <a class="nav-link" href="#!/invoice">Заказы</a>
             </li>
             <!--                <li class="nav-item" ng-show="isLoggedIn()">-->
-            <!--                    <a class="nav-link" href="#!/category">Категории</a>-->
-            <!--                </li>-->
-            <!--                <li class="nav-item" ng-show="isLoggedIn()">-->
             <!--                    <a class="nav-link" href="#!/customer">Покупатели</a>-->
             <!--                </li>-->
-
 
         </ul>
 
@@ -158,8 +156,8 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
 
 <script src="config.js"></script>

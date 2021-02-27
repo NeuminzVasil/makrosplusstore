@@ -1,0 +1,179 @@
+<h4>Редактировать информацию о товаре</h4>
+
+<!--форма изменения товара в БД-->
+<form class="card"
+      name="addNomenclature"
+      ng-submit="addEditNomenclature(nomenclatureJSON)">
+
+    <div class="card-body">
+
+        <div class="form-group row">
+            <label for="idNomenclature"
+                   class="col-sm-2 col-form-label">
+                id товара
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       disabled
+                       placeholder="id"
+                       id="idNomenclature"
+                       ng-model=nomenclatureJSON.id>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="nomenclature"
+                   class="col-sm-2 col-form-label">
+                id товара
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       placeholder="nomenclature"
+                       id="nomenclature"
+                       ng-model=nomenclatureJSON.nomenclature>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="comment"
+                   class="col-sm-2 col-form-label">
+                товар
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       placeholder="comment"
+                       id="comment"
+                       ng-model=nomenclatureJSON.comment>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="price"
+                   class="col-sm-2 col-form-label">
+                цена
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       placeholder="price"
+                       id="price"
+                       ng-model=nomenclatureJSON.price>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="manufacturer"
+                   class="col-sm-2 col-form-label">
+                производитель
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       placeholder="manufacturer"
+                       id="manufacturer"
+                       ng-model=nomenclatureJSON.manufacturer>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="code"
+                   class="col-sm-2 col-form-label">
+                1с код
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       placeholder="1с code"
+                       id="code"
+                       ng-model=nomenclatureJSON.code>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="category"
+                   class="col-sm-2 col-form-label">
+                категория
+            </label>
+            <div class="col-sm-10" >
+                <select ng-controller="categoryCtrl"
+                        class="custom-select is-invalid"
+                        id="category"
+                        ng-model="nomenclatureJSON.category.id"
+                        required>
+                    <option ng-repeat="category in categoryList"
+                            selected="{{nomenclatureJSON.category.category}}"
+                            value={{category.id}}>{{category.category}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <button type="submit"
+            class="btn btn-outline-success col-12 mb-3">
+        сохранить изменения
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-secondary col-12 mb-3"
+            ng-click="catalogFormNomenclature()">
+        отменить и вернуться в каталог товаров
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-danger col-12 mb-3"
+            data-toggle="modal"
+            data-target="#deleteNomenclatureModal">
+        удалить товар
+    </button>
+
+</form>
+
+<!-- delete nomenclature Modal -->
+<div class="modal fade" id="deleteNomenclatureModal" tabindex="-1" role="dialog"
+     aria-labelledby="deleteNomenclatureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteNomenclatureModalLabel">Подтвердить удаление товара из базы
+                    данных</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">номенклатура:</div>
+                    <div class="col-6">{{nomenclatureJSON.nomenclature}}</div>
+                    <div class="col-6">1с код:</div>
+                    <div class="col-6">{{nomenclatureJSON.code}}</div>
+                    <div class="col-6">комментарий:</div>
+                    <div class="col-6">{{nomenclatureJSON.comment}}</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal">
+                    Close
+                </button>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-click="deleteNomenclature(nomenclatureJSON)">
+                    удалить товар
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

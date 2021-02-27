@@ -20,4 +20,6 @@ public class Category {
     @Column
     private Long parentid;
 
+    public Category() {
+    }
 }

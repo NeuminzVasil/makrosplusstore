@@ -1,0 +1,70 @@
+<div class="container-fluid">
+
+    <!--nomenclatures form-->
+    <div class="row">
+
+        <!--controls field-->
+        <div class="col-xl-3 col-md-2 mt-3">
+
+            <!--controls-->
+            <div class="row">
+
+                <!--<a class="iButton col-xl-12 text-center" href="#!/nomenclature/add"></a>-->
+
+                <!--Add new single nomenclature-->
+                <button class="col-12 btn btn-sm btn-outline-primary"
+                        ng-click="sortData('nomenclature')">Добавить новый товар
+                </button>
+
+                <!--Add load list of new nomenclatures-->
+                <button class="col-12 btn btn-sm btn-outline-primary"
+                        ng-click="loadNewPriceList('newPriceList')">Загрузить новый прайс лист
+                </button>
+
+                <div col-12>
+                    категории товаров (добавить фильтр по категориям):
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!--nomenclatures field-->
+        <div class="col-xl-9 col-md-10 mt-3">
+            <!--page name-->
+            <h4 class="row-col-12">Список товаров</h4>
+
+            <!--filter-->
+            <input class="col-12 form-control-sm"
+                   title="введите наименование товара"
+                   type="text"
+                   placeholder="Фильтровать по названию"
+                   ng-model="nomenclatureFilter">
+
+            <!--shortCard nomenclature-->
+            <div class="row">
+                <div class="card col-md-3 mt-1"
+                     ng-repeat="nomenclature in nomenclatureList | filter:nomenclatureFilter | orderBy:'nomenclature':false">
+                    <div class="card-body">
+                        <h6 class="card-title">{{nomenclature.nomenclature}}</h6>
+                        <p class="card-subtitle font-weight-normal">{{nomenclature.comment | isEmpty }}</p>
+                        <p class="card-text font-weight-normal"><br>
+                            {{nomenclature.price | isEmpty }} р.<br>
+                            {{nomenclature.code }}<br>
+                            {{nomenclature.category.category }}<br>
+                            {{nomenclature.manufacturer | isEmpty}}</p><br>
+                    </div>
+                    <div class="card-footer justify-content-lg-center">
+                        <button class="col-12 btn btn-sm btn-outline-primary"
+                                ng-click="editFormNomenclature(nomenclature)"> edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

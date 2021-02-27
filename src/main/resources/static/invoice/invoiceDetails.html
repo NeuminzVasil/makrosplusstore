@@ -281,9 +281,10 @@
                 <h5 class="modal-title" id="errorModalLabel">Ошибка добавления данных.</h5>
             </div>
             <div class="modal-body">
-                <h3>{{ errorMessage11 }}</h3>
-                <p>код ошибки: {{ errorMessage11 }} <br>
-                    время ошибки: {{ errorMessage11 | date: "yyyy.MM.dd HH:MM" }}</p>
+                <h3>{{ errorMessage3 }}</h3>
+                <p>код ошибки: {{ errorCode3 }} <br>
+                    info: {{ errorMessage3 }} <br>
+                    время ошибки: {{ errorTime3 | date: "yyyy.MM.dd HH:MM" }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
