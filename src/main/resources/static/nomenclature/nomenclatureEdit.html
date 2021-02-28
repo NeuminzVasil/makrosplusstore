@@ -130,8 +130,16 @@
             class="btn btn-outline-danger col-12 mb-3"
             data-toggle="modal"
             data-target="#deleteNomenclatureModal">
-        удалить товар
+        удалить товар  (не работает через модальное окно)
     </button>
+
+    <button type="button"
+            class="btn btn-outline-danger col-12 mb-3"
+            ng-click="deleteNomenclature(nomenclatureJSON)">
+        удалить товар (работает без модального окна)
+    </button>
+
+
 
 </form>
 
@@ -165,7 +173,7 @@
                     Close
                 </button>
 
-                <button type="button"
+                <button type="submit"
                         class="btn btn-primary"
                         ng-click="deleteNomenclature(nomenclatureJSON)">
                     удалить товар

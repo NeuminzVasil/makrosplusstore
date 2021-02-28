@@ -151,7 +151,7 @@ app.controller('nomenclatureCtrl', function ($location,
         $log.info("deleteNomenclature");
         $http.post(contextPath + "/api/v1/nomenclature/delete", nomenclature)
             .then(function (response) {
-                $log.info(response);
+                $log.info("deleteNomenclature: " + response.status);
                 window.history.back() // вернуться на предыдущую страницу
             }, function (response) {
                 $log.info(response.status);
