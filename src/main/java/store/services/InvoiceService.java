@@ -71,9 +71,6 @@ public class InvoiceService {
         invoiceToSave.setDepartment(invoice.getDepartment());
         invoiceToSave.setComment(invoice.getComment());
         invoiceToSave.setInvoicenumber(invoice.getInvoicenumber());
-        invoiceToSave.setSenttoapprove(invoice.getSenttoapprove());
-        invoiceToSave.setSenttopurchase(invoice.getSenttopurchase());
-        invoiceToSave.setSenttoprice(invoice.getSenttoprice());
         invoiceToSave.setTotalprice(invoice.getTotalprice());
         invoiceToSave.setResolveddate(invoice.getResolveddate());
         invoiceToSave.setCustomer(invoice.getCustomer());
@@ -136,5 +133,10 @@ public class InvoiceService {
 
     public List<InvoiceShort> getDtoData() {
         return invoiceRepository.findAllBy();
+    }
+
+    @Secured("ROLE_ADMIN")
+    public List<InvoiceShort> getInvoicesByNomenclatureID(Long nomenclatureID) {
+        return invoiceRepository.getInvoicesByNomenclatureID(nomenclatureID);
     }
 }

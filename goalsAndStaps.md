@@ -72,9 +72,6 @@
            "comment": "test",
            "ordernumber": "WL-REQ-111111111",
            "invoicenumber": null,
-           "senttoapprove": null,
-           "senttopurchase": null,
-           "senttoprice": null,
            "totalprice": null,
            "resolveddate": null,
            "customer": {

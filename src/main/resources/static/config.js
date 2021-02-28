@@ -44,6 +44,10 @@ app.config(function ($routeProvider) {
             templateUrl: 'invoice/invoice.html',
             controller: 'invoiceCtrl'
         })
+        .when('/invoice/invoicesByNomenclature', {
+            templateUrl: 'invoice/invoicesByNomenclature.html',
+            controller: 'invoiceByNomenclatureCtrl'
+        })
         .when('/invoiceDetails', {
             templateUrl: 'invoice/invoiceDetails.html',
             controller: 'invoiceCtrl',
@@ -83,50 +87,6 @@ app.controller("routeUpdating", function ($scope, $sessionStorage, $rootScope, $
         $window.location.href = '#!/';
     });
 });
-
-/*app.factory('newInvoiceService', function ($log, $sessionStorage) {
-    return {
-        initNewInvoice: function () {
-            sessionStorage.setItem("newInvoice", JSON.stringify({
-                "datacreate": new Date(),
-                "department": null,
-                "comment": null,
-                "ordernumber": null,
-                "invoicenumber": null,
-                "senttoapprove": null,
-                "senttopurchase": null,
-                "senttoprice": null,
-                "totalprice": null,
-                "resolveddate": null,
-                "customer": null,
-                "purchases": []
-            }));
-        },
-        getNewInvoiceJSON: function () {
-            return JSON.parse(sessionStorage.getItem("newInvoice"))
-        },
-        putNomenclatureToNewInvoiceJSON: function (nom) {
-
-            let tempInvoice = JSON.parse(sessionStorage.getItem("newInvoice"));
-
-            if (tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id) < 0)
-                tempInvoice.purchases.push({
-                nomenclature: nom,
-                count: 1,
-                approver: null,
-                resolvingdate: null,
-                comment: null,
-                buyingPrice: null,
-                commentnumenclature: null
-            })
-            // добавить в JSON количество + 1
-            else tempInvoice.purchases[tempInvoice.purchases.findIndex(value => value.nomenclature.id === nom.id)].count++; // добавить в JSON количество + 1
-
-            sessionStorage.setItem("newInvoice", JSON.stringify(tempInvoice));
-            return tempInvoice;
-        }
-    };
-});*/
 
 app.factory('stepsService', function ($log, $sessionStorage) {
     return {

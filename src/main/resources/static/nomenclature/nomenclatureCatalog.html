@@ -21,12 +21,6 @@
                         ng-click="loadNewPriceList('newPriceList')">Загрузить новый прайс лист
                 </button>
 
-                <!--Add load list of new nomenclatures-->
-                <button class="col-12 btn btn-sm btn-outline-secondary"
-                        ng-click="loadNewPriceList('newPriceList')">
-                    найти заказы по номеру товара
-                </button>
-
                 <div col-12>
                     категории товаров (добавить фильтр по категориям):
                 </div>
@@ -62,8 +56,11 @@
                             {{nomenclature.manufacturer | isEmpty}}</p><br>
                     </div>
                     <div class="card-footer justify-content-lg-center">
-                        <button class="col-12 btn btn-sm btn-outline-primary"
+                        <button class="col-6 btn btn-sm btn-outline-primary"
                                 ng-click="editFormNomenclature(nomenclature)"> edit
+                        </button>
+                        <button class="col-6 btn btn-sm btn-outline-primary"
+                                ng-click="toInvoiceByNomenclature(nomenclature)"> найти СФы
                         </button>
                     </div>
                 </div>
