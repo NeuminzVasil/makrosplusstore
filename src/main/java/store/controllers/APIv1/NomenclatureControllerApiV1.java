@@ -37,7 +37,7 @@ public class NomenclatureControllerApiV1 {
         if (params.containsKey("pageNumber")) {
             pageIndex = Integer.parseInt(params.get("pageNumber")) - 1;
         }
-        Pageable pageRequest = PageRequest.of(pageIndex, 500);  //fixme перестал видеть переменную countElementsOnPage
+        Pageable pageRequest = PageRequest.of(pageIndex, 1500);  //fixme перестал видеть переменную countElementsOnPage
 
         NomenclatureFilter nomenclatureFilter = new NomenclatureFilter(params);
         Page<Nomenclature> page = nomenclatureService.findAll(
@@ -48,6 +48,11 @@ public class NomenclatureControllerApiV1 {
         return page;
     }
 
+    @GetMapping ("{id}")
+    public Nomenclature findNomenclatureById (@PathVariable Long id){
+        return nomenclatureService.findById(id);
+    }
+
     /**
      * Добавление нового товара в БД
      * @param nomenclature
@@ -55,13 +60,18 @@ public class NomenclatureControllerApiV1 {
      */
     @PutMapping("/add")
     public Nomenclature addNomenclatureToDB(@RequestBody Nomenclature nomenclature) {
+        System.err.println(nomenclature);
         return nomenclatureService.save(nomenclature);
     }
 
+    /**
+     * Удаление товара из БД
+     * @param nomenclature
+     */
     @PostMapping("/delete")
-    public Nomenclature deleteNomenclatureFromDB(@RequestBody Nomenclature nomenclature) {
+    public void deleteNomenclature(@RequestBody Nomenclature nomenclature) {
+        System.err.println(nomenclature);
         nomenclatureService.delete(nomenclature);
-        return nomenclature;
     }
 
 }

@@ -6,4 +6,5 @@ import store.entities.Nomenclature;
 
 public interface NomenclatureRepository extends JpaRepository<Nomenclature, Long>, JpaSpecificationExecutor<Nomenclature> {
 
+
 }

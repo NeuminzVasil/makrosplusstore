@@ -10,7 +10,7 @@ let nomenclatureJSON =
         "code": "00000000000",
         "submitDate": new Date(),
         "expiredDate": null,
-        "category": 2
+        "category": null
     }
 
 app.controller('nomenclatureCtrl', function ($location,
@@ -70,7 +70,7 @@ app.controller('nomenclatureCtrl', function ($location,
      */
     $scope.showAllNomenclatures();
 
-    $scope.clearNewInvoice = function (){
+    $scope.clearNewInvoice = function () {
         invoiceService.initNewInvoice();
         $scope.newInvoiceJSON = invoiceService.getNewInvoiceJSON();
     }
@@ -99,37 +99,66 @@ app.controller('nomenclatureCtrl', function ($location,
     }
 
     /**
-     * Добавить новый товар
+     * Добавить новый \ обновить существующий товар
      * @param nomenclatureJSON
      */
-    $scope.addNomenclature = function (nomenclature) {
-        //$log.debug("addNomenclature.nomenclature", nomenclature);
+    $scope.addEditNomenclature = function (nomenclature) {
+
+        $log.debug("addEditNomenclature(): ", nomenclature);
+
         $http.put(contextPath + "/api/v1/nomenclature/add", nomenclature)
             .then(function (response) {
-                //$log.debug("addNomenclature.response", response);
-                $location.path('/nomenclature');
+                $log.debug("addEditNomenclature.response: ", response);
+                $location.path('/nomenclature/catalog');
+            }, function error(response) {
+                $log.debug("addEditNomenclature.error: ", response);
+                $log.debug(response.data.status + ": " + response.data.error);
+                $log.debug(response.data.message);
+                $log.debug(response.config.data);
             });
+
     };
 
     /**
-     * Редактировать товар
+     * на форму редактирования товара
      * @param nomenclatureJSON
      */
-    $scope.editNomenclature = function (nomenclature) {
+    $scope.editFormNomenclature = function (nomenclature) {
         nomenclatureJSON = nomenclature;
-        $location.path('/nomenclature/add');
+        $location.path('/nomenclature/edit');
     }
 
     /**
-     * Удалить товар из базы
+     * на форму каталога товаров
+     */
+    $scope.catalogFormNomenclature = function () {
+        window.history.back() // вернуться на предыдущую страницу
+    }
+
+    /**
+     * Загрузить новый прайс лист
+     * @param newPriceList
+     */
+    $scope.loadNewPriceList = function (newPriceList) {
+        $location.path('/nomenclature/load');
+    }
+
+    /**
+     * Удаление товара из БД
      * @param nomenclature
      */
     $scope.deleteNomenclature = function (nomenclature) {
-        //$log.debug("deleteNomenclature.nomenclature: ", nomenclature);
+        $log.info("deleteNomenclature");
         $http.post(contextPath + "/api/v1/nomenclature/delete", nomenclature)
             .then(function (response) {
-                //$log.debug("deleteNomenclature.response: ", response);
-                $location.path('/nomenclature');
+                $log.info("deleteNomenclature: " + response.status);
+                window.history.back() // вернуться на предыдущую страницу
+            }, function (response) {
+                $log.info(response.status);
+                $log.info(response.data.error);
+                $log.info(response.data.message);
+                $log.info(response.data.path);
+                $log.info(response.config);
             });
     }
 

@@ -223,16 +223,21 @@ app.controller('historyCtrl', function ($window,
             .then(function (response) {
                 $rootScope.currentInvoice = invoiceService.putInvoiceByIdToSessionStorage(invoiceService.getCurrentInvoiceJSON().id); //fixme не уверен что это должно быть сздесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
             }, function error(response) {
-                $scope.errorMessage2 = response.data.message;
-                $scope.errorCode2 = response.data.status;
-                $scope.errorTime2 = response.data.timestamp;
+                $log.info("response.status: " + response.status);
+                $log.info("response.data.message: "+ response.data.message);
+                $log.info("response.data.timestamp: "+ response.data.timestamp);
+                $scope.errorCode3 = response.status;
+                $scope.errorMessage3 = response.data.message;
+                $scope.errorTime3 = response.data.timestamp;
                 $('#errorModal').modal('show')
             })
             .catch(function (response) {
-                $scope.errorMessage2 = response.data.message;
-                $scope.errorCode2 = response.data.status;
-                $scope.errorTime2 = response.data.timestamp;
-
+                $log.info("response.status: " + response.status);
+                $log.info("response.data.message: "+ response.data.message);
+                $log.info("response.data.timestamp: "+ response.data.timestamp);
+                $scope.errorCode3 = response.status;
+                $scope.errorMessage3 = response.data.message;
+                $scope.errorTime3 = response.data.timestamp;
                 $('#errorModal').modal('show')
             });
 

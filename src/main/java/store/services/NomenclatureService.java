@@ -59,7 +59,7 @@ public class NomenclatureService {
      * @return - ссылка на товар или исключение
      */
     public Nomenclature findById(Long id) {
-        return nomenclatureRepository.findById(id).orElseThrow(() -> new SearchingNotFoundException("Не могу найти товар с id =" + id));
+        return nomenclatureRepository.findById(id).orElseThrow(() -> new SearchingNotFoundException("Не могу найти товар с id = " + id));
     }
 
     /**

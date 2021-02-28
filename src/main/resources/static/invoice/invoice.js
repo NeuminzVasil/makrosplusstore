@@ -28,7 +28,7 @@ app.controller('invoiceCtrl', function ($window,
                 $scope.InvoiceList = response.data;
                 $scope.steps = stepsService.getStepsJSON();
                 // обновляем данные в html чтобы отобразились все новые шаги истории.
-                $rootScope.currentInvoice = invoiceService.getCurrentInvoiceJSON(); //fixme не уверен что это должно быть сздесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
+                $rootScope.currentInvoice = invoiceService.getCurrentInvoiceJSON(); //fixme не уверен что это должно быть здесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
             }, function error(response) { // todo разобраться как перехватывать статус не 200 например 302 не ошибка
                 $scope.errorMessage2 = response.data.message;
                 $scope.errorCode2 = response.data.status;
@@ -245,12 +245,12 @@ app.controller('invoiceCtrl', function ($window,
     };
 
     /**
-     * Перейти в оно детального отображения invoice
+     * Перейти в окно детального отображения invoice
      * @param invoiceId
      */
     $scope.expandShortInvoiceToDetailed = function (invoiceId) {
         invoiceService.putInvoiceByIdToSessionStorage(invoiceId);
-        $rootScope.currentInvoice = invoiceService.getCurrentInvoiceJSON(); //fixme не уверен что это должно быть сздесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
+        $rootScope.currentInvoice = invoiceService.getCurrentInvoiceJSON(); //fixme не уверен что это должно быть здесь. понять где должно быть внечение в скоп хтмл при открытии инвойс детейлс
         $window.location.href = '#!/invoiceDetails';// или $location.path('/invoice/edit');
     }
 

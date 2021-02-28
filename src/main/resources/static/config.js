@@ -20,6 +20,18 @@ app.config(function ($routeProvider) {
             templateUrl: 'nomenclature/nomenclatureAdd.html',
             controller: 'nomenclatureCtrl'
         })
+        .when('/nomenclature/edit', {
+            templateUrl: 'nomenclature/nomenclatureEdit.html',
+            controller: 'nomenclatureCtrl'
+        })
+        .when('/nomenclature/load', {
+            templateUrl: 'nomenclature/nomenclatureLoad.html',
+            controller: 'nomenclatureCtrl'
+        })
+        .when('/nomenclature/catalog', {
+            templateUrl: 'nomenclature/nomenclatureCatalog.html',
+            controller: 'nomenclatureCtrl'
+        })
         .when('/category', {
             templateUrl: 'category/category.html',
             controller: 'categoryCtrl'
