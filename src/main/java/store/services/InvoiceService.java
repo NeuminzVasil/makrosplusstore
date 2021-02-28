@@ -136,10 +136,7 @@ public class InvoiceService {
     }
 
     @Secured("ROLE_ADMIN")
-    public List<Invoice> getByNomenclature() {
-
-/*        Query q = entityManager.createNamedQuery("getInvoicesByNomenclatureID");
-        System.err.println(q.getResultList());*/
-        return null;
+    public List<InvoiceShort> getByNomenclature(Long nomenclatureID) {
+        return invoiceRepository.getInvoicesByNomenclatureID(nomenclatureID);
     }
 }
