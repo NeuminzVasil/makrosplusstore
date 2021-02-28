@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@PropertySource("classpath:ignoreMe/values.properties")
+//@PropertySource("classpath:ignoreMe/values.properties")
 @EnableWebSecurity //(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 //@PropertySource("classpath:ignoreMe/values.properties") // ключи укладываем с системе Kerure в разделе Settings приложения
