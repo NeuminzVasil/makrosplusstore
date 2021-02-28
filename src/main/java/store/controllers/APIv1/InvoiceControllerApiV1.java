@@ -19,7 +19,7 @@ public class InvoiceControllerApiV1 {
     }
 
     /**
-     * получить список СФ полный
+     * получить полный список счет-фактур
      * @return List<Invoice>
      * @RequestParam Map<String, String> params - параметры получаемые от формы
      */
@@ -68,6 +68,11 @@ public class InvoiceControllerApiV1 {
     public Invoice deleteInvoice(@RequestBody Invoice invoice) {
         invoiceService.delete(invoice);
         return invoice;
+    }
+
+    @PostMapping("/getByNomenclature")
+    public List<Invoice> getByNomenclature(){
+        return invoiceService.getByNomenclature();
     }
 
 }

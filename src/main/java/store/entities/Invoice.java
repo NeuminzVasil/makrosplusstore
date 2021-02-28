@@ -5,9 +5,6 @@
  * comment - допИнфо
  * ordernumber - номер заказа из 1с
  * invoicenumber - порядковый номер счетФактуры
- * senttoapprove - уже направлена на согласование?
- * senttopurchase - уже закупается?
- * senttoprice - уже направлена на расценку товара
  * totalprice - общая цена заказа
  * resolveddate - дата завершения всего заказа.
  */
@@ -48,15 +45,6 @@ public class Invoice {
     private String invoicenumber;
 
     @Column
-    private Boolean senttoapprove;
-
-    @Column
-    private Boolean senttopurchase;
-
-    @Column
-    private Boolean senttoprice;
-
-    @Column
     private Long totalprice;
 
     @Column
@@ -87,12 +75,10 @@ public class Invoice {
         this.datacreate = new Date();
     }
 
-    public Invoice(Long id, String invoicenumber, Boolean senttoapprove, Boolean senttopurchase, Boolean senttoprice, Long totalprice, Date resolveddate, Customer customer, List<Purchase> purchases) {
+    public Invoice(Long id, String invoicenumber, Long totalprice, Date resolveddate, Customer customer, List<Purchase> purchases) {
         this.id = id;
         this.invoicenumber = invoicenumber;
-        this.senttoapprove = senttoapprove;
-        this.senttopurchase = senttopurchase;
-        this.senttoprice = senttoprice;
+
         this.totalprice = totalprice;
         this.resolveddate = resolveddate;
         this.customer = customer;
