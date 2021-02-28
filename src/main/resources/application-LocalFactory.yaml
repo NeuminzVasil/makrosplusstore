@@ -6,5 +6,5 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
-jwt:
-  secret: ${JWT_SECRET}
+#jwt:
+#  secret: ${JWT_SECRET}
