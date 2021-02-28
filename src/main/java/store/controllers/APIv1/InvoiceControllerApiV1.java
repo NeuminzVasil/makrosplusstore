@@ -2,7 +2,6 @@ package store.controllers.APIv1;
 
 import org.springframework.web.bind.annotation.*;
 import store.entities.Invoice;
-import store.entities.Nomenclature;
 import store.entities.dto.InvoiceShort;
 import store.services.InvoiceService;
 
@@ -71,9 +70,9 @@ public class InvoiceControllerApiV1 {
         return invoice;
     }
 
-    @PostMapping("/getByNomenclature")
-    public List<InvoiceShort> getByNomenclature(@RequestBody Nomenclature nomenclature){
-        return invoiceService.getByNomenclature(nomenclature.getId());
+    @GetMapping("/getByNomenclature/{id}")
+    public List<InvoiceShort> getInvoicesByNomenclatureID(@PathVariable Long id){
+        return invoiceService.getInvoicesByNomenclatureID(id);
     }
 
 }

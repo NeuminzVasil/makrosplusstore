@@ -62,7 +62,6 @@ app.controller('nomenclatureCtrl', function ($location,
                 $scope.PageNumber = response.data.number + 1;
                 $scope.nomenclatureList = response.data.content;
 
-                //$log.debug("showAllNomenclature.response: ", response);
             });
     };
     /**
@@ -141,6 +140,16 @@ app.controller('nomenclatureCtrl', function ($location,
      */
     $scope.loadNewPriceList = function (newPriceList) {
         $location.path('/nomenclature/load');
+    }
+
+    /**
+     * на форму поиска заказов по номеру товара
+     * @param nomenclature
+     */
+    $scope.toInvoiceByNomenclature = function (nomenclature) {
+        $log.debug("toInvoiceByNomenclature: ", nomenclature);
+        sessionStorage.setItem("currentNomenclature", JSON.stringify(nomenclature));
+        $location.path('/invoice/invoicesByNomenclature', nomenclature);
     }
 
     /**

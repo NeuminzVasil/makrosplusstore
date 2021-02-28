@@ -1,0 +1,43 @@
+<div class="container-fluid">
+
+    <!--page name-->
+    <div class="row">
+        <div class="col-12 h4">Список заказов по товару : {{nX.nomenclature}}</div>
+    </div>
+
+    <!--filters-->
+    <div class="row">
+
+        <input id="hideResolved"
+               type="checkbox"
+               title="показать выполненные заказы"
+               checked="checked"
+               ng-model="hideResolved">
+        <label for="hideResolved">показать выполненные заказы</label>
+
+    </div>
+
+    <!--invoice shortCards-->
+    <div class="row">
+
+        <div class="col-md-3 mb-3"
+             ng-repeat="invoice in InvoiceByNomList | filter:searchText | orderBy: 'datacreate':true "
+             ng-show="(invoice.resolveddate | isNotResolved) || (hideResolved)"
+             ng-click="expandShortInvoiceToDetailed(invoice.id)">
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title {{isWarning(invoice.resolveddate)}}">{{invoice.ordernumber}}</h6>
+                    <p>{{invoice.comment}}<br>
+                        сумма: {{invoice.totalprice | isEmpty }} р.<br>
+                        создан: {{invoice.datacreate | date: "yyyy.MM.dd" | isEmpty }}<br>
+                        выполнен: {{invoice.resolveddate | date: "yyyy.MM.dd" | isEmpty }}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

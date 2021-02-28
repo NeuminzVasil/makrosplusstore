@@ -136,7 +136,7 @@ public class InvoiceService {
     }
 
     @Secured("ROLE_ADMIN")
-    public List<InvoiceShort> getByNomenclature(Long nomenclatureID) {
+    public List<InvoiceShort> getInvoicesByNomenclatureID(Long nomenclatureID) {
         return invoiceRepository.getInvoicesByNomenclatureID(nomenclatureID);
     }
 }
