@@ -11,4 +11,4 @@ categories on categories.id = nomenclatures.categoryid
 where nomenclatures.nomenclature is null or categories.category is null;
 
 select * from nomenclatures
-where id = 352
+where id = 352;
